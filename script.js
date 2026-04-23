@@ -50,6 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize Auth
     updateAuthUI();
 
+    // ═══════════════════════════════════════════════════
+    // 0.1. INPUT FORMATTERS
+    // ═══════════════════════════════════════════════════
+    const rutInput = document.getElementById('paciente_rut');
+    if (rutInput) {
+        rutInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\./g, '').replace('-', '');
+            if (value.length > 9) value = value.slice(0, 9);
+            
+            if (value.length > 1) {
+                let cuerpo = value.slice(0, -1);
+                let dv = value.slice(-1).toUpperCase();
+                let formatted = cuerpo.replace(/\B(?=(\d{3})+(?!\d))/g, ".") + "-" + dv;
+                e.target.value = formatted;
+            }
+        });
+    }
+
+
     const form = document.querySelector('#evaluation-form');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
@@ -404,49 +423,46 @@ document.addEventListener('DOMContentLoaded', () => {
     bindCalc('fev1fvc_obs', updateGOLD);
     bindCalc('fev1_porc', updateGOLD);
 
-    // ═══════════════════════════════════════════════════
-    // 4. VITAL SIGNS VALIDATION (Corrected ranges)
-    // ═══════════════════════════════════════════════════
+    // Real-time vital signs monitoring
     const vitalRanges = {
-        fc:   { danger_low: 40,  warn_low: 60,  normal_low: 60,  normal_high: 100, warn_high: 120, danger_high: 150 },
-        fr:   { danger_low: 8,   warn_low: 12,  normal_low: 12,  normal_high: 20,  warn_high: 25,  danger_high: 35 },
-        spo2: { danger_low: 0,   warn_low: 90,  normal_low: 95,  normal_high: 100, warn_high: 100, danger_high: 101 },
-        temp: { danger_low: 34,  warn_low: 36.1, normal_low: 36.1, normal_high: 37.2, warn_high: 38.5, danger_high: 41 }
+        'fc_val': [60, 100],
+        'fr_val': [12, 20],
+        'spo2_val': [94, 100],
+        'temp_val': [36, 37.5],
+        'pa_sis': [90, 140],
+        'pa_dia': [60, 90]
     };
 
-    const validateVital = (id, val) => {
-        const statusEl = document.getElementById(`${id}_status`);
-        if (!statusEl) return;
-        if (isNaN(val) || val === null || val === undefined) {
-            clearIndicator(statusEl);
-            return;
+    Object.keys(vitalRanges).forEach(id => {
+        const el = document.getElementById(id);
+        if (el) {
+            el.addEventListener('input', (e) => {
+                const val = parseFloat(e.target.value);
+                const [min, max] = vitalRanges[id];
+                const statusEl = document.getElementById(`${id}_status`) || 
+                               (id.includes('pa_') ? document.getElementById('pam_status') : null);
+                
+                if (isNaN(val)) {
+                    clearIndicator(statusEl, el);
+                    return;
+                }
+
+                let label = 'Normal', cls = 'success';
+                if (val < min || val > max) {
+                    label = 'Fuera de rango';
+                    cls = 'danger';
+                    
+                    // Specific labels
+                    if (id === 'fc_val') label = val < min ? 'Bradicardia' : 'Taquicardia';
+                    if (id === 'fr_val') label = val < min ? 'Bradipnea' : 'Taquipnea';
+                    if (id === 'spo2_val') label = 'Hipoxemia';
+                    if (id === 'temp_val') label = val < min ? 'Hipotermia' : 'Fiebre';
+                }
+
+                setIndicator(statusEl, label, cls, el);
+            });
         }
-
-        const key = id.replace('_val', '');
-        const r = vitalRanges[key];
-        if (!r) return;
-
-        let label, cls;
-        if (val >= r.normal_low && val <= r.normal_high) {
-            label = 'Normal'; cls = 'success';
-        } else if (val < r.danger_low || val > r.danger_high) {
-            label = 'Crítico'; cls = 'danger';
-        } else if (val < r.warn_low || val > r.warn_high) {
-            label = 'Alerta'; cls = 'danger';
-        } else {
-            label = 'Precaución'; cls = 'warning';
-        }
-
-        // SpO2: special labels
-        if (key === 'spo2') {
-            if (val >= 95) { label = 'Normal'; cls = 'success'; }
-            else if (val >= 90) { label = 'Hipoxemia leve'; cls = 'warning'; }
-            else if (val >= 80) { label = 'Hipoxemia moderada'; cls = 'danger'; }
-            else { label = 'Hipoxemia severa'; cls = 'danger'; }
-        }
-
-        setIndicator(statusEl, label, cls);
-    };
+    });
 
     ['fc_val', 'fr_val', 'spo2_val', 'temp_val'].forEach(id => {
         const el = document.getElementById(id);
@@ -458,14 +474,28 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════════════
     // 5. INDICATOR HELPERS
     // ═══════════════════════════════════════════════════
-    function setIndicator(el, text, cls) {
-        el.className = 'val-indicator ' + cls;
-        el.textContent = text;
+    function setIndicator(el, text, cls, inputEl) {
+        if (el) {
+            el.className = 'val-indicator ' + cls;
+            el.textContent = text;
+        }
+        
+        const card = inputEl?.closest('.vital-card');
+        if (card) {
+            card.classList.remove('vital-alert-danger', 'vital-alert-success', 'vital-alert-warning');
+            card.classList.add('vital-alert-' + cls);
+        }
     }
 
-    function clearIndicator(el) {
-        el.className = 'val-indicator';
-        el.textContent = '';
+    function clearIndicator(el, inputEl) {
+        if (el) {
+            el.className = 'val-indicator';
+            el.textContent = '';
+        }
+        const card = inputEl?.closest('.vital-card');
+        if (card) {
+            card.classList.remove('vital-alert-danger', 'vital-alert-success', 'vital-alert-warning');
+        }
     }
 
     // ═══════════════════════════════════════════════════

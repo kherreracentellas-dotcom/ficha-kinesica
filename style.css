@@ -291,11 +291,18 @@ section {
   margin-bottom: 1.75rem;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
-  animation: none;
-  transition: background 0.3s ease, border-color 0.3s ease;
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
 }
 
-/* [data-animate] animations removed for instant load UX */
+section[data-animate] {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+section[data-animate].visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 .section-head {
   margin-bottom: 1.75rem;
@@ -1386,4 +1393,25 @@ textarea {
   .breadcrumb {
     display: none; /* Hide breadcrumb on very small screens to save space */
   }
+}
+
+/* Clinical Alerts */
+.vital-alert-danger {
+  border-color: var(--danger) !important;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.1);
+}
+
+.vital-alert-danger .val-indicator {
+  background: var(--danger);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.vital-alert-success {
+  border-color: var(--success) !important;
+}
+
+.vital-alert-warning {
+  border-color: var(--warning) !important;
 }
