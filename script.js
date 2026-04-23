@@ -111,10 +111,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Sidebar/Bottom Nav click: scroll without changing URL hash
+    // Sidebar/Bottom Nav click: scroll without changing URL hash
     const allNavLinks = [...navLinks, ...mobileNavLinks];
     allNavLinks.forEach(link => {
         link.addEventListener('click', (e) => {
-            if (link.id === 'btn-mobile-print') return; // Skip for print button
+            if (link.id === 'btn-mobile-print' || link.id === 'btn-sidebar-print') return; // Skip for print button
             e.preventDefault();
             const targetId = (link.getAttribute('href') || `#${link.getAttribute('data-section')}`).substring(1);
             const target = document.getElementById(targetId);
@@ -124,13 +125,16 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Mobile Print Button
-    const btnMobilePrint = document.getElementById('btn-mobile-print');
-    if (btnMobilePrint) {
-        btnMobilePrint.addEventListener('click', () => {
-            document.getElementById('btn-print').click();
-        });
-    }
+    // Mobile/Sidebar Print Buttons
+    ['btn-mobile-print', 'btn-sidebar-print'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) {
+            btn.addEventListener('click', () => {
+                const desktopPrintBtn = document.getElementById('btn-print');
+                if (desktopPrintBtn) desktopPrintBtn.click();
+            });
+        }
+    });
 
     // ═══════════════════════════════════════════════════
     // 2. CONDITIONAL VISIBILITY (Show/Hide)

@@ -193,11 +193,11 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-6">
-                            <label>Nombre *</label>
-                            <input type="text" name="nombre" placeholder="Ej: Juan Pérez" required>
+                            <label for="paciente_nombre">Nombre *</label>
+                            <input type="text" id="paciente_nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
                         </div>
                         <div class="field-group col-3">
-                            <label>Sexo Biológico</label>
+                            <label for="sexo_val">Sexo Biológico</label>
                             <select name="sexo" id="sexo_val">
                                 <option value="">Sel...</option>
                                 <option value="m">Masculino</option>
@@ -205,28 +205,29 @@
                             </select>
                         </div>
                         <div class="field-group col-3">
-                            <label>Edad</label>
+                            <label for="edad_val">Edad</label>
                             <input type="number" name="edad" id="edad_val" placeholder="Años">
                         </div>
+
                         <div class="field-group col-4">
-                            <label>Fecha de Nacimiento</label>
-                            <input type="date" name="fecha_nacimiento">
+                            <label for="fecha_nacimiento">Fecha de Nacimiento</label>
+                            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
                         </div>
                         <div class="field-group col-4">
-                            <label>RUT</label>
-                            <input type="text" name="rut" placeholder="12.345.678-9" required>
+                            <label for="paciente_rut">RUT</label>
+                            <input type="text" id="paciente_rut" name="rut" placeholder="12.345.678-9" required>
                         </div>
                         <div class="field-group col-4">
-                            <label>Ocupación</label>
-                            <input type="text" name="ocupacion">
+                            <label for="ocupacion_val">Ocupación</label>
+                            <input type="text" id="ocupacion_val" name="ocupacion">
                         </div>
                         <div class="field-group col-6">
-                            <label>Previsión de Salud</label>
-                            <input type="text" name="prevision">
+                            <label for="prevision_val">Previsión de Salud</label>
+                            <input type="text" id="prevision_val" name="prevision">
                         </div>
                         <div class="field-group col-6">
-                            <label>Nivel Educacional</label>
-                            <select name="nivel_educacional">
+                            <label for="nivel_educacional">Nivel Educacional</label>
+                            <select name="nivel_educacional" id="nivel_educacional">
                                 <option value="">Seleccione...</option>
                                 <option value="basica">Básica</option>
                                 <option value="media">Media</option>
@@ -235,13 +236,14 @@
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Teléfono</label>
-                            <input type="text" name="fono" placeholder="+56 9 ...">
+                            <label for="fono_val">Teléfono</label>
+                            <input type="text" id="fono_val" name="fono" placeholder="+56 9 ...">
                         </div>
                         <div class="field-group col-6">
-                            <label>Fono Emergencia</label>
-                            <input type="text" name="fono_emergencia">
+                            <label for="fono_emergencia">Fono Emergencia</label>
+                            <input type="text" id="fono_emergencia" name="fono_emergencia">
                         </div>
+
                     </div>
                 </section>
 
@@ -255,7 +257,7 @@
                     </div>
                     <div class="form-grid">
                         <!-- Entorno y Estilo de Vida -->
-                        <div class="col-12" style="margin-top: 1rem;"><label>Núcleo Familiar</label></div>
+                        <div class="col-12 mt-1"><label>Núcleo Familiar</label></div>
                         <div class="col-12 check-group">
                             <label class="checkbox-card"><input type="radio" name="nucleo_familiar"
                                     value="V.S."><span>Vive solo/a (V.S.)</span></label>
@@ -285,8 +287,7 @@
                         </div>
 
                         <!-- Hábitos -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Hábitos de Consumo y Riesgo Ambiental</h3>
                         </div>
                         <div class="field-group col-4">
@@ -1256,7 +1257,8 @@
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
                 <span>Pruebas</span>
             </a>
-            <button type="button" class="mobile-nav-link" id="btn-mobile-print">
+            <!-- PDF Download Button (Desktop/Mobile Nav Sidebar) -->
+            <button type="button" class="mobile-nav-link" id="btn-sidebar-print">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
                 <span>PDF</span>
             </button>
@@ -1300,15 +1302,15 @@
             </div>
             <form id="auth-form">
                 <div class="field-group">
-                    <label>Nombre de Usuario</label>
+                    <label for="auth-username">Nombre de Usuario</label>
                     <input type="text" id="auth-username" placeholder="Ej: kherrera" required>
                 </div>
                 <div class="field-group">
-                    <label>Contraseña Local</label>
+                    <label for="auth-password">Contraseña Local</label>
                     <input type="password" id="auth-password" placeholder="••••••••" required>
                 </div>
                 <div class="auth-actions">
-                    <button type="submit" class="btn btn-primary" style="width: 100%; justify-content: center;">
+                    <button type="submit" class="btn btn-primary w-100" style="justify-content: center;">
                         Entrar al Sistema
                     </button>
                 </div>

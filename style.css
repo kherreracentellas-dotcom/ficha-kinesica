@@ -115,8 +115,8 @@ header.top-bar {
   right: 0;
   height: var(--header-height);
   background: rgba(240, 244, 248, 0.85);
-  backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
@@ -220,7 +220,8 @@ main.content {
   color: rgba(255, 255, 255, 0.55);
   text-decoration: none;
   font-size: 0.82rem;
-  font-weight: 500;
+  -webkit-user-select: none;
+  user-select: none;
   transition: var(--transition);
   border: 1px solid transparent;
   white-space: nowrap;
@@ -1409,3 +1410,20 @@ textarea {
     }
 }
 
+
+/* Utilities to replace inline styles */
+.mt-1 { margin-top: 1rem !important; }
+.mt-1-5 { margin-top: 1.5rem !important; }
+.pt-1-5 { padding-top: 1.5rem !important; }
+.pt-1 { padding-top: 1rem !important; }
+.pb-1 { padding-bottom: 1rem !important; }
+.m-0 { margin: 0 !important; }
+.border-t { border-top: 1px solid var(--border-color) !important; }
+.flex-col { display: flex; flex-direction: column !important; }
+.align-stretch { align-items: stretch !important; }
+.w-100 { width: 100% !important; }
+.bg-glass { 
+    background: rgba(255, 255, 255, 0.95); 
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); 
+}
