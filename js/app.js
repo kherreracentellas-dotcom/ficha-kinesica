@@ -1,31 +1,84 @@
 /**
  * app.js
- * Entry point for the application. Initializes modules and Alpine.js state.
+ * Main entry point. Orchestrates modules and Alpine.js state.
  */
 
 import { ClinicalCalculations } from './modules/clinical.js';
 import { AuthModule } from './modules/auth.js';
 import { UIModule } from './modules/ui.js';
+import { PersistenceModule } from './modules/persistence.js';
+import { PDFModule } from './modules/pdf.js';
+import { Utils } from './modules/utils.js';
 
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize UI
     UIModule.initNavigation();
     UIModule.initSidebarToggle();
+    UIModule.initRUTFormatter();
+    UIModule.initNAHandlers();
+    UIModule.initScrollSpy();
+    
+    const form = document.getElementById('evaluation-form');
+    const authForm = document.getElementById('auth-form');
+
+    // Auth Logic
+    if (authForm) {
+        authForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = document.getElementById('auth-username').value;
+            const pass = document.getElementById('auth-password').value;
+            const res = AuthModule.login(user, pass);
+            if (res.success) {
+                Utils.showToast(`Bienvenido, ${user}`, 'success');
+                window.location.reload();
+            } else {
+                Utils.showToast(res.message, 'danger');
+            }
+        });
+    }
+
+    const btnLogout = document.getElementById('btn-logout');
+    if (btnLogout) btnLogout.addEventListener('click', () => {
+        if (confirm('¿Cerrar sesión?')) AuthModule.logout();
+    });
+
+    // Initialize Trends Chart
+    const ctx = document.getElementById('trendsChart');
+    if (ctx) {
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
+                datasets: [{
+                    label: 'Atenciones',
+                    data: [12, 19, 15, 25, 22, 10, 8],
+                    borderColor: '#2E86DE',
+                    tension: 0.4,
+                    fill: true,
+                    backgroundColor: 'rgba(46, 134, 222, 0.1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: { legend: { display: false } },
+                scales: { y: { beginAtZero: true } }
+            }
+        });
+    }
+
+    // Load initial data
+    if (form) {
+        PersistenceModule.loadFromLocal(form, 'default_user'); // Use a default key if no user
+    }
 });
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('formState', () => ({
-        // View State
         currentView: 'dashboard',
         searchQuery: '',
-        
-        // Global State
         currentUser: AuthModule.getUser(),
-        progress: 0,
-        
-        // Data Persistence
         patients: JSON.parse(localStorage.getItem('kine_patients_list') || '[]'),
         
-        // Form Data
         formData: {
             paciente_nombre: '',
             paciente_rut: '',
@@ -44,10 +97,13 @@ document.addEventListener('alpine:init', () => {
             tabaquismo: 'no',
             biomasa: 'no',
             alcohol: 'no',
-            actividad: 'no'
+            actividad: 'no',
+            tos_presenta: 'no',
+            cianosis: 'no',
+            coriza: 'no'
         },
 
-        // Computed calculations (using ClinicalCalculations module)
+        // Computeds
         get imc() { return ClinicalCalculations.calculateBMI(this.formData.paciente_peso, this.formData.paciente_talla); },
         get pam() { return ClinicalCalculations.calculateMAP(this.formData.presion_sistolica, this.formData.presion_diastolica); },
         get fvc_porc() { return ClinicalCalculations.calculatePercentage(this.formData.fvc_obs, this.formData.fvc_pred); },
@@ -64,44 +120,41 @@ document.addEventListener('alpine:init', () => {
         },
         get tm6m_porc_calc() { return ClinicalCalculations.calculateTM6MPercentage(this.formData.tm6m_recorrida, this.tm6m_predicha_calc); },
 
-        // Dashboard Methods
-        get filteredPatients() {
-            if (!this.searchQuery) return this.patients;
-            const q = this.searchQuery.toLowerCase();
-            return this.patients.filter(p => 
-                (p.nombre && p.nombre.toLowerCase().includes(q)) || 
-                (p.rut && p.rut.toLowerCase().includes(q))
-            );
-        },
-
+        // Methods
         createNewPatient() {
-            this.formData = { paciente_sexo: 'masculino', mascotas: 'no', tabaquismo: 'no' }; // Reset
+            this.formData = { paciente_sexo: 'masculino', mascotas: 'no', tabaquismo: 'no' };
             this.currentView = 'form';
+            Utils.showToast('Nueva ficha iniciada', 'info');
         },
 
         loadPatient(id) {
-            const patient = this.patients.find(p => p.id === id);
-            if (patient) {
-                this.formData = { ...patient.data };
+            const p = this.patients.find(x => x.id === id);
+            if (p) {
+                this.formData = { ...p.data };
                 this.currentView = 'form';
+                Utils.showToast(`Ficha de ${p.nombre} cargada`, 'success');
             }
         },
 
         saveCurrentPatient() {
-            if (!this.formData.paciente_nombre || !this.formData.paciente_rut) return;
-            const newPatient = {
+            if (!this.formData.paciente_nombre || !this.formData.paciente_rut) {
+                Utils.showToast('Nombre y RUT obligatorios', 'danger');
+                return;
+            }
+            const p = {
                 id: Date.now(),
                 nombre: this.formData.paciente_nombre,
                 rut: this.formData.paciente_rut,
                 fecha: new Date().toLocaleDateString('es-CL'),
                 data: { ...this.formData }
             };
-            const index = this.patients.findIndex(p => p.rut === newPatient.rut);
-            if (index !== -1) this.patients[index] = newPatient;
-            else this.patients.unshift(newPatient);
+            const index = this.patients.findIndex(x => x.rut === p.rut);
+            if (index !== -1) this.patients[index] = p;
+            else this.patients.unshift(p);
             
             localStorage.setItem('kine_patients_list', JSON.stringify(this.patients));
             this.currentView = 'dashboard';
+            Utils.showToast('Guardado correctamente', 'success');
         }
     }));
 });

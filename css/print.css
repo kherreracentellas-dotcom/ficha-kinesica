@@ -1,0 +1,75 @@
+/**
+ * print.css
+ * Styles for the clinical report and media print overrides.
+ */
+
+.print-only { display: none; }
+
+#dynamic-report {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  color: #111;
+  background: white;
+}
+
+#dynamic-report .report-header {
+  text-align: center;
+  border-bottom: 2pt solid #111;
+  padding-bottom: 12pt;
+  margin-bottom: 24pt;
+}
+
+#dynamic-report .report-header h1 {
+  font-size: 16pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 8pt 0;
+  color: #0F2B46;
+}
+
+#dynamic-report h2 {
+  font-size: 11pt;
+  text-transform: uppercase;
+  color: #1A3D5C;
+  border-bottom: 1pt solid #aaa;
+  padding-bottom: 2pt;
+  margin-top: 18pt;
+  margin-bottom: 8pt;
+}
+
+#dynamic-report .section-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4pt 16pt;
+}
+
+#dynamic-report .data-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4pt;
+  margin-bottom: 2pt;
+}
+
+#dynamic-report .data-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 8.5pt;
+  color: #475569;
+  width: 130px;
+}
+
+#dynamic-report .data-value {
+  flex-grow: 1;
+  color: #1E293B;
+}
+
+@media print {
+  @page { margin: 2cm; size: letter portrait; }
+  .app-container, .top-bar, .sidebar, .main-tabs, .btn-primary { display: none !important; }
+  #dynamic-report { display: block !important; }
+  body { background: white !important; }
+}

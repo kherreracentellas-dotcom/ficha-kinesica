@@ -1,32 +1,12 @@
-/* 
+/**
  * main.css
- * Entry point for styles using modern CSS imports.
+ * Master orchestrator for the modular CSS architecture.
  */
 
 @import 'variables.css';
+@import 'base.css';
 @import 'layout.css';
+@import 'auth.css';
 @import 'components.css';
-
-/* Base & Global */
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-  scroll-padding-top: calc(var(--header-height) + 24px);
-}
-
-body {
-  font-family: var(--font-body);
-  background: var(--surface);
-  color: var(--text-main);
-  line-height: 1.6;
-  overflow-x: hidden;
-  -webkit-font-smoothing: antialiased;
-}
-
-/* We will split the rest of style.css into separate files and import them here */
-/* For now, this acts as the new structure foundation. */
+@import 'utilities.css';
+@import 'print.css';
