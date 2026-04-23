@@ -297,76 +297,74 @@
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="col-8 form-grid hidden" id="cond-tabaquismo-detalles" style="margin: 0;">
+                        <div class="col-8 form-grid hidden m-0" id="cond-tabaquismo-detalles">
                             <div class="field-group col-4">
-                                <label>Cig/día</label>
+                                <label for="tabaco-cantidad">Cig/día</label>
                                 <input type="number" name="tabaco_cantidad" id="tabaco-cantidad">
                             </div>
                             <div class="field-group col-4">
-                                <label>Años fumando</label>
+                                <label for="tabaco-anos">Años fumando</label>
                                 <input type="number" name="tabaco_anos" id="tabaco-anos">
                             </div>
                             <div class="field-group col-4">
-                                <label>Índice Cajetilla-Año<span class="tooltip-icon" data-tooltip="Cálculo predictivo de daño pulmonar: (Nº Cigarrillos al día ÷ 20) × Años fumando. Índice mayor a 10 indica alto riesgo de EPOC.">?</span></label>
-                                <input type="text" id="tabaco-indice" readonly
-                                    style="background: var(--surface); font-family: var(--font-mono);">
+                                <label for="tabaco-indice">Índice Cajetilla-Año<span class="tooltip-icon" data-tooltip="Cálculo predictivo de daño pulmonar: (Nº Cigarrillos al día ÷ 20) × Años fumando. Índice mayor a 10 indica alto riesgo de EPOC.">?</span></label>
+                                <input type="text" id="tabaco-indice" readonly class="bg-surface font-mono">
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>Exposición a biomasa/leña/polvo</label>
-                            <select name="biomasa" data-conditional="true">
+                            <label for="biomasa_val">Exposición a biomasa/leña/polvo</label>
+                            <select name="biomasa" id="biomasa_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
                         <div class="field-group col-6 hidden" id="cond-biomasa-especificar">
-                            <label>Especificar riesgo</label>
-                            <input type="text" name="biomasa_especificar">
+                            <label for="biomasa_especificar">Especificar riesgo</label>
+                            <input type="text" id="biomasa_especificar" name="biomasa_especificar">
                         </div>
                         <div class="field-group col-6">
-                            <label>Alcohol / Drogas</label>
-                            <select name="alcohol_drogas" data-conditional="true">
+                            <label for="alcohol_drogas_val">Alcohol / Drogas</label>
+                            <select name="alcohol_drogas" id="alcohol_drogas_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
                         <div class="field-group col-6 hidden" id="cond-alcohol-frecuencia">
-                            <label>Frecuencia</label>
-                            <input type="text" name="alcohol_frecuencia">
+                            <label for="alcohol_frecuencia">Frecuencia</label>
+                            <input type="text" id="alcohol_frecuencia" name="alcohol_frecuencia">
                         </div>
 
                         <!-- Actividad Física -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Actividad Física y Deporte</h3>
                         </div>
                         <div class="field-group col-4">
-                            <label>¿Realiza actividad física?</label>
-                            <select name="actividad_fisica" data-conditional="true">
+                            <label for="actividad_fisica_val">¿Realiza actividad física?</label>
+                            <select name="actividad_fisica" id="actividad_fisica_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="col-12 form-grid hidden" id="cond-actividad-detalles" style="margin: 0;">
+                        <div class="col-12 form-grid hidden m-0" id="cond-actividad-detalles">
                             <div class="field-group col-12">
-                                <label>Tipo de ejercicio</label>
-                                <input type="text" name="ejercicio_tipo">
+                                <label for="ejercicio_tipo">Tipo de ejercicio</label>
+                                <input type="text" id="ejercicio_tipo" name="ejercicio_tipo">
                             </div>
                             <div class="field-group col-3">
-                                <label>Veces x semana</label>
-                                <input type="number" name="ejercicio_frecuencia">
+                                <label for="ejercicio_frecuencia">Veces x semana</label>
+                                <input type="number" id="ejercicio_frecuencia" name="ejercicio_frecuencia">
                             </div>
                             <div class="field-group col-3">
-                                <label>Minutos x sesión</label>
-                                <input type="number" name="ejercicio_tiempo">
+                                <label for="ejercicio_tiempo">Minutos x sesión</label>
+                                <input type="number" id="ejercicio_tiempo" name="ejercicio_tiempo">
                             </div>
                             <div class="field-group col-3">
-                                <label>Intensidad (Borg 0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg Modificada (CR10):&#10;0 = Reposo total&#10;3 = Moderado&#10;5 = Severo&#10;10 = Esfuerzo Máximo">?</span></label>
-                                <input type="number" step="0.1" name="ejercicio_intensidad" min="0" max="10">
+                                <label for="ejercicio_intensidad">Intensidad (Borg 0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg Modificada (CR10):&#10;0 = Reposo total&#10;3 = Moderado&#10;5 = Severo&#10;10 = Esfuerzo Máximo">?</span></label>
+                                <input type="number" id="ejercicio_intensidad" step="0.1" name="ejercicio_intensidad" min="0" max="10">
                             </div>
                             <div class="field-group col-3">
-                                <label>¿Falta el aire?</label>
-                                <select name="ejercicio_disnea">
+                                <label for="ejercicio_disnea">¿Falta el aire?</label>
+                                <select name="ejercicio_disnea" id="ejercicio_disnea">
                                     <option value="no">No</option>
                                     <option value="si">Sí</option>
                                 </select>
@@ -385,42 +383,41 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Motivo de Consulta</label>
-                            <textarea name="motivo_consulta"
+                            <label for="motivo_consulta">Motivo de Consulta</label>
+                            <textarea name="motivo_consulta" id="motivo_consulta"
                                 placeholder="Breve descripción del problema actual..."></textarea>
                         </div>
                         <div class="field-group col-6">
-                            <label>Médico Tratante</label>
-                            <input type="text" name="medico_tratante">
+                            <label for="medico_tratante">Médico Tratante</label>
+                            <input type="text" id="medico_tratante" name="medico_tratante">
                         </div>
                         <div class="field-group col-12">
-                            <label>Diagnóstico Médico</label>
-                            <input type="text" name="diagnostico_medico">
+                            <label for="diagnostico_medico">Diagnóstico Médico</label>
+                            <input type="text" id="diagnostico_medico" name="diagnostico_medico">
                         </div>
                         <div class="field-group col-12">
-                            <label>Enfermedades Crónicas</label>
-                            <textarea name="enfermedades_cronicas"></textarea>
+                            <label for="enfermedades_cronicas">Enfermedades Crónicas</label>
+                            <textarea name="enfermedades_cronicas" id="enfermedades_cronicas"></textarea>
                         </div>
                         <div class="field-group col-12">
-                            <label>Cirugías Previas</label>
-                            <input type="text" name="cirugias_previas">
+                            <label for="cirugias_previas">Cirugías Previas</label>
+                            <input type="text" id="cirugias_previas" name="cirugias_previas">
                         </div>
                         <div class="field-group col-12">
-                            <label>Alergias</label>
-                            <input type="text" name="alergias">
+                            <label for="alergias_val">Alergias</label>
+                            <input type="text" id="alergias_val" name="alergias">
                         </div>
                         <div class="field-group col-12">
-                            <label>Antecedentes Familiares (cardiopatías, asma, etc.)</label>
-                            <textarea name="antecedentes_familiares"></textarea>
+                            <label for="antecedentes_familiares">Antecedentes Familiares (cardiopatías, asma, etc.)</label>
+                            <textarea name="antecedentes_familiares" id="antecedentes_familiares"></textarea>
                         </div>
 
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Tratamiento Farmacológico</h3>
                         </div>
                         <div class="field-group col-12">
-                            <label>Fármacos de uso continuo (ej. corticoides, antihipertensivos)</label>
-                            <textarea name="farmacos_continuo"></textarea>
+                            <label for="farmacos_continuo">Fármacos de uso continuo (ej. corticoides, antihipertensivos)</label>
+                            <textarea name="farmacos_continuo" id="farmacos_continuo"></textarea>
                         </div>
                         <div class="field-group col-12">
                             <label>Fármacos de rescate (ej. Salbutamol)</label>
@@ -514,45 +511,40 @@
 
                         <!-- Temp Card -->
                         <div class="vital-card col-4">
-                            <label>Temperatura</label>
+                            <label for="temp_val">Temperatura</label>
                             <div class="input-wrapper">
                                 <input type="number" id="temp_val" name="temp" step="0.1" placeholder="0">
                                 <span class="unit">°C</span>
                             </div>
                             <span id="temp_status" class="val-indicator"></span>
                         </div>
-                                <span class="unit">°C</span>
-                                <span id="temp_status" class="val-indicator"></span>
-                            </div>
-                        </div>
 
                         <!-- Antropometría -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Antropometría</h3>
                         </div>
                         <div class="field-group col-4">
-                            <label>Peso</label>
+                            <label for="peso_val">Peso</label>
                             <div class="input-wrapper">
                                 <input type="number" step="0.1" id="peso_val" name="peso">
                                 <span class="unit">kg</span>
                             </div>
                         </div>
                         <div class="field-group col-4">
-                            <label>Talla</label>
+                            <label for="talla_val">Talla</label>
                             <div class="input-wrapper">
                                 <input type="number" step="1" id="talla_val" name="talla">
                                 <span class="unit">cm</span>
                             </div>
                         </div>
                         <div class="field-group col-4">
-                            <label>IMC (Auto-calculado)</label>
+                            <label for="imc_val">IMC (Auto-calculado)</label>
                             <div class="input-wrapper">
-                                <input type="text" id="imc_val" readonly
-                                    style="background: var(--surface); font-family: var(--font-mono);">
+                                <input type="text" id="imc_val" readonly class="bg-surface font-mono">
                                 <span id="imc_status" class="val-indicator"></span>
                             </div>
                         </div>
+
                     </div>
                 </section>
 
@@ -583,8 +575,8 @@
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>Patrón Respiratorio</label>
-                            <select name="patron_respiratorio">
+                            <label for="patron_respiratorio">Patrón Respiratorio</label>
+                            <select name="patron_respiratorio" id="patron_respiratorio">
                                 <option value="costal">Costal</option>
                                 <option value="abdominal">Abdominal</option>
                                 <option value="mixto">Mixto</option>
@@ -592,8 +584,8 @@
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Uso de Musculatura Accesoria</label>
-                            <select name="muscultura_accesoria" data-conditional="true">
+                            <label for="muscultura_accesoria">Uso de Musculatura Accesoria</label>
+                            <select name="muscultura_accesoria" id="muscultura_accesoria" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
@@ -611,8 +603,7 @@
                         </div>
 
                         <!-- Signos y Síntomas -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Signos Clínicos y Síntomas Agudos</h3>
                         </div>
                         <div class="field-group col-6">
@@ -804,21 +795,25 @@
                         <div class="field-group col-6">
                             <label>Percusión Pulmonar</label>
                             <div style="display: flex; gap: 1rem; flex-direction: column;">
+                                    <div class="col-8 form-grid m-0">
                                 <div class="field-group">
-                                    <label style="font-size: 0.75rem;">Lado Izquierdo</label>
-                                    <select name="percusion_izq">
+                                    <label for="percusion_izq">Lado Izquierdo</label>
+                                    <select name="percusion_izq" id="percusion_izq">
                                         <option value="sonoridad">Sonoridad (Normal)</option>
                                         <option value="hipersonoridad">Hipersonoridad</option>
                                         <option value="matidez">Matidez</option>
                                     </select>
                                 </div>
                                 <div class="field-group">
-                                    <label style="font-size: 0.75rem;">Lado Derecho</label>
-                                    <select name="percusion_der">
+                                    <label for="percusion_der">Lado Derecho</label>
+                                    <select name="percusion_der" id="percusion_der">
                                         <option value="sonoridad">Sonoridad (Normal)</option>
                                         <option value="hipersonoridad">Hipersonoridad</option>
                                         <option value="matidez">Matidez</option>
                                     </select>
+                                </div>
+                            </div>
+                             </select>
                                 </div>
                             </div>
                         </div>
@@ -829,23 +824,23 @@
                             <h3>Auscultación Pulmonar</h3>
                         </div>
                         <div class="field-group col-6">
-                            <label>Murmullo Pulmonar</label>
-                            <select name="murmullo">
+                            <label for="murmullo_val">Murmullo Pulmonar</label>
+                            <select name="murmullo" id="murmullo_val">
                                 <option value="normal">Normal / (+) Conservado</option>
                                 <option value="disminuido">Disminuido</option>
                                 <option value="abolido">Abolido</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Ruido Laringotraqueal</label>
-                            <select name="ruido_laringe">
+                            <label for="ruido_laringe">Ruido Laringotraqueal</label>
+                            <select name="ruido_laringe" id="ruido_laringe">
                                 <option value="normal">Presente y normal</option>
                                 <option value="alterado">Alterado</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Resonancia Vocal ("99")</label>
-                            <select name="resonancia_vocal">
+                            <label for="resonancia_vocal">Resonancia Vocal ("99")</label>
+                            <select name="resonancia_vocal" id="resonancia_vocal">
                                 <option value="normal">Normal</option>
                                 <option value="aumentada">Aumentada (Broncofonía)</option>
                                 <option value="disminuida">Disminuida</option>
@@ -1025,12 +1020,12 @@
                             </div>
 
                             <div class="field-group col-8">
-                                <label>Diagnóstico Espirométrico</label>
-                                <input type="text" name="fvc_diagnostico" placeholder="Ej: Patrón Obstructivo Leve">
+                                <label for="fvc_diagnostico">Diagnóstico Espirométrico</label>
+                                <input type="text" id="fvc_diagnostico" name="fvc_diagnostico" placeholder="Ej: Patrón Obstructivo Leve">
                             </div>
                             <div class="field-group col-4">
-                                <label>Grado Obstrucción GOLD<span class="tooltip-icon" data-tooltip="Para EPOC: Requiere FEV1/FVC < 70%. &#10;1: Leve (FEV1 ≥ 80%)&#10;2: Moderado (50-79%)&#10;3: Severo (30-49%)&#10;4: Muy Severo (< 30%)">?</span></label>
-                                <input type="text" name="gold_severidad" id="gold_severidad" readonly style="background: rgba(243, 156, 18, 0.08); border-color: rgba(243, 156, 18, 0.3); color: #B9770E; font-weight: 600;" placeholder="Auto-calculado">
+                                <label for="gold_severidad">Grado GOLD<span class="tooltip-icon" data-tooltip="Para EPOC: Requiere FEV1/FVC < 70%. &#10;1: Leve (FEV1 ≥ 80%)&#10;2: Moderado (50-79%)&#10;3: Severo (30-49%)&#10;4: Muy Severo (< 30%)">?</span></label>
+                                <input type="text" name="gold_severidad" id="gold_severidad" readonly class="bg-warning-light border-warning-light text-warning-dark font-bold" placeholder="Auto-calculado">
                             </div>
                         </div>
 
@@ -1099,7 +1094,7 @@
                         </div>
 
                         <!-- TM6M Calculation Panel -->
-                        <div class="col-12 form-grid" style="margin: 0; background: var(--surface); padding: 1.5rem; border-radius: var(--radius-md);">
+                        <div class="col-12 form-grid m-0 bg-surface pt-1-5 mt-1">
                             <div class="field-group col-4">
                                 <label>Distancia Recorrida (m)</label>
                                 <div class="input-wrapper">
@@ -1108,34 +1103,34 @@
                                 </div>
                             </div>
                             <div class="field-group col-4">
-                                <label>Dist. Predicha (Automática)<span class="tooltip-icon" data-tooltip="Se calcula con la Fórmula de Enright (1998) basada en el Sexo, Edad, Altura y Peso registrados en la sección superior.">?</span></label>
+                                <label for="tm6m_predicha">Dist. Predicha (Automática)<span class="tooltip-icon" data-tooltip="Se calcula con la Fórmula de Enright (1998) basada en el Sexo, Edad, Altura y Peso registrados en la sección superior.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="1" name="tm6m_predicha" id="tm6m_predicha" readonly style="background: transparent; border: none; font-weight: bold; width: 100%;">
+                                    <input type="number" step="1" name="tm6m_predicha" id="tm6m_predicha" readonly class="bg-transparent border-none font-bold w-100">
                                     <span class="unit">m</span>
                                 </div>
                             </div>
                             <div class="field-group col-4">
-                                <label>% del Predicho</label>
+                                <label for="tm6m_porc">% del Predicho</label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="tm6m_porc" id="tm6m_porc" readonly style="background: transparent; border: none; font-weight: bold; width: 100%;">
+                                    <input type="number" step="0.1" name="tm6m_porc" id="tm6m_porc" readonly class="bg-transparent border-none font-bold w-100">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
                             
-                            <div class="col-12" style="border-top: 1px dashed var(--border-color); padding-top: 1rem; margin-top: 0.5rem;">
-                                <label style="margin-bottom: 0.5rem; display: block; font-weight: 600;">Parámetros Fisiológicos (Inicio vs Fin) *</label>
+                            <div class="col-12 border-t pt-1 mt-0-5">
+                                <label class="font-bold block mb-0-5">Parámetros Fisiológicos (Inicio vs Fin) *</label>
                             </div>
                             <div class="field-group col-4">
-                                <label>Borg Inicial -> Final</label>
-                                <input type="text" name="tm6m_borg" placeholder="Ej: 2 -> 7">
+                                <label for="tm6m_borg">Borg Inicial -> Final</label>
+                                <input type="text" id="tm6m_borg" name="tm6m_borg" placeholder="Ej: 2 -> 7">
                             </div>
                             <div class="field-group col-4">
-                                <label>SpO2 Inicial -> Final</label>
-                                <input type="text" name="tm6m_spo2" placeholder="Ej: 98% -> 92%">
+                                <label for="tm6m_spo2">SpO2 Inicial -> Final</label>
+                                <input type="text" id="tm6m_spo2" name="tm6m_spo2" placeholder="Ej: 98% -> 92%">
                             </div>
                             <div class="field-group col-4">
-                                <label>FC Inicial -> Final</label>
-                                <input type="text" name="tm6m_fc" placeholder="Ej: 75 -> 130 lpm">
+                                <label for="tm6m_fc">FC Inicial -> Final</label>
+                                <input type="text" id="tm6m_fc" name="tm6m_fc" placeholder="Ej: 75 -> 130 lpm">
                             </div>
                         </div>
                     </div>
@@ -1204,20 +1199,20 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Diagnóstico Kinésico (CIF)</label>
-                            <textarea name="diagnostico_kinesico" placeholder="Deficiencia, limitación en la actividad, restricción en participación..."></textarea>
+                            <label for="diagnostico_kinesico">Diagnóstico Kinésico (CIF)</label>
+                            <textarea name="diagnostico_kinesico" id="diagnostico_kinesico" placeholder="Deficiencia, limitación en la actividad, restricción en participación..."></textarea>
                         </div>
                         <div class="field-group col-12">
-                            <label>Objetivo General</label>
-                            <input type="text" name="objetivo_general">
+                            <label for="objetivo_general">Objetivo General</label>
+                            <input type="text" id="objetivo_general" name="objetivo_general">
                         </div>
                         <div class="field-group col-12">
-                            <label>Objetivos Específicos</label>
-                            <textarea name="objetivos_especificos"></textarea>
+                            <label for="objetivos_especificos">Objetivos Específicos</label>
+                            <textarea name="objetivos_especificos" id="objetivos_especificos"></textarea>
                         </div>
                         <div class="field-group col-12">
-                            <label>Plan de Tratamiento / Indicaciones</label>
-                            <textarea name="plan_tratamiento"></textarea>
+                            <label for="plan_tratamiento">Plan de Tratamiento / Indicaciones</label>
+                            <textarea name="plan_tratamiento" id="plan_tratamiento"></textarea>
                         </div>
 
                         <!-- Signatures Panel -->
@@ -1243,26 +1238,8 @@
             </form>
         </main>
 
-        <!-- Mobile Bottom Nav -->
-        <nav class="mobile-nav">
-            <a href="#personales" class="mobile-nav-link active" data-section="personales">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                <span>Datos</span>
-            </a>
-            <a href="#vitales" class="mobile-nav-link" data-section="vitales">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
-                <span>Vitales</span>
-            </a>
-            <a href="#pruebas" class="mobile-nav-link" data-section="pruebas">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
-                <span>Pruebas</span>
-            </a>
-            <!-- PDF Download Button (Desktop/Mobile Nav Sidebar) -->
-            <button type="button" class="mobile-nav-link" id="btn-sidebar-print">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-                <span>PDF</span>
-            </button>
         </nav>
+    </div>
     </div>
 
     <!-- Scripts -->

@@ -1427,3 +1427,18 @@ textarea {
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px); 
 }
+
+/* Additional utility classes for espirometría and warnings */
+.bg-surface { background: var(--surface) !important; }
+.font-mono { font-family: var(--font-mono) !important; }
+.bg-warning-light { background: rgba(243, 156, 18, 0.08) !important; }
+.border-warning-light { border-color: rgba(243, 156, 18, 0.3) !important; }
+.text-warning-dark { color: #B9770E !important; }
+.font-bold { font-weight: 600 !important; }
+
+/* More utilities for final cleanup */
+.bg-transparent { background: transparent !important; }
+.border-none { border: none !important; }
+.block { display: block !important; }
+.mb-0-5 { margin-bottom: 0.5rem !important; }
+.mt-0-5 { margin-top: 0.5rem !important; }
