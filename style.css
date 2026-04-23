@@ -743,6 +743,160 @@ textarea {
 
 .print-only { display: none; }
 
+/* Clinical Report Styles (Used by html2pdf and @media print) */
+#dynamic-report {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+  font-size: 10.5pt;
+  line-height: 1.5;
+  color: #111;
+  background: white;
+}
+
+#dynamic-report .report-header {
+  text-align: center;
+  border-bottom: 2pt solid #111;
+  padding-bottom: 12pt;
+  margin-bottom: 24pt;
+}
+
+#dynamic-report .report-header h1 {
+  font-size: 16pt;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 8pt 0;
+  color: #0F2B46;
+}
+
+#dynamic-report .report-header .patient-meta {
+  font-size: 10.5pt;
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+}
+
+#dynamic-report h2 {
+  font-size: 11pt;
+  text-transform: uppercase;
+  color: #1A3D5C;
+  border-bottom: 1pt solid #aaa;
+  padding-bottom: 2pt;
+  margin-top: 18pt;
+  margin-bottom: 8pt;
+  break-after: avoid;
+  page-break-after: avoid;
+}
+
+#dynamic-report .section-body {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4pt 16pt;
+}
+
+#dynamic-report .na-reason {
+  font-size: 10pt;
+  font-style: italic;
+  color: #666;
+  margin-bottom: 14pt;
+}
+
+#dynamic-report .data-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 4pt;
+  margin-bottom: 2pt;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+#dynamic-report .data-label {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 8.5pt;
+  color: #475569;
+  flex-shrink: 0;
+  width: 130px; 
+  margin-top: 1pt;
+}
+
+#dynamic-report .data-value {
+  flex-grow: 1;
+  word-break: break-word;
+  color: #1E293B;
+}
+
+#dynamic-report .long-text,
+#dynamic-report .checklist-row {
+  grid-column: 1 / -1;
+}
+
+#dynamic-report .long-text .data-label {
+  display: block;
+  margin-bottom: 2pt;
+}
+
+#dynamic-report .long-text .data-value {
+  display: block;
+  max-width: 100%;
+  white-space: pre-wrap;
+  text-align: justify;
+  padding-left: 8pt;
+  border-left: 2pt solid #ddd;
+  margin-bottom: 10pt;
+}
+
+#dynamic-report .checklist {
+  list-style: none;
+  padding: 0;
+  margin: 4pt 0 8pt 0;
+  column-count: 2;
+}
+
+#dynamic-report .checklist li {
+  font-size: 10pt;
+  margin-bottom: 4pt;
+  break-inside: avoid;
+}
+
+#dynamic-report .checklist li::before {
+  content: "✔️";
+  margin-right: 6pt;
+  font-size: 9pt;
+}
+
+#dynamic-report .signatures {
+  margin-top: 40pt;
+  display: flex;
+  justify-content: space-around;
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+
+#dynamic-report .sig-box {
+  text-align: center;
+  width: 200px;
+}
+
+#dynamic-report .sig-line {
+  border-bottom: 1pt solid #000;
+  margin-bottom: 6pt;
+  height: 40pt;
+}
+
+#dynamic-report .sig-name {
+  font-weight: 600;
+  font-size: 9pt;
+  margin: 0;
+}
+
+#dynamic-report .sig-role {
+  font-size: 8pt;
+  color: #555;
+  margin: 0;
+}
+
 @media print {
   @page {
     margin: 2cm;
@@ -759,163 +913,14 @@ textarea {
     margin: 0 !important;
     padding: 0 !important;
     font-family: 'Inter', system-ui, sans-serif !important;
-    color: #222 !important;
   }
 
-  /* Hide entire interactive UI */
   .app-container, .print-only, #evaluation-form, .sidebar, .top-bar {
     display: none !important;
   }
 
-  /* Show the dynamic clinical report */
   #dynamic-report {
     display: block !important;
-    width: 100%;
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 10.5pt;
-    line-height: 1.5;
-  }
-
-  #dynamic-report .report-header {
-    text-align: center;
-    border-bottom: 2pt solid #111;
-    padding-bottom: 12pt;
-    margin-bottom: 24pt;
-  }
-
-  #dynamic-report .report-header h1 {
-    font-size: 16pt;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0 0 8pt 0;
-  }
-
-  #dynamic-report .report-header .patient-meta {
-    font-size: 10.5pt;
-    display: flex;
-    justify-content: space-between;
-    margin: 0;
-  }
-
-  #dynamic-report h2 {
-    font-size: 11pt;
-    text-transform: uppercase;
-    color: #000;
-    border-bottom: 1pt solid #aaa;
-    padding-bottom: 2pt;
-    margin-top: 18pt;
-    margin-bottom: 8pt;
-    break-after: avoid;
-    page-break-after: avoid;
-  }
-
-  #dynamic-report .section-body {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4pt 16pt;
-  }
-
-  #dynamic-report .na-reason {
-    font-size: 10pt;
-    font-style: italic;
-    color: #666;
-    margin-bottom: 14pt;
-  }
-
-  #dynamic-report .data-row {
-    display: flex;
-    align-items: flex-start;
-    gap: 4pt;
-    margin-bottom: 2pt;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  #dynamic-report .data-label {
-    font-weight: 600;
-    text-transform: uppercase;
-    font-size: 9pt;
-    color: #444;
-    flex-shrink: 0;
-    width: 130px; /* fixed width for tabular alignment */
-    margin-top: 1pt; /* minor optical alignment tweak */
-  }
-
-  #dynamic-report .data-value {
-    flex-grow: 1;
-    word-break: break-word; /* ensure long words don't overflow */
-  }
-
-  #dynamic-report .long-text,
-  #dynamic-report .checklist-row {
-    grid-column: 1 / -1;
-  }
-
-  #dynamic-report .long-text .data-label {
-    display: block;
-    margin-bottom: 2pt;
-  }
-
-  #dynamic-report .long-text .data-value {
-    display: block;
-    max-width: 100%;
-    white-space: pre-wrap;
-    text-align: justify;
-    padding-left: 8pt;
-    border-left: 2pt solid #ddd;
-    margin-bottom: 10pt;
-  }
-
-  #dynamic-report .checklist {
-    list-style: none;
-    padding: 0;
-    margin: 4pt 0 8pt 0;
-    column-count: 2;
-  }
-
-  #dynamic-report .checklist li {
-    font-size: 10pt;
-    margin-bottom: 4pt;
-    break-inside: avoid;
-  }
-
-  #dynamic-report .checklist li::before {
-    content: "✔️";
-    margin-right: 6pt;
-    font-size: 9pt;
-  }
-
-  /* Signatures */
-  #dynamic-report .signatures {
-    margin-top: 40pt;
-    display: flex;
-    justify-content: space-around;
-    break-inside: avoid;
-    page-break-inside: avoid;
-  }
-
-  #dynamic-report .sig-box {
-    text-align: center;
-    width: 200px;
-  }
-
-  #dynamic-report .sig-line {
-    border-bottom: 1pt solid #000;
-    margin-bottom: 6pt;
-    height: 40pt;
-  }
-
-  #dynamic-report .sig-name {
-    font-weight: 600;
-    font-size: 9pt;
-    margin: 0;
-  }
-
-  #dynamic-report .sig-role {
-    font-size: 8pt;
-    color: #555;
-    margin: 0;
   }
 }
 

@@ -631,24 +631,41 @@ document.addEventListener('DOMContentLoaded', () => {
         return reportHtml;
     };
 
-    // PDF Export
+    // Exportación a PDF (Mejorado para evitar efecto 'screenshot')
     document.getElementById('btn-print').addEventListener('click', () => {
         if (!form.reportValidity()) return;
         
+        const name = form.querySelector('[name="nombre"]')?.value?.trim() || 'Paciente';
         const reportHtml = generateReportHtml();
-        const existing = document.getElementById('dynamic-report');
-        if (existing) existing.remove();
         
-        document.body.insertAdjacentHTML('beforeend', reportHtml);
+        // Crear un contenedor temporal para el reporte con estilos básicos
+        const element = document.createElement('div');
+        element.innerHTML = reportHtml;
+        element.style.padding = '20px';
+        element.style.background = 'white';
 
-        const savedHash = window.location.hash;
-        history.replaceState(null, '', window.location.pathname);
+        // Configuración de html2pdf
+        const opt = {
+            margin:       [15, 15],
+            filename:     `Ficha_Kinesica_${name.replace(/\s+/g, '_')}.pdf`,
+            image:        { type: 'jpeg', quality: 1.0 },
+            html2canvas:  { 
+                scale: 3, // Alta resolución para nitidez
+                useCORS: true,
+                letterRendering: true,
+                logging: false
+            },
+            jsPDF:        { unit: 'mm', format: 'letter', orientation: 'portrait' }
+        };
 
-        setTimeout(() => {
-            window.print();
-            if (savedHash) history.replaceState(null, '', savedHash);
-            document.getElementById('dynamic-report')?.remove();
-        }, 100);
+        // Generar el PDF directamente
+        showToast('Generando PDF de alta calidad...', 'success');
+        html2pdf().set(opt).from(element).save().then(() => {
+            showToast('PDF descargado con éxito', 'success');
+        }).catch(err => {
+            console.error('Error al generar PDF:', err);
+            showToast('Error al generar el PDF', 'danger');
+        });
     });
 
     // Word Export
