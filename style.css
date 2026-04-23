@@ -1450,3 +1450,51 @@ textarea {
 .flex { display: flex !important; }
 .hidden { display: none !important; }
 .mt-neg-10 { margin-top: -10px !important; }
+
+/* ════════════════════════════════════════════
+   DASHBOARD & TABLES
+   ════════════════════════════════════════════ */
+
+.patient-list table {
+    border-collapse: separate;
+    border-spacing: 0 8px;
+    margin-top: -8px;
+}
+
+.patient-list th {
+    text-align: left;
+    padding: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+}
+
+.patient-list td {
+    padding: 1rem;
+    background: var(--card-bg);
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    transition: var(--transition);
+}
+
+.patient-list td:first-child {
+    border-left: 1px solid var(--border-color);
+    border-radius: var(--radius-md) 0 0 var(--radius-md);
+}
+
+.patient-list td:last-child {
+    border-right: 1px solid var(--border-color);
+    border-radius: 0 var(--radius-md) var(--radius-md) 0;
+}
+
+.patient-list tr:hover td {
+    background: white !important;
+    border-color: var(--accent-light) !important;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.py-2 { padding-top: 2rem !important; padding-bottom: 2rem !important; }
+.text-center { text-align: center !important; }
+.text-danger { color: var(--danger) !important; }

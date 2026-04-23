@@ -1,10 +1,17 @@
 document.addEventListener('alpine:init', () => {
     Alpine.data('formState', () => ({
+        // View State
+        currentView: 'dashboard', // dashboard or form
+        searchQuery: '',
+        
         // Global State
         currentUser: localStorage.getItem('kine_current_user') || null,
         progress: 0,
         
-        // Form Data for conditionals and calculations
+        // Data Persistence
+        patients: JSON.parse(localStorage.getItem('kine_patients_list') || '[]'),
+        
+        // Form Data
         formData: {
             paciente_nombre: '',
             paciente_edad: '',
@@ -103,6 +110,79 @@ document.addEventListener('alpine:init', () => {
             const pred = this.tm6m_predicha_calc;
             if (!rec || !pred) return 0;
             return ((rec / pred) * 100).toFixed(1);
+        },
+
+        // Dashboard Methods
+        get filteredPatients() {
+            if (!this.searchQuery) return this.patients;
+            const q = this.searchQuery.toLowerCase();
+            return this.patients.filter(p => 
+                (p.nombre && p.nombre.toLowerCase().includes(q)) || 
+                (p.rut && p.rut.toLowerCase().includes(q))
+            );
+        },
+
+        createNewPatient() {
+            // Reset form
+            this.formData = {
+                paciente_nombre: '',
+                paciente_rut: '',
+                paciente_edad: '',
+                paciente_peso: '',
+                paciente_talla: '',
+                paciente_sexo: 'masculino',
+                mascotas: 'no',
+                tabaquismo: 'no'
+                // ... rest of fields
+            };
+            this.currentView = 'form';
+            showToast('Iniciando nueva ficha clínica', 'info');
+        },
+
+        loadPatient(id) {
+            const patient = this.patients.find(p => p.id === id);
+            if (patient) {
+                this.formData = { ...patient.data };
+                this.currentView = 'form';
+                showToast(`Ficha de ${patient.nombre} cargada`, 'success');
+            }
+        },
+
+        deletePatient(id) {
+            if (confirm('¿Estás seguro de eliminar este registro permanentemente?')) {
+                this.patients = this.patients.filter(p => p.id !== id);
+                localStorage.setItem('kine_patients_list', JSON.stringify(this.patients));
+                showToast('Paciente eliminado', 'warning');
+            }
+        },
+
+        saveCurrentPatient() {
+            if (!this.formData.paciente_nombre || !this.formData.paciente_rut) {
+                showToast('El nombre y RUT son obligatorios para guardar', 'danger');
+                return;
+            }
+
+            const newPatient = {
+                id: Date.now(),
+                nombre: this.formData.paciente_nombre,
+                rut: this.formData.paciente_rut,
+                fecha: new Date().toLocaleDateString('es-CL'),
+                diagnostico_medico: this.formData.diagnostico_medico,
+                data: { ...this.formData }
+            };
+
+            // Check if exists by RUT to update or add new
+            const index = this.patients.findIndex(p => p.rut === newPatient.rut);
+            if (index !== -1) {
+                this.patients[index] = newPatient;
+                showToast('Ficha actualizada correctamente', 'success');
+            } else {
+                this.patients.unshift(newPatient);
+                showToast('Ficha guardada en el listado', 'success');
+            }
+
+            localStorage.setItem('kine_patients_list', JSON.stringify(this.patients));
+            this.currentView = 'dashboard';
         },
 
         init() {
