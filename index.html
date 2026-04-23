@@ -36,41 +36,44 @@
                 <a href="#personales" class="nav-link active" data-section="personales">
                     <span class="number">01</span> Datos Personales
                 </a>
+                <a href="#biopsicosociales" class="nav-link" data-section="biopsicosociales">
+                    <span class="number">02</span> Ant. Biopsicosociales
+                </a>
                 <a href="#morbidos" class="nav-link" data-section="morbidos">
-                    <span class="number">02</span> Antecedentes Mórbidos
+                    <span class="number">03</span> Antecedentes Mórbidos
                 </a>
                 <a href="#vitales" class="nav-link" data-section="vitales">
-                    <span class="number">03</span> Signos Vitales
+                    <span class="number">04</span> Signos Vitales
                 </a>
                 <a href="#inspeccion" class="nav-link" data-section="inspeccion">
-                    <span class="number">04</span> Inspección
+                    <span class="number">05</span> Inspección
                 </a>
                 <a href="#palpacion" class="nav-link" data-section="palpacion">
-                    <span class="number">05</span> Palpación y Cardiovasc.
+                    <span class="number">06</span> Palpación y Cardiovasc.
                 </a>
                 <a href="#auscultacion" class="nav-link" data-section="auscultacion">
-                    <span class="number">06</span> Percusión y Ausc.
+                    <span class="number">07</span> Percusión y Ausc.
                 </a>
                 <a href="#examenes" class="nav-link" data-section="examenes">
-                    <span class="number">07</span> Exámenes Complem.
+                    <span class="number">08</span> Exámenes Complem.
                 </a>
                 <a href="#mecanica" class="nav-link" data-section="mecanica">
-                    <span class="number">08</span> Mecánica Respiratoria
+                    <span class="number">09</span> Mecánica Respiratoria
                 </a>
                 <a href="#pruebas" class="nav-link" data-section="pruebas">
-                    <span class="number">09</span> Pruebas Funcionales
+                    <span class="number">10</span> Pruebas Funcionales
                 </a>
                 <a href="#capacidad" class="nav-link" data-section="capacidad">
-                    <span class="number">10</span> Capacidad Funcional
+                    <span class="number">11</span> Capacidad Funcional
                 </a>
                 <a href="#fuerza" class="nav-link" data-section="fuerza">
-                    <span class="number">11</span> Fuerza Periférica
+                    <span class="number">12</span> Fuerza Periférica
                 </a>
                 <a href="#seguridad" class="nav-link" data-section="seguridad">
-                    <span class="number">12</span> Checklist Seguridad
+                    <span class="number">13</span> Checklist Seguridad
                 </a>
                 <a href="#diagnostico" class="nav-link" data-section="diagnostico">
-                    <span class="number">13</span> Diagnóstico y Obj.
+                    <span class="number">14</span> Diagnóstico y Obj.
                 </a>
             </nav>
 
@@ -115,11 +118,24 @@
                     <button type="button" class="btn btn-primary" id="btn-print">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <polyline points="6 9 6 2 18 2 18 9" />
-                            <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2" />
-                            <rect x="6" y="14" width="12" height="8" />
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
                         </svg>
-                        Exportar PDF
+                        PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn-word">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                            <line x1="16" y1="13" x2="8" y2="13"></line>
+                            <line x1="16" y1="17" x2="8" y2="17"></line>
+                            <polyline points="10 9 9 9 8 9"></polyline>
+                        </svg>
+                        Word
                     </button>
                 </div>
             </header>
@@ -184,7 +200,18 @@
                             <label>Fono Emergencia</label>
                             <input type="text" name="fono_emergencia">
                         </div>
+                    </div>
+                </section>
 
+                <!-- Section II: ANTECEDENTES BIOPSICOSOCIALES -->
+                <section id="biopsicosociales" data-animate>
+                    <div class="section-head">
+                        <div class="section-title">
+                            <h2>II. Antecedentes Biopsicosociales</h2>
+                            <p>Entorno, esquema familiar y hábitos de consumo del paciente.</p>
+                        </div>
+                    </div>
+                    <div class="form-grid">
                         <!-- Entorno y Estilo de Vida -->
                         <div class="col-12" style="margin-top: 1rem;"><label>Núcleo Familiar</label></div>
                         <div class="col-12 check-group">
@@ -305,11 +332,11 @@
                     </div>
                 </section>
 
-                <!-- Section II: ANTECEDENTES MÓRBIDOS -->
+                <!-- Section III: ANTECEDENTES MÓRBIDOS -->
                 <section id="morbidos" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>II. Antecedentes Mórbidos</h2>
+                            <h2>III. Antecedentes Mórbidos</h2>
                             <p>Anamnesis clínica y tratamiento actual.</p>
                         </div>
                     </div>
@@ -374,7 +401,7 @@
                 <section id="vitales" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>III. Signos Vitales y Hemodinamia</h2>
+                            <h2>IV. Signos Vitales y Hemodinamia</h2>
                             <p>Evaluación fisiológica objetiva y cálculos de riesgo.</p>
                         </div>
                     </div>
@@ -470,7 +497,7 @@
                 <section id="inspeccion" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>IV. Inspección (Observación)</h2>
+                            <h2>V. Inspección (Observación)</h2>
                             <p>Análisis visual torácico y sintomatología aguda.</p>
                         </div>
                     </div>
@@ -622,7 +649,7 @@
                 <section id="palpacion" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>V. Palpación y Evaluación Cardiovascular Integrada</h2>
+                            <h2>VI. Palpación y Evaluación Cardiovascular Integrada</h2>
                             <p>Signos de sobrecarga hídrica y examen segmentario.</p>
                         </div>
                     </div>
@@ -702,11 +729,11 @@
                     </div>
                 </section>
 
-                <!-- Section VI: PERCUSIÓN Y AUSCULTACIÓN -->
+                <!-- Section VII: PERCUSIÓN Y AUSCULTACIÓN -->
                 <section id="auscultacion" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>VI. Percusión y Auscultación</h2>
+                            <h2>VII. Percusión y Auscultación</h2>
                             <p>Evaluación acústica de parénquima pulmonar y precordial.</p>
                         </div>
                     </div>
@@ -802,11 +829,11 @@
                     </div>
                 </section>
 
-                <!-- Section VII: EXÁMENES COMPLEMENTARIOS -->
+                <!-- Section VIII: EXÁMENES COMPLEMENTARIOS -->
                 <section id="examenes" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>VII. Exámenes Complementarios</h2>
+                            <h2>VIII. Exámenes Complementarios</h2>
                             <p>Resultados imagenológicos y de laboratorio relevantes.</p>
                         </div>
                     </div>
@@ -826,7 +853,7 @@
                 <section id="mecanica" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>VIII. Mecánica Respiratoria</h2>
+                            <h2>IX. Mecánica Respiratoria</h2>
                             <p>Mediciones para objetivar la dinámica ventilatoria.</p>
                         </div>
                     </div>
@@ -867,7 +894,7 @@
                 <section id="pruebas" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>IX. Pruebas Funcionales</h2>
+                            <h2>X. Pruebas Funcionales</h2>
                             <p>Pruebas funcionales cardiorrespiratorias.</p>
                         </div>
                     </div>
@@ -991,11 +1018,11 @@
                     </div>
                 </section>
 
-                <!-- Section X: CAPACIDAD FUNCIONAL -->
+                <!-- Section XI: CAPACIDAD FUNCIONAL -->
                 <section id="capacidad" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>X. Capacidad Funcional Cardiorrespiratoria</h2>
+                            <h2>XI. Capacidad Funcional Cardiorrespiratoria</h2>
                             <p>Evaluación de esfuerzo submáximo y desempeño físico en campo.</p>
                         </div>
                     </div>
@@ -1055,7 +1082,7 @@
                 <section id="fuerza" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>XI. Fuerza Muscular Periférica</h2>
+                            <h2>XII. Fuerza Muscular Periférica</h2>
                             <p>Evaluación de masa y potencia muscular (Sarcopenia).</p>
                         </div>
                     </div>
@@ -1082,7 +1109,7 @@
                 <section id="seguridad" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>XII. Checklist de Seguridad Pre-Kinesioterapia</h2>
+                            <h2>XIII. Checklist de Seguridad Pre-Kinesioterapia</h2>
                             <p>Verificación crítica antes de la intervención asistencial.</p>
                         </div>
                     </div>
@@ -1112,7 +1139,7 @@
                 <section id="diagnostico" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>XIII. Diagnóstico Kinésico y Objetivos</h2>
+                            <h2>XIV. Diagnóstico Kinésico y Objetivos</h2>
                             <p>Modelo CIF: Estructura, Actividad y Participación.</p>
                         </div>
                     </div>

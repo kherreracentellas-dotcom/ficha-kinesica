@@ -492,17 +492,14 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════════════
     // 8. PRINT / EXPORT PDF
     // ═══════════════════════════════════════════════════
-    document.getElementById('btn-print').addEventListener('click', () => {
-        // Enforce required fields validation before proceeding
-        if (!form.reportValidity()) {
-            return;
-        }
-
+    // ═══════════════════════════════════════════════════
+    // 8. PRINT / EXPORT PDF & WORD
+    // ═══════════════════════════════════════════════════
+    const generateReportHtml = () => {
         const name = form.querySelector('[name="nombre"]')?.value?.trim() || 'Desconocido';
         const rut = form.querySelector('[name="rut"]')?.value?.trim() || 'N/A';
         const dateStr = new Date().toLocaleDateString('es-CL', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-        // Build report
         let reportHtml = `
             <div id="dynamic-report">
                 <div class="report-header">
@@ -518,36 +515,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
         form.querySelectorAll('section').forEach(sec => {
             const h2 = sec.querySelector('h2')?.textContent || '';
-            
-            // Collect N/A and Skip
             if (sec.classList.contains('na-active')) {
                 omittedSections.push(h2.replace(/^[0-9IVX]+\.\s*/, ''));
                 return;
             }
 
             let sectionContent = '';
-            
-            // Look for all label+input pairs or checkbox groups
-            // Because UI wraps inputs in field-groups
             sec.querySelectorAll('.field-group').forEach(group => {
-                // Skip hidden conditional groups
                 if (group.closest('.hidden')) return;
-
                 const label = group.querySelector('label')?.textContent || '';
                 if (!label) return;
 
-                // Handle text/textareas/select
                 const textInput = group.querySelector('input[type="text"], input[type="number"], input[type="date"], select, textarea');
                 if (textInput && !textInput.closest('.checkbox-card')) {
                     let val = '';
                     if (textInput.tagName.toLowerCase() === 'select') {
-                        // Get visible text of the selected option, not just the underlying value
                         if (textInput.selectedIndex >= 0) {
                             val = textInput.options[textInput.selectedIndex].text.trim();
-                            // Don't print placeholder options like 'Seleccione...'
-                            if (val.toLowerCase().includes('seleccione') || textInput.value === '') {
-                                val = '';
-                            }
+                            if (val.toLowerCase().includes('seleccione') || textInput.value === '') val = '';
                         }
                     } else {
                         val = textInput.value.trim();
@@ -568,13 +553,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     return;
                 }
 
-                // Handle Checkboxes/Radios
                 const checks = group.querySelectorAll('input[type="checkbox"], input[type="radio"]');
                 if (checks.length > 0) {
                     const selected = Array.from(checks).filter(c => c.checked).map(c => {
                         return c.closest('.checkbox-card')?.querySelector('span')?.textContent || c.value;
                     });
-                    
                     if (selected.length > 0) {
                         sectionContent += `
                             <div class="data-row checklist-row">
@@ -595,7 +578,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Excepciones Médico Legales (N/A Tracing)
         if (omittedSections.length > 0) {
             reportHtml += `
             <div class="omitted-tracing" style="margin-top: 2rem; padding: 1rem; background: rgba(0,0,0,0.03); border: 1px dashed #94a3b8; font-size: 0.85rem; border-radius: 6px;">
@@ -604,7 +586,6 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         }
 
-        // Signatures
         reportHtml += `
             <div class="signatures">
                 <div class="sig-box">
@@ -619,8 +600,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 </div>
             </div>
         </div>`;
+        return reportHtml;
+    };
 
-        // Inject to DOM
+    // PDF Export
+    document.getElementById('btn-print').addEventListener('click', () => {
+        if (!form.reportValidity()) return;
+        
+        const reportHtml = generateReportHtml();
         const existing = document.getElementById('dynamic-report');
         if (existing) existing.remove();
         
@@ -634,6 +621,47 @@ document.addEventListener('DOMContentLoaded', () => {
             if (savedHash) history.replaceState(null, '', savedHash);
             document.getElementById('dynamic-report')?.remove();
         }, 100);
+    });
+
+    // Word Export
+    document.getElementById('btn-word').addEventListener('click', () => {
+        if (!form.reportValidity()) return;
+
+        const name = form.querySelector('[name="nombre"]')?.value?.trim() || 'Paciente';
+        const reportHtml = generateReportHtml();
+
+        // Basic CSS for Word
+        const css = `
+            <style>
+                body { font-family: 'Arial', sans-serif; }
+                h1 { text-align: center; color: #0F2B46; font-size: 18pt; border-bottom: 2pt solid #0F2B46; padding-bottom: 10px; }
+                .patient-meta { margin-bottom: 20pt; border-bottom: 1pt solid #ccc; padding-bottom: 10pt; }
+                h2 { background: #F0F4F8; color: #1A3D5C; font-size: 14pt; padding: 5pt; margin-top: 20pt; }
+                .data-row { margin-bottom: 5pt; }
+                .data-label { font-weight: bold; color: #64748B; text-transform: uppercase; font-size: 9pt; }
+                .data-value { font-size: 11pt; }
+                .signatures { margin-top: 50pt; }
+                .sig-box { width: 45%; float: left; text-align: center; }
+                .sig-line { border-top: 1pt solid black; margin-top: 40pt; }
+            </style>
+        `;
+
+        const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><meta charset='utf-8'>${css}</head><body>`;
+        const footer = "</body></html>";
+        const sourceHTML = header + reportHtml + footer;
+
+        const blob = new Blob(['\ufeff', sourceHTML], {
+            type: 'application/msword'
+        });
+
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `Ficha_Kinesica_${name.replace(/\s+/g, '_')}.doc`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
     });
 
     // ═══════════════════════════════════════════════════
