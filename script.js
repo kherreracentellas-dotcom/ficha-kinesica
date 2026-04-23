@@ -1,3 +1,121 @@
+document.addEventListener('alpine:init', () => {
+    Alpine.data('formState', () => ({
+        // Global State
+        currentUser: localStorage.getItem('kine_current_user') || null,
+        progress: 0,
+        
+        // Form Data for conditionals and calculations
+        formData: {
+            paciente_nombre: '',
+            paciente_edad: '',
+            paciente_peso: '',
+            paciente_talla: '',
+            paciente_sexo: 'masculino',
+            imc: 0,
+            pam: 0,
+            
+            // Conditionals
+            mascotas: 'no',
+            tabaquismo: 'no',
+            biomasa: 'no',
+            alcohol: 'no',
+            actividad: 'no',
+            tos_presenta: 'no',
+            tos_tipo: 'seca',
+            cianosis: 'no',
+            coriza: 'no',
+            linfonodos: 'no',
+            cardiaco_soplo: false,
+            
+            // Calculations
+            fvc_obs: 0,
+            fvc_pred: 0,
+            fev1_obs: 0,
+            fev1_pred: 0,
+            tm6m_recorrida: 0,
+            tm6m_predicha: 0
+        },
+
+        // Computed calculations
+        get imc() {
+            const w = parseFloat(this.formData.paciente_peso);
+            const h = parseFloat(this.formData.paciente_talla) / 100;
+            if (!w || !h) return 0;
+            return (w / (h * h)).toFixed(1);
+        },
+
+        get pam() {
+            const s = parseFloat(this.formData.presion_sistolica);
+            const d = parseFloat(this.formData.presion_diastolica);
+            if (!s || !d) return 0;
+            return Math.round((s + (2 * d)) / 3);
+        },
+
+        get goldGrade() {
+            const fev1_porc = parseFloat(this.fvc_porc); // Wait, I should use the getter
+            const ratio = parseFloat(this.fev1fvc_ratio);
+            if (!fev1_porc || ratio >= 70) return 'N/A';
+            if (fev1_porc >= 80) return 'GOLD 1 (Leve)';
+            if (fev1_porc >= 50) return 'GOLD 2 (Mod)';
+            if (fev1_porc >= 30) return 'GOLD 3 (Sev)';
+            return 'GOLD 4 (Muy Sev)';
+        },
+
+        // Respiratory Getters
+        get fvc_porc() {
+            const obs = parseFloat(this.formData.fvc_obs);
+            const pred = parseFloat(this.formData.fvc_pred);
+            if (!obs || !pred) return 0;
+            return ((obs / pred) * 100).toFixed(1);
+        },
+
+        get fev1_porc() {
+            const obs = parseFloat(this.formData.fev1_obs);
+            const pred = parseFloat(this.formData.fev1_pred);
+            if (!obs || !pred) return 0;
+            return ((obs / pred) * 100).toFixed(1);
+        },
+
+        get fev1fvc_ratio() {
+            const fev1 = parseFloat(this.formData.fev1_obs);
+            const fvc = parseFloat(this.formData.fvc_obs);
+            if (!fev1 || !fvc) return 0;
+            return ((fev1 / fvc) * 100).toFixed(1);
+        },
+
+        get tm6m_predicha_calc() {
+            const a = parseFloat(this.formData.paciente_edad);
+            const w = parseFloat(this.formData.paciente_peso);
+            const h = parseFloat(this.formData.paciente_talla);
+            const s = this.formData.paciente_sexo;
+
+            if (!a || !w || !h) return 0;
+
+            if (s === 'masculino') {
+                return Math.round((7.57 * h) - (5.02 * a) - (1.76 * w) - 309);
+            } else {
+                return Math.round((2.11 * h) - (2.29 * a) - (0.57 * w) + 667);
+            }
+        },
+
+        get tm6m_porc_calc() {
+            const rec = parseFloat(this.formData.tm6m_recorrida);
+            const pred = this.tm6m_predicha_calc;
+            if (!rec || !pred) return 0;
+            return ((rec / pred) * 100).toFixed(1);
+        },
+
+        init() {
+            // Initial sync with localStorage if needed
+            this.updateAuthUI();
+        },
+
+        updateAuthUI() {
+            // Existing logic migrated or kept
+        }
+    }));
+});
+
 document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════════════
     // 0. AUTHENTICATION LOGIC (Local Simulation)

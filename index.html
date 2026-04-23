@@ -21,9 +21,12 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="apple-mobile-web-app-title" content="KineApp">
     <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063176.png">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 
-<body>
+<body x-data="formState">
     <div class="app-container">
         <!-- Dashboard Sidebar -->
         <aside class="sidebar">
@@ -194,14 +197,13 @@
                     <div class="form-grid">
                         <div class="field-group col-6">
                             <label for="paciente_nombre">Nombre *</label>
-                            <input type="text" id="paciente_nombre" name="nombre" placeholder="Ej: Juan Pérez" required>
+                            <input type="text" id="paciente_nombre" name="nombre" placeholder="Ej: Juan Pérez" required x-model="formData.paciente_nombre">
                         </div>
                         <div class="field-group col-3">
                             <label for="sexo_val">Sexo Biológico</label>
-                            <select name="sexo" id="sexo_val">
-                                <option value="">Sel...</option>
-                                <option value="m">Masculino</option>
-                                <option value="f">Femenino</option>
+                            <select name="sexo" id="sexo_val" x-model="formData.paciente_sexo">
+                                <option value="masculino">Masculino</option>
+                                <option value="femenino">Femenino</option>
                             </select>
                         </div>
                         <div class="field-group col-3">
@@ -274,16 +276,16 @@
                             <label for="tipo_vivienda">Tipo de Vivienda</label>
                             <input type="text" id="tipo_vivienda" name="tipo_vivienda">
                         </div>
-                        <div class="field-group col-6">
-                            <label for="mascotas_val">Mascotas</label>
-                            <select name="mascotas" id="mascotas_val" data-conditional="true">
+                        <div class="field-group col-4">
+                            <label for="mascotas_val">¿Tiene Mascotas?</label>
+                            <select name="mascotas" id="mascotas_val" x-model="formData.mascotas">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="field-group col-12 hidden" id="cond-mascotas-especificar">
-                            <label for="mascotas_especificar">Especifique Mascotas</label>
-                            <input type="text" id="mascotas_especificar" name="mascotas_especificar">
+                        <div class="field-group col-8" x-show="formData.mascotas === 'si'" x-transition>
+                            <label for="mascotas_especificar_val">Especificar (Ambiente)</label>
+                            <input type="text" id="mascotas_especificar_val" name="mascotas_especificar" placeholder="Ej: Perro dentro de casa">
                         </div>
 
                         <!-- Hábitos -->
@@ -291,13 +293,13 @@
                             <h3>Hábitos de Consumo y Riesgo Ambiental</h3>
                         </div>
                         <div class="field-group col-4">
-                            <label for="tabaquismo_val">Tabaquismo</label>
-                            <select name="tabaquismo" id="tabaquismo_val" data-conditional="true">
-                                <option value="no">No</option>
-                                <option value="si">Sí</option>
+                            <label for="tabaquismo_val">¿Tabaquismo?</label>
+                            <select name="tabaquismo" id="tabaquismo_val" x-model="formData.tabaquismo">
+                                <option value="no">No / Ex-fumador</option>
+                                <option value="si">Sí (Activo)</option>
                             </select>
                         </div>
-                        <div class="col-8 form-grid hidden m-0" id="cond-tabaquismo-detalles">
+                        <div class="col-8 form-grid m-0" x-show="formData.tabaquismo === 'si'" x-transition>
                             <div class="field-group col-4">
                                 <label for="tabaco-cantidad">Cig/día</label>
                                 <input type="number" name="tabaco_cantidad" id="tabaco-cantidad">
@@ -313,23 +315,23 @@
                         </div>
                         <div class="field-group col-6">
                             <label for="biomasa_val">Exposición a biomasa/leña/polvo</label>
-                            <select name="biomasa" id="biomasa_val" data-conditional="true">
+                            <select name="biomasa" id="biomasa_val" x-model="formData.biomasa">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="field-group col-6 hidden" id="cond-biomasa-especificar">
+                        <div class="field-group col-6" x-show="formData.biomasa === 'si'" x-transition>
                             <label for="biomasa_especificar">Especificar riesgo</label>
                             <input type="text" id="biomasa_especificar" name="biomasa_especificar">
                         </div>
                         <div class="field-group col-6">
                             <label for="alcohol_drogas_val">Alcohol / Drogas</label>
-                            <select name="alcohol_drogas" id="alcohol_drogas_val" data-conditional="true">
+                            <select name="alcohol_drogas" id="alcohol_drogas_val" x-model="formData.alcohol">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="field-group col-6 hidden" id="cond-alcohol-frecuencia">
+                        <div class="field-group col-6" x-show="formData.alcohol === 'si'" x-transition>
                             <label for="alcohol_frecuencia">Frecuencia</label>
                             <input type="text" id="alcohol_frecuencia" name="alcohol_frecuencia">
                         </div>
@@ -340,12 +342,12 @@
                         </div>
                         <div class="field-group col-4">
                             <label for="actividad_fisica_val">¿Realiza actividad física?</label>
-                            <select name="actividad_fisica" id="actividad_fisica_val" data-conditional="true">
+                            <select name="actividad_fisica" id="actividad_fisica_val" x-model="formData.actividad">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="col-12 form-grid hidden m-0" id="cond-actividad-detalles">
+                        <div class="col-12 form-grid m-0" x-show="formData.actividad === 'si'" x-transition>
                             <div class="field-group col-12">
                                 <label for="ejercicio_tipo">Tipo de ejercicio</label>
                                 <input type="text" id="ejercicio_tipo" name="ejercicio_tipo">
@@ -454,19 +456,19 @@
                             </div>
                             <div class="vital-inputs-row">
                                 <div class="input-group">
-                                    <input type="number" id="pa_sis" placeholder="Sis">
+                                    <input type="number" id="pa_sis" placeholder="Sis" x-model="formData.presion_sistolica">
                                     <span class="sub-label">Sistólica</span>
                                 </div>
                                 <span class="divider">/</span>
                                 <div class="input-group">
-                                    <input type="number" id="pa_dia" placeholder="Dia">
+                                    <input type="number" id="pa_dia" placeholder="Dia" x-model="formData.presion_diastolica">
                                     <span class="sub-label">Diastólica</span>
                                 </div>
                                 <span class="vital-unit">mmHg</span>
                             </div>
                             <div class="vital-result">
                                 <span>PAM:</span>
-                                <input type="text" id="pam_val" readonly aria-label="Presión Arterial Media">
+                                <input type="text" id="pam_val" readonly aria-label="Presión Arterial Media" :value="pam">
                                 <span id="pam_status" class="val-indicator"></span>
                             </div>
                         </div>
@@ -812,8 +814,6 @@
                                     </select>
                                 </div>
                             </div>
-                             </select>
-                                </div>
                             </div>
                         </div>
 
@@ -967,38 +967,38 @@
                         </div>
                              <div class="field-group col-4">
                                 <label for="fvc_obs_val">FVC Observado (L)<span class="tooltip-icon" data-tooltip="Capacidad Vital Forzada real obtenida por el paciente.">?</span></label>
-                                <input type="number" step="0.01" id="fvc_obs_val" name="fvc_obs">
+                                <input type="number" step="0.01" id="fvc_obs_val" name="fvc_obs" x-model="formData.fvc_obs">
                             </div>
                             <div class="field-group col-4">
                                 <label for="fvc_pred_val">FVC Predicho (L)<span class="tooltip-icon" data-tooltip="Valor teórico esperado según sexo, edad y talla.">?</span></label>
-                                <input type="number" step="0.01" id="fvc_pred_val" name="fvc_pred">
+                                <input type="number" step="0.01" id="fvc_pred_val" name="fvc_pred" x-model="formData.fvc_pred">
                             </div>
                             <div class="field-group col-4">
                                 <label for="fvc_porc_val">FVC %<span class="tooltip-icon" data-tooltip="FVC Observado ÷ FVC Predicho. Valores < 80% sugieren restricción.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" id="fvc_porc_val" name="fvc_porc">
+                                    <input type="number" step="0.1" id="fvc_porc_val" name="fvc_porc" readonly class="bg-surface font-mono" :value="fvc_porc">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
                             <div class="field-group col-4">
                                 <label for="fev1_obs_val">FEV1 Observado (L)</label>
-                                <input type="number" step="0.01" id="fev1_obs_val" name="fev1_obs">
+                                <input type="number" step="0.01" id="fev1_obs_val" name="fev1_obs" x-model="formData.fev1_obs">
                             </div>
                             <div class="field-group col-4">
                                 <label for="fev1_pred_val">FEV1 Predicho (L)</label>
-                                <input type="number" step="0.01" id="fev1_pred_val" name="fev1_pred">
+                                <input type="number" step="0.01" id="fev1_pred_val" name="fev1_pred" x-model="formData.fev1_pred">
                             </div>
                             <div class="field-group col-4">
                                 <label for="fev1_porc_val">FEV1 %<span class="tooltip-icon" data-tooltip="Volumen Espiratorio Forzado en 1 seg. Dictamina la severidad de un cuadro obstructivo.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" id="fev1_porc_val" name="fev1_porc">
+                                    <input type="number" step="0.1" id="fev1_porc_val" name="fev1_porc" readonly class="bg-surface font-mono" :value="fev1_porc">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
                             <div class="field-group col-6">
                                 <label for="fev1fvc_obs_val">FEV1/FVC Observado %<span class="tooltip-icon" data-tooltip="Índice de Tiffeneau real. Punto de corte universal para obstrucción: < 70%.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" id="fev1fvc_obs_val" name="fev1fvc_obs">
+                                    <input type="number" step="0.1" id="fev1fvc_obs_val" name="fev1fvc_obs" readonly class="bg-surface font-mono" :value="fev1fvc_ratio">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
@@ -1017,9 +1017,9 @@
                             </div>
                             <div class="field-group col-4">
                                 <label for="gold_severidad">Grado GOLD<span class="tooltip-icon" data-tooltip="Para EPOC: Requiere FEV1/FVC < 70%. &#10;1: Leve (FEV1 ≥ 80%)&#10;2: Moderado (50-79%)&#10;3: Severo (30-49%)&#10;4: Muy Severo (< 30%)">?</span></label>
-                                <input type="text" name="gold_severidad" id="gold_severidad" readonly class="bg-warning-light border-warning-light text-warning-dark font-bold" placeholder="Auto-calculado">
+                                <input type="text" name="gold_severidad" id="gold_severidad" readonly class="bg-warning-light border-warning-light text-warning-dark font-bold" :value="goldGrade">
                             </div>
-                        </div>
+
 
                         <!-- 2. PIM y PEM -->
                         <div class="col-12 border-t pt-1-5 mt-1">
@@ -1086,21 +1086,21 @@
                             <div class="field-group col-4">
                                 <label for="tm6m_recorrida">Distancia Recorrida (m)</label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="1" name="tm6m_recorrida" id="tm6m_recorrida">
+                                    <input type="number" step="1" name="tm6m_recorrida" id="tm6m_recorrida" x-model="formData.tm6m_recorrida">
                                     <span class="unit">m</span>
                                 </div>
                             </div>
                             <div class="field-group col-4">
                                 <label for="tm6m_predicha">Dist. Predicha (Automática)<span class="tooltip-icon" data-tooltip="Se calcula con la Fórmula de Enright (1998) basada en el Sexo, Edad, Altura y Peso registrados en la sección superior.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="1" name="tm6m_predicha" id="tm6m_predicha" readonly class="bg-transparent border-none font-bold w-100">
+                                    <input type="number" step="1" name="tm6m_predicha" id="tm6m_predicha" readonly class="bg-transparent border-none font-bold w-100" :value="tm6m_predicha_calc">
                                     <span class="unit">m</span>
                                 </div>
                             </div>
                             <div class="field-group col-4">
                                 <label for="tm6m_porc">% del Predicho</label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="tm6m_porc" id="tm6m_porc" readonly class="bg-transparent border-none font-bold w-100">
+                                    <input type="number" step="0.1" name="tm6m_porc" id="tm6m_porc" readonly class="bg-transparent border-none font-bold w-100" :value="tm6m_porc_calc">
                                     <span class="unit">%</span>
                                 </div>
                             </div>

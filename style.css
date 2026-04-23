@@ -1203,10 +1203,10 @@ textarea {
 }
 
 .vital-card .input-wrapper input {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 0.9rem;
+  font-weight: 600;
   height: auto;
-  padding: 0.5rem 0;
+  padding: 0.4rem 0;
   text-align: left;
 }
 
@@ -1246,11 +1246,11 @@ textarea {
   }
   
   .vital-inputs-row input {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
   }
   
   .vital-card .input-wrapper input {
-    font-size: 1.25rem;
+    font-size: 0.9rem;
   }
 }
 
