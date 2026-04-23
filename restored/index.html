@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ficha Kinésica Cardiorrespiratoria | Evaluación Integral</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/main.css">
+    
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0F2B46">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="KineApp">
+    <link rel="apple-touch-icon" href="https://cdn-icons-png.flaticon.com/512/3063/3063176.png">
+    
+    <!-- Alpine.js -->
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    
+    <!-- Libraries for Premium UI -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+
+<body x-data="formState">
+    <div class="app-container">
+        <!-- Dashboard Sidebar -->
+        <aside class="sidebar">
+            <div class="brand">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                </div>
+                <div>
+                    <span>Kinesiología</span>
+                    <h1>Ficha Integral</h1>
+                </div>
+            </div>
+
+            <!-- User Profile Section -->
+            <div class="user-profile-widget" id="user-profile-widget" x-show="currentUser" x-cloak>
+                <div class="user-info">
+                    <div class="user-avatar" x-text="currentUser ? currentUser.charAt(0).toUpperCase() : '?'"></div>
+                    <div class="user-details">
+                        <span class="user-name" x-text="currentUser || 'Invitado'"></span>
+                        <span class="user-status">Kinesiólogo</span>
+                    </div>
+                </div>
+                <button type="button" class="btn-logout" @click="if(confirm('¿Cerrar sesión?')) logout()" title="Cerrar Sesión">
+                    <i data-lucide="log-out"></i>
+                </button>
+            </div>
+
+            <nav class="nav-menu" id="nav-menu">
+                <a href="#dashboard" class="nav-link active" @click="currentView = 'dashboard'">
+                    <i data-lucide="layout-dashboard"></i> Gestión de Pacientes
+                </a>
+                <a href="#personales" class="nav-link" data-section="personales" @click="currentView = 'form'">
+                    <i data-lucide="user"></i> Datos Personales
+                </a>
+                <a href="#biopsicosociales" class="nav-link" data-section="biopsicosociales">
+                    <i data-lucide="users"></i> Ant. Biopsicosociales
+                </a>
+                <a href="#morbidos" class="nav-link" data-section="morbidos">
+                    <i data-lucide="clipboard-list"></i> Antecedentes Mórbidos
+                </a>
+                <a href="#vitales" class="nav-link" data-section="vitales">
+                    <i data-lucide="activity"></i> Signos Vitales
+                </a>
+                <a href="#inspeccion" class="nav-link" data-section="inspeccion">
+                    <i data-lucide="eye"></i> Inspección
+                </a>
+                <a href="#palpacion" class="nav-link" data-section="palpacion">
+                    <i data-lucide="hand"></i> Palpación y Cardiovasc.
+                </a>
+                <a href="#auscultacion" class="nav-link" data-section="auscultacion">
+                    <i data-lucide="stethoscope"></i> Percusión y Ausc.
+                </a>
+                <a href="#examenes" class="nav-link" data-section="examenes">
+                    <i data-lucide="file-text"></i> Exámenes Complem.
+                </a>
+                <a href="#mecanica" class="nav-link" data-section="mecanica">
+                    <i data-lucide="wind"></i> Mecánica Respiratoria
+                </a>
+                <a href="#pruebas" class="nav-link" data-section="pruebas">
+                    <i data-lucide="gauge"></i> Pruebas Funcionales
+                </a>
+                <a href="#capacidad" class="nav-link" data-section="capacidad">
+                    <i data-lucide="activity"></i> Capacidad Funcional
+                </a>
+                <a href="#fuerza" class="nav-link" data-section="fuerza">
+                    <i data-lucide="dumbbell"></i> Fuerza Periférica
+                </a>
+                <a href="#seguridad" class="nav-link" data-section="seguridad">
+                    <i data-lucide="shield-check"></i> Checklist Seguridad
+                </a>
+                <a href="#diagnostico" class="nav-link" data-section="diagnostico">
+                    <i data-lucide="clipboard-check"></i> Diagnóstico y Obj.
+                </a>
+            </nav>
+
+            <div class="progress-widget">
+                <div class="progress-label">
+                    <span>Progreso General</span>
+                    <span id="progress-text">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progress-fill"></div>
+                </div>
+            </div>
+
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="content">
+            <!-- PDF ONLY HEADER -->
+            <div id="pdf-header" class="print-only">
+                <div>
+                    <h1>FICHA DE EVALUACIÓN KINÉSICA CARDIORRESPIRATORIA</h1>
+                </div>
+                <div>
+                    <span id="print-patient-name">Paciente: ___________________</span>
+                    <span id="print-date">Fecha: DD/MM/AAAA</span>
+                </div>
+                <header class="top-bar">
+                <div class="header-left">
+                    <button type="button" class="btn-menu" id="btn-menu" title="Abrir Menú">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <div class="breadcrumb">
+                        <span class="text-muted">Evaluación</span> / <span id="current-section-name">Dashboard</span>
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" class="btn btn-ghost" id="btn-theme" title="Cambiar tema">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                    </button>
+                    <button type="button" class="btn btn-ghost" id="btn-clear">
+                        <i data-lucide="refresh-cw"></i>
+                        Limpiar
+                    </button>
+                    <button type="button" class="btn btn-primary" id="btn-print">
+                        <i data-lucide="file-text"></i>
+                        PDF
+                    </button>
+                    <button type="button" class="btn btn-secondary" id="btn-word">
+                        <i data-lucide="file-edit"></i>
+                        Word
+                    </button>
+                </div>
+            </header>
+
+            <!-- Contenedor Dinámico de Secciones -->
+            <div id="clinical-sections">
+                <div class="loader-spinner">Cargando módulos clínicos...</div>
+            </div> <!-- Fin clinical-sections -->
+        </main>
+    </div> <!-- Fin app-container -->
+
+    
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-nav">
+        <a href="#personales" class="mobile-nav-link active" data-section="personales">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Datos</span>
+        </a>
+        <a href="#vitales" class="mobile-nav-link" data-section="vitales">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <span>Vitales</span>
+        </a>
+        <a href="#pruebas" class="mobile-nav-link" data-section="pruebas">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+            <span>Pruebas</span>
+        </a>
+        <button type="button" class="mobile-nav-link" id="btn-mobile-print">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>PDF</span>
+        </button>
+    </nav>
+
+    <!-- Login Modal -->
+    <div class="auth-overlay" id="auth-overlay" x-show="!currentUser" x-cloak>
+        <div class="auth-card">
+            <div class="auth-header">
+                <div class="brand-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M22 12h-4l-3 9L9 3l-3 9H2" />
+                    </svg>
+                </div>
+                <h2>Acceso Profesional</h2>
+                <p>Ingresa tus credenciales locales para gestionar tus fichas.</p>
+            </div>
+            <form id="auth-form">
+                <div class="field-group">
+                    <label for="auth-username">Nombre de Usuario</label>
+                    <input type="text" id="auth-username" placeholder="Ej: kherrera" required>
+                </div>
+                <div class="field-group">
+                    <label for="auth-password">Contraseña Local</label>
+                    <input type="password" id="auth-password" placeholder="••••••••" required>
+                </div>
+                <div class="auth-actions">
+                    <button type="submit" class="btn btn-primary w-100 justify-center">
+                        Entrar al Sistema
+                    </button>
+                </div>
+                <p class="auth-footer">Los datos se guardan localmente en este navegador.</p>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script>
+        // Initialize Lucide Icons
+        document.addEventListener('DOMContentLoaded', () => {
+            lucide.createIcons();
+        });
+        
+        // Registro del Service Worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registrado', reg))
+                    .catch(err => console.warn('Fallo al registrar SW', err));
+            });
+        }
+    </script>
+</body>
+
+</html>

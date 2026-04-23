@@ -1,0 +1,15 @@
+/* index.css */
+@import './css/main.css';
+
+/* Fix for React root */
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}

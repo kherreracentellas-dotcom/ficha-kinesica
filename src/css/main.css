@@ -1,0 +1,13 @@
+/**
+ * main.css
+ * Master orchestrator for the modular CSS architecture.
+ */
+
+@import 'variables.css';
+@import 'base.css';
+@import 'layout.css';
+@import 'auth.css';
+@import 'components.css';
+@import 'dashboard.css';
+@import 'utilities.css';
+@import 'print.css';
