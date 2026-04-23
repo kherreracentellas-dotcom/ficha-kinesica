@@ -431,7 +431,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let saveTimeout;
     const debouncedSave = () => {
         clearTimeout(saveTimeout);
-        saveTimeout = setTimeout(saveToLocal, 1000);
+        saveTimeout = setTimeout(() => {
+            saveToLocal();
+            showToast('Progreso guardado automáticamente', 'success');
+        }, 2000); // 2s debounce for less noise
     };
 
     const saveToLocal = () => {
@@ -448,6 +451,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 data[el.name] = el.value;
             }
         });
+        
+        // Add signatures
+        data['sig_kine'] = document.getElementById('sig-kine').toDataURL();
+        data['sig_patient'] = document.getElementById('sig-patient').toDataURL();
+
         localStorage.setItem('kine_form_v2', JSON.stringify(data));
     };
 
@@ -459,6 +467,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = JSON.parse(saved);
             Object.keys(data).forEach(key => {
                 const val = data[key];
+                if (key === 'sig_kine' || key === 'sig_patient') {
+                    const canvas = document.getElementById(key === 'sig_kine' ? 'sig-kine' : 'sig-patient');
+                    const img = new Image();
+                    img.onload = () => canvas.getContext('2d').drawImage(img, 0, 0);
+                    img.src = val;
+                    return;
+                }
                 if (Array.isArray(val)) {
                     // Checkboxes
                     val.forEach(v => {
@@ -586,15 +601,28 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>`;
         }
 
+        // Signatures (Capturing from Canvas)
+        const sigKine = document.getElementById('sig-kine').toDataURL();
+        const sigPatient = document.getElementById('sig-patient').toDataURL();
+        
+        // Helper to check if canvas is empty (simplified)
+        const isCanvasEmpty = (id) => {
+            const canvas = document.getElementById(id);
+            const blank = document.createElement('canvas');
+            blank.width = canvas.width;
+            blank.height = canvas.height;
+            return canvas.toDataURL() === blank.toDataURL();
+        };
+
         reportHtml += `
             <div class="signatures">
                 <div class="sig-box">
-                    <div class="sig-line"></div>
+                    ${!isCanvasEmpty('sig-kine') ? `<img src="${sigKine}" style="width:100%; max-height:80px;">` : '<div class="sig-line"></div>'}
                     <p class="sig-name">Kinesiólogo Tratante</p>
                     <p class="sig-role">Nombre y Registro</p>
                 </div>
                 <div class="sig-box">
-                    <div class="sig-line"></div>
+                    ${!isCanvasEmpty('sig-patient') ? `<img src="${sigPatient}" style="width:100%; max-height:80px;">` : '<div class="sig-line"></div>'}
                     <p class="sig-name">Paciente / Tutor</p>
                     <p class="sig-role">Firma Aceptación</p>
                 </div>
@@ -777,5 +805,114 @@ document.addEventListener('DOMContentLoaded', () => {
     loadFromLocal();
     loadNASections();
     updateProgress();
+
+    // ═══════════════════════════════════════════════════
+    // 12. THEME SWITCHER
+    // ═══════════════════════════════════════════════════
+    const btnTheme = document.getElementById('btn-theme');
+    const savedTheme = localStorage.getItem('kine_theme') || 'light';
+    
+    document.documentElement.setAttribute('data-theme', savedTheme);
+    
+    btnTheme.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('kine_theme', next);
+        showToast(`Modo ${next === 'dark' ? 'oscuro' : 'claro'} activado`);
+    });
+
+    // ═══════════════════════════════════════════════════
+    // 13. NOTIFICATIONS (TOASTS)
+    // ═══════════════════════════════════════════════════
+    function showToast(message, type = 'info', duration = 3000) {
+        const container = document.getElementById('toast-container');
+        if (!container) return;
+
+        const toast = document.createElement('div');
+        toast.className = `toast ${type}`;
+        
+        let icon = '';
+        if (type === 'success') icon = '✓';
+        else if (type === 'danger') icon = '⚠';
+        else icon = 'ℹ';
+
+        toast.innerHTML = `<span>${icon}</span> <span>${message}</span>`;
+        container.appendChild(toast);
+
+        setTimeout(() => {
+            toast.classList.add('fade-out');
+            setTimeout(() => toast.remove(), 300);
+        }, duration);
+    }
+
+    // Expose for other buttons
+    document.getElementById('btn-print').addEventListener('click', () => showToast('Generando PDF...'));
+    document.getElementById('btn-word').addEventListener('click', () => showToast('Descargando archivo Word...'));
+
+    // ═══════════════════════════════════════════════════
+    // 14. SIGNATURE PAD LOGIC
+    // ═══════════════════════════════════════════════════
+    const setupSignature = (id) => {
+        const canvas = document.getElementById(id);
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        const getPos = (e) => {
+            const rect = canvas.getBoundingClientRect();
+            const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+            const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+            return {
+                x: (clientX - rect.left) * (canvas.width / rect.width),
+                y: (clientY - rect.top) * (canvas.height / rect.height)
+            };
+        };
+
+        const start = (e) => {
+            drawing = true;
+            const pos = getPos(e);
+            ctx.beginPath();
+            ctx.moveTo(pos.x, pos.y);
+            e.preventDefault();
+        };
+
+        const move = (e) => {
+            if (!drawing) return;
+            const pos = getPos(e);
+            ctx.lineTo(pos.x, pos.y);
+            ctx.strokeStyle = '#0F2B46';
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.stroke();
+            e.preventDefault();
+        };
+
+        const stop = () => {
+            if (drawing) {
+                drawing = false;
+                debouncedSave();
+            }
+        };
+
+        canvas.addEventListener('mousedown', start);
+        canvas.addEventListener('mousemove', move);
+        window.addEventListener('mouseup', stop);
+
+        canvas.addEventListener('touchstart', start, { passive: false });
+        canvas.addEventListener('touchmove', move, { passive: false });
+        canvas.addEventListener('touchend', stop);
+    };
+
+    setupSignature('sig-kine');
+    setupSignature('sig-patient');
+
+    document.querySelectorAll('.btn-clear-sig').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const canvas = document.getElementById(btn.dataset.target);
+            const ctx = canvas.getContext('2d');
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            debouncedSave();
+        });
+    });
 });
 

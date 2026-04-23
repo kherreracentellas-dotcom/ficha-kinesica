@@ -37,6 +37,26 @@
   --transition-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+[data-theme="dark"] {
+  --primary: #E2E8F0;
+  --primary-light: #F8FAFC;
+  --accent: #3B82F6;
+  --accent-light: #60A5FA;
+  --success: #10B981;
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --warning: #F59E0B;
+  --warning-bg: rgba(245, 158, 11, 0.15);
+  --danger: #EF4444;
+  --danger-bg: rgba(239, 68, 68, 0.15);
+  --surface: #0F172A;
+  --card-bg: #1E293B;
+  --border-color: #334155;
+  --text-main: #F1F5F9;
+  --text-muted: #94A3B8;
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+}
+
 *, *::before, *::after {
   margin: 0;
   padding: 0;
@@ -265,13 +285,14 @@ main.content {
    ════════════════════════════════════════════ */
 
 section {
-  background: white;
+  background: var(--card-bg);
   border-radius: var(--radius-lg);
   padding: 2rem 2.25rem;
   margin-bottom: 1.75rem;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
   animation: none;
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 /* [data-animate] animations removed for instant load UX */
@@ -644,6 +665,59 @@ textarea {
 }
 
 /* ════════════════════════════════════════════
+   NOTIFICATIONS (TOASTS)
+   ════════════════════════════════════════════ */
+.toast-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  z-index: 2000;
+}
+
+.toast {
+  padding: 0.85rem 1.25rem;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-lg);
+  color: var(--text-main);
+  font-size: 0.85rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  animation: toast-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transition: all 0.3s ease;
+}
+
+.toast.success { border-left-color: var(--success); }
+.toast.warning { border-left-color: var(--warning); }
+.toast.danger { border-left-color: var(--danger); }
+
+@keyframes toast-in {
+  from { transform: translateX(100%) scale(0.9); opacity: 0; }
+  to { transform: translateX(0) scale(1); opacity: 1; }
+}
+
+.toast.fade-out {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+/* Theme Toggle Button */
+#btn-theme {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+/* ════════════════════════════════════════════
    RESPONSIVE
    ════════════════════════════════════════════ */
 
@@ -843,5 +917,53 @@ textarea {
     color: #555;
     margin: 0;
   }
+}
+
+/* ════════════════════════════════════════════
+   SIGNATURE PADS
+   ════════════════════════════════════════════ */
+.signature-container {
+  position: relative;
+  border: 2px dashed var(--border-color);
+  background: white;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  overflow: hidden;
+  cursor: crosshair;
+  touch-action: none; /* Prevent scrolling when drawing */
+}
+
+[data-theme="dark"] .signature-container {
+  background: #f8fafc; /* Keep signature white-ish for contrast/printing */
+}
+
+.signature-container canvas {
+  display: block;
+  width: 100%;
+  height: 150px;
+}
+
+.btn-clear-sig {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: rgba(231, 76, 60, 0.1);
+  color: var(--danger);
+  border: 1px solid var(--danger);
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  border-radius: 4px;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.2s;
+}
+
+.btn-clear-sig:hover {
+  background: var(--danger);
+  color: white;
+}
+
+@media print {
+  .btn-clear-sig { display: none !important; }
 }
 

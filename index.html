@@ -107,6 +107,20 @@
                         Personales</span>
                 </div>
                 <div class="actions">
+                    <button type="button" class="btn btn-ghost" id="btn-theme" title="Cambiar tema">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="5" />
+                            <line x1="12" y1="1" x2="12" y2="3" />
+                            <line x1="12" y1="21" x2="12" y2="23" />
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                            <line x1="1" y1="12" x2="3" y2="12" />
+                            <line x1="21" y1="12" x2="23" y2="12" />
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                        </svg>
+                    </button>
                     <button type="button" class="btn btn-ghost" id="btn-clear">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1124,62 +1138,65 @@
                                 <label class="checkbox-card"><input type="checkbox" name="safe_vias"><span><strong>Vías
                                             Invasivas:</strong> Correcta fijación (CVC, Arterial, TOT/TQT,
                                         Drenajes).</span></label>
-                                <label class="checkbox-card"><input type="checkbox"
-                                        name="safe_alimento"><span><strong>Alimentación:</strong> Ayuno > 1 hora o
-                                        nutrición enteral pausada.</span></label>
-                                <label class="checkbox-card"><input type="checkbox"
-                                        name="safe_clinica"><span><strong>Estabilidad:</strong> Sin arritmias no
-                                        controladas o hemorragia activa.</span></label>
+                                <label class="checkbox-card"><input type="checkbox" name="safe_alimento"><span><strong>Alimentación:</strong> Ayuno > 1 hora o nutrición enteral pausada.</span></label>
+                                <label class="checkbox-card"><input type="checkbox" name="safe_clinica"><span><strong>Estabilidad:</strong> Sin arritmias no controladas o hemorragia activa.</span></label>
                             </div>
                         </div>
                     </div>
                 </section>
 
-                <!-- Section XIII: DIAGNÓSTICO -->
+                <!-- Section XIV: DIAGNÓSTICO -->
                 <section id="diagnostico" data-animate>
                     <div class="section-head">
                         <div class="section-title">
-                            <h2>XIV. Diagnóstico Kinésico y Objetivos</h2>
-                            <p>Modelo CIF: Estructura, Actividad y Participación.</p>
+                            <h2>XIV. Diagnóstico y Objetivos</h2>
+                            <p>Resumen clínico, metas terapéuticas y validación legal.</p>
                         </div>
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Diagnóstico Kinésico</label>
-                            <textarea name="diagnostico_kinesico"
-                                placeholder="Deficiencias, limitaciones y restricciones..."></textarea>
+                            <label>Diagnóstico Kinésico (CIF)</label>
+                            <textarea name="diagnostico_kinesico" placeholder="Deficiencia, limitación en la actividad, restricción en participación..."></textarea>
                         </div>
                         <div class="field-group col-12">
                             <label>Objetivo General</label>
-                            <textarea name="objetivo_general" style="min-height: 60px;"></textarea>
+                            <input type="text" name="objetivo_general">
                         </div>
                         <div class="field-group col-12">
                             <label>Objetivos Específicos</label>
-                            <textarea name="objetivos_especificos" placeholder="1. ...&#10;2. ..."></textarea>
+                            <textarea name="objetivos_especificos"></textarea>
+                        </div>
+                        <div class="field-group col-12">
+                            <label>Plan de Tratamiento / Indicaciones</label>
+                            <textarea name="plan_tratamiento"></textarea>
+                        </div>
+
+                        <!-- Signatures Panel -->
+                        <div class="col-12" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                            <h3>Validación y Firmas Digitales</h3>
+                        </div>
+                        <div class="field-group col-6">
+                            <label>Firma del Kinesiólogo</label>
+                            <div class="signature-container">
+                                <canvas id="sig-kine" width="400" height="150"></canvas>
+                                <button type="button" class="btn-clear-sig" data-target="sig-kine">Limpiar</button>
+                            </div>
+                        </div>
+                        <div class="field-group col-6">
+                            <label>Firma del Paciente / Tutor</label>
+                            <div class="signature-container">
+                                <canvas id="sig-patient" width="400" height="150"></canvas>
+                                <button type="button" class="btn-clear-sig" data-target="sig-patient">Limpiar</button>
+                            </div>
                         </div>
                     </div>
                 </section>
-
-                <!-- PDF ONLY FOOTER -->
-                <!-- PDF ONLY FOOTER -->
-                <div class="print-only" id="pdf-footer" style="display: flex; justify-content: space-around;">
-                    <div style="width: 200px; text-align: center;">
-                        <div style="border-bottom: 1pt solid #000; height: 30pt; margin-bottom: 4pt;"></div>
-                        <p style="font-size: 9pt; font-weight: 700; color: #000; margin: 0;">Firma Kinesiólogo Tratante
-                        </p>
-                        <p style="font-size: 8pt; color: #555; margin: 0;">Nombre y Registro</p>
-                    </div>
-                    <div style="width: 200px; text-align: center;">
-                        <div style="border-bottom: 1pt solid #000; height: 30pt; margin-bottom: 4pt;"></div>
-                        <p style="font-size: 9pt; font-weight: 700; color: #000; margin: 0;">Firma Paciente / Tutor</p>
-                        <p style="font-size: 8pt; color: #555; margin: 0;">Aceptación de Evaluación</p>
-                    </div>
-                </div>
             </form>
         </main>
     </div>
 
     <!-- Scripts -->
+    <div class="toast-container" id="toast-container"></div>
     <script src="script.js"></script>
 </body>
 
