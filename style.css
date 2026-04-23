@@ -1097,6 +1097,9 @@ textarea {
 .btn-logout {
   background: transparent;
   border: none;
+.btn-logout {
+  background: transparent;
+  border: none;
   color: rgba(255, 255, 255, 0.4);
   cursor: pointer;
   padding: 6px;
@@ -1108,6 +1111,150 @@ textarea {
   background: rgba(231, 76, 60, 0.15);
   color: var(--danger);
 }
+
+
+.vital-card {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  position: relative;
+  overflow: hidden;
+}
+
+.vital-card:hover {
+  border-color: var(--accent);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+  transform: translateY(-2px);
+}
+
+.vital-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.vital-card label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  margin: 0;
+}
+
+.vital-inputs-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 8px 0;
+}
+
+.vital-inputs-row .input-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.vital-inputs-row input {
+  font-size: 1.5rem;
+  font-weight: 700;
+  padding: 0.5rem;
+  text-align: center;
+  border-bottom: 2px solid var(--border-color);
+  border-radius: 0;
+}
+
+.vital-inputs-row .sub-label {
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.vital-inputs-row .divider {
+  font-size: 1.5rem;
+  opacity: 0.3;
+}
+
+.vital-unit {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.vital-result {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding-top: 12px;
+  border-top: 1px solid var(--border-color);
+  font-size: 0.85rem;
+}
+
+.vital-result input {
+  font-weight: 700;
+  color: var(--accent);
+  width: 60px;
+}
+
+.vital-card .input-wrapper input {
+  font-size: 1.5rem;
+  font-weight: 700;
+  height: auto;
+  padding: 0.5rem 0;
+  text-align: left;
+}
+
+.vital-card .unit {
+  font-size: 0.9rem;
+  font-weight: 600;
+  right: 0;
+}
+
+/* Status Indicators inside cards */
+.vital-card .val-indicator {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 4px;
+  height: 100%;
+  border-radius: 0;
+}
+
+/* Glassmorphism for Modals */
+.auth-card {
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+[data-theme="dark"] .auth-card {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Mobile Premium Adjustments */
+@media (max-width: 640px) {
+  .vital-card {
+    padding: 1.25rem;
+  }
+  
+  .vital-inputs-row input {
+    font-size: 1.25rem;
+  }
+  
+  .vital-card .input-wrapper input {
+    font-size: 1.25rem;
+  }
+}
+
 
 /* ════════════════════════════════════════════
    RESPONSIVE & MOBILE UX

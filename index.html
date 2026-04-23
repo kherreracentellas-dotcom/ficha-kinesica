@@ -446,58 +446,78 @@
                         </div>
                     </div>
                     <div class="form-grid">
-                        <div class="field-group col-4">
-                            <label>PA (Sistólica / Diastólica)</label>
-                            <div style="display: flex; gap: 8px; align-items: center;">
-                                <input type="number" id="pa_sis" placeholder="Sis" style="width: 70px;">
-                                <span>/</span>
-                                <input type="number" id="pa_dia" placeholder="Dia" style="width: 70px;">
-                                <span class="unit">mmHg</span>
+                        <!-- Presión Arterial Card -->
+                        <div class="vital-card col-6">
+                            <div class="vital-card-header">
+                                <label>Presión Arterial</label>
+                                <span class="tooltip-icon" data-tooltip="PAM se calcula: [ (2×D)+S ] / 3">?</span>
                             </div>
-                        </div>
-                        <div class="field-group col-4">
-                            <label>PAM (Auto-estimada)<span class="tooltip-icon" data-tooltip="Presión Arterial Media. Se auto-calcula mediante la fórmula genérica: [ (2 × Diastólica) + Sistólica ] ÷ 3.">?</span></label>
-                            <div class="input-wrapper">
-                                <input type="text" id="pam_val" readonly
-                                    style="background: var(--surface); font-family: var(--font-mono);">
+                            <div class="vital-inputs-row">
+                                <div class="input-group">
+                                    <input type="number" id="pa_sis" placeholder="Sis">
+                                    <span class="sub-label">Sistólica</span>
+                                </div>
+                                <span class="divider">/</span>
+                                <div class="input-group">
+                                    <input type="number" id="pa_dia" placeholder="Dia">
+                                    <span class="sub-label">Diastólica</span>
+                                </div>
+                                <span class="vital-unit">mmHg</span>
+                            </div>
+                            <div class="vital-result">
+                                <span>PAM:</span>
+                                <input type="text" id="pam_val" readonly>
                                 <span id="pam_status" class="val-indicator"></span>
                             </div>
                         </div>
-                        <div class="field-group col-4">
-                            <label>FC (Frecuencia Cardíaca)</label>
+
+                        <!-- FC Card -->
+                        <div class="vital-card col-3">
+                            <label>Frecuencia Cardíaca</label>
                             <div class="input-wrapper">
-                                <input type="number" id="fc_val" name="fc">
+                                <input type="number" id="fc_val" name="fc" placeholder="0">
                                 <span class="unit">lpm</span>
-                                <span id="fc_status" class="val-indicator"></span>
                             </div>
+                            <span id="fc_status" class="val-indicator"></span>
                         </div>
-                        <div class="field-group col-4">
-                            <label>FR (Frecuencia Respiratoria)</label>
+
+                        <!-- FR Card -->
+                        <div class="vital-card col-3">
+                            <label>Frecuencia Resp.</label>
                             <div class="input-wrapper">
-                                <input type="number" id="fr_val" name="fr">
+                                <input type="number" id="fr_val" name="fr" placeholder="0">
                                 <span class="unit">rpm</span>
-                                <span id="fr_status" class="val-indicator"></span>
                             </div>
+                            <span id="fr_status" class="val-indicator"></span>
                         </div>
-                        <div class="field-group col-4">
-                            <label>SpO2 (Saturación)</label>
+
+                        <!-- SpO2 Card -->
+                        <div class="vital-card col-4">
+                            <label>Saturación (SpO2)</label>
                             <div class="input-wrapper">
-                                <input type="number" id="spo2_val" name="spo2">
-                                <span class="unit">%</span>
-                                <span id="spo2_status" class="val-indicator"></span>
-                            </div>
-                        </div>
-                        <div class="field-group col-4">
-                            <label>FiO2 (Aporte O2)</label>
-                            <div class="input-wrapper">
-                                <input type="number" name="fio2" placeholder="21">
+                                <input type="number" id="spo2_val" name="spo2" placeholder="0">
                                 <span class="unit">%</span>
                             </div>
+                            <span id="spo2_status" class="val-indicator"></span>
                         </div>
-                        <div class="field-group col-4">
+
+                        <!-- FiO2 Card -->
+                        <div class="vital-card col-4">
+                            <label>FiO2 / Aporte O2</label>
+                            <div class="input-wrapper">
+                                <input type="text" name="fio2" placeholder="Ej: 21% o 2L">
+                            </div>
+                        </div>
+
+                        <!-- Temp Card -->
+                        <div class="vital-card col-4">
                             <label>Temperatura</label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" id="temp_val" name="temp">
+                                <input type="number" id="temp_val" name="temp" step="0.1" placeholder="0">
+                                <span class="unit">°C</span>
+                            </div>
+                            <span id="temp_status" class="val-indicator"></span>
+                        </div>
                                 <span class="unit">°C</span>
                                 <span id="temp_status" class="val-indicator"></span>
                             </div>
