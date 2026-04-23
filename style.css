@@ -469,6 +469,7 @@ textarea {
   transition: var(--transition);
   border: 1.5px solid transparent;
   font-size: 0.88rem;
+  -webkit-user-select: none;
   user-select: none;
 }
 
@@ -981,6 +982,7 @@ textarea {
   width: 100%;
   height: 100%;
   background: rgba(15, 43, 70, 0.85);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   z-index: 3000;
   display: flex;
@@ -1093,9 +1095,6 @@ textarea {
   text-transform: uppercase;
 }
 
-.btn-logout {
-  background: transparent;
-  border: none;
 .btn-logout {
   background: transparent;
   border: none;
@@ -1230,6 +1229,7 @@ textarea {
 /* Glassmorphism for Modals */
 .auth-card {
   background: rgba(255, 255, 255, 0.8);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
   border: 1px solid rgba(255, 255, 255, 0.3);
 }
@@ -1292,6 +1292,7 @@ textarea {
   right: 0;
   height: 64px;
   background: rgba(255, 255, 255, 0.95);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-top: 1px solid var(--border-color);
   z-index: 1000;
@@ -1442,3 +1443,10 @@ textarea {
 .block { display: block !important; }
 .mb-0-5 { margin-bottom: 0.5rem !important; }
 .mt-0-5 { margin-top: 0.5rem !important; }
+.text-sm { font-size: 0.85rem !important; }
+.text-muted { color: var(--text-muted) !important; }
+.justify-center { justify-content: center !important; }
+.gap-1 { gap: 1rem !important; }
+.flex { display: flex !important; }
+.hidden { display: none !important; }
+.mt-neg-10 { margin-top: -10px !important; }

@@ -131,7 +131,7 @@
                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
                     </button>
                     <div class="breadcrumb">
-                        <span style="color: var(--text-muted)">Evaluación</span> / <span id="current-section-name">Datos Personales</span>
+                        <span class="text-muted">Evaluación</span> / <span id="current-section-name">Datos Personales</span>
                     </div>
                 </div>
                 <div class="actions">
@@ -267,23 +267,23 @@
                                     value="V.P."><span>Vive en pareja (V.P.)</span></label>
                         </div>
                         <div class="field-group col-12">
-                            <label>Especificar otro / Observaciones entorno</label>
-                            <input type="text" name="nucleo_especificar">
+                            <label for="nucleo_especificar">Especificar otro / Observaciones entorno</label>
+                            <input type="text" id="nucleo_especificar" name="nucleo_especificar">
                         </div>
                         <div class="field-group col-6">
-                            <label>Tipo de Vivienda</label>
-                            <input type="text" name="tipo_vivienda">
+                            <label for="tipo_vivienda">Tipo de Vivienda</label>
+                            <input type="text" id="tipo_vivienda" name="tipo_vivienda">
                         </div>
                         <div class="field-group col-6">
-                            <label>Mascotas</label>
-                            <select name="mascotas" data-conditional="true">
+                            <label for="mascotas_val">Mascotas</label>
+                            <select name="mascotas" id="mascotas_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
                         <div class="field-group col-12 hidden" id="cond-mascotas-especificar">
-                            <label>Especifique Mascotas</label>
-                            <input type="text" name="mascotas_especificar">
+                            <label for="mascotas_especificar">Especifique Mascotas</label>
+                            <input type="text" id="mascotas_especificar" name="mascotas_especificar">
                         </div>
 
                         <!-- Hábitos -->
@@ -291,8 +291,8 @@
                             <h3>Hábitos de Consumo y Riesgo Ambiental</h3>
                         </div>
                         <div class="field-group col-4">
-                            <label>Tabaquismo</label>
-                            <select name="tabaquismo" data-conditional="true">
+                            <label for="tabaquismo_val">Tabaquismo</label>
+                            <select name="tabaquismo" id="tabaquismo_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
@@ -420,19 +420,19 @@
                             <textarea name="farmacos_continuo" id="farmacos_continuo"></textarea>
                         </div>
                         <div class="field-group col-12">
-                            <label>Fármacos de rescate (ej. Salbutamol)</label>
-                            <textarea name="farmacos_rescate"></textarea>
+                            <label for="farmacos_rescate">Fármacos de rescate (ej. Salbutamol)</label>
+                            <textarea name="farmacos_rescate" id="farmacos_rescate"></textarea>
                         </div>
                         <div class="field-group col-6">
-                            <label>Adherencia al tratamiento</label>
-                            <select name="adherencia">
+                            <label for="adherencia_val">Adherencia al tratamiento</label>
+                            <select name="adherencia" id="adherencia_val">
                                 <option value="si">Sí</option>
                                 <option value="no">No</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Dosis / Frecuencia</label>
-                            <input type="text" name="farmaco_dosis">
+                            <label for="farmaco_dosis">Dosis / Frecuencia</label>
+                            <input type="text" id="farmaco_dosis" name="farmaco_dosis">
                         </div>
                     </div>
                 </section>
@@ -466,14 +466,14 @@
                             </div>
                             <div class="vital-result">
                                 <span>PAM:</span>
-                                <input type="text" id="pam_val" readonly>
+                                <input type="text" id="pam_val" readonly aria-label="Presión Arterial Media">
                                 <span id="pam_status" class="val-indicator"></span>
                             </div>
                         </div>
 
                         <!-- FC Card -->
                         <div class="vital-card col-3">
-                            <label>Frecuencia Cardíaca</label>
+                            <label for="fc_val">Frecuencia Cardíaca</label>
                             <div class="input-wrapper">
                                 <input type="number" id="fc_val" name="fc" placeholder="0">
                                 <span class="unit">lpm</span>
@@ -607,87 +607,86 @@
                             <h3>Signos Clínicos y Síntomas Agudos</h3>
                         </div>
                         <div class="field-group col-6">
-                            <label>Cianosis</label>
-                            <select name="cianosis" data-conditional="true">
+                            <label for="cianosis_val">Cianosis</label>
+                            <select name="cianosis" id="cianosis_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
                         <div class="field-group col-6 hidden" id="cond-cianosis-detalles">
-                            <label>Tipo de Cianosis</label>
-                            <select name="cianosis_tipo">
+                            <label for="cianosis_tipo">Tipo de Cianosis</label>
+                            <select name="cianosis_tipo" id="cianosis_tipo">
                                 <option value="peribucal">Peribucal</option>
                                 <option value="periferica">Periférica</option>
                                 <option value="mixta">Mixta</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Coriza Nasal</label>
-                            <select name="coriza" data-conditional="true">
+                            <label for="coriza_val">Coriza Nasal</label>
+                            <select name="coriza" id="coriza_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
                         <div class="field-group col-6 hidden" id="cond-coriza-detalles">
-                            <label>Tipo de Coriza</label>
-                            <select name="coriza_tipo">
+                            <label for="coriza_tipo">Tipo de Coriza</label>
+                            <select name="coriza_tipo" id="coriza_tipo">
                                 <option value="hialina">Hialina</option>
                                 <option value="mucopurulenta">Mucopurulenta</option>
                             </select>
                         </div>
                         <div class="field-group col-3">
-                            <label>Disnea</label>
-                            <select name="disnea_repo_esfuer">
+                            <label for="disnea_val">Disnea</label>
+                            <select name="disnea_repo_esfuer" id="disnea_val">
                                 <option value="reposo">En reposo</option>
                                 <option value="esfuerzo">Al esfuerzo</option>
                             </select>
                         </div>
                         <div class="field-group col-3">
-                            <label>Grado mMRC (0-4)<span class="tooltip-icon" data-tooltip="Modified Medical Research Council (Escala de disnea)&#10;0: Solo al ejercicio intenso.&#10;1: Al andar rápido/subir cuesta.&#10;2: Más lento que personas de su edad.&#10;3: Para a descansar a los 100m.&#10;4: Disnea al vestirse.">?</span></label>
-                            <input type="number" name="mmrc" min="0" max="4">
+                            <label for="mmrc_val">Grado mMRC (0-4)<span class="tooltip-icon" data-tooltip="Modified Medical Research Council (Escala de disnea)&#10;0: Solo al ejercicio intenso.&#10;1: Al andar rápido/subir cuesta.&#10;2: Más lento que personas de su edad.&#10;3: Para a descansar a los 100m.&#10;4: Disnea al vestirse.">?</span></label>
+                            <input type="number" id="mmrc_val" name="mmrc" min="0" max="4">
                         </div>
                         <div class="field-group col-3">
-                            <label>Fatiga/Borg (0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg CR10 para medir la sensación subjetiva de Fatiga o Cansancio.">?</span></label>
-                            <input type="number" name="fatiga_escala" min="0" max="10">
+                            <label for="fatiga_val">Fatiga/Borg (0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg CR10 para medir la sensación subjetiva de Fatiga o Cansancio.">?</span></label>
+                            <input type="number" id="fatiga_val" name="fatiga_escala" min="0" max="10">
                         </div>
                         <div class="field-group col-3">
-                            <label>CAT Score (0-40)<span class="tooltip-icon" data-tooltip="COPD Assessment Test: Cuestionario de 8 ítems que mide el impacto de la enfermedad pulmonar en la vida diaria.">?</span></label>
+                            <label for="cat_score_val">CAT Score (0-40)<span class="tooltip-icon" data-tooltip="COPD Assessment Test: Cuestionario de 8 ítems que mide el impacto de la enfermedad pulmonar en la vida diaria.">?</span></label>
                             <div class="input-wrapper">
-                                <input type="number" name="cat_score" min="0" max="40">
+                                <input type="number" id="cat_score_val" name="cat_score" min="0" max="40">
                                 <span class="unit">pts</span>
                             </div>
                         </div>
 
                         <!-- Evaluación de la Tos -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Evaluación de la Tos</h3>
                         </div>
                         <div class="field-group col-4">
-                            <label>¿Presenta tos?</label>
-                            <select name="tos_presenta" data-conditional="true">
+                            <label for="tos_presenta_val">¿Presenta tos?</label>
+                            <select name="tos_presenta" id="tos_presenta_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
                         </div>
-                        <div class="col-12 form-grid hidden" id="cond-tos-detalles" style="margin: 0;">
+                        <div class="col-12 form-grid hidden m-0" id="cond-tos-detalles">
                             <div class="field-group col-4">
-                                <label>Horario</label>
-                                <select name="tos_horario">
+                                <label for="tos_horario">Horario</label>
+                                <select name="tos_horario" id="tos_horario">
                                     <option value="diurna">Diurna</option>
                                     <option value="nocturna">Nocturna</option>
                                 </select>
                             </div>
                             <div class="field-group col-4">
-                                <label>Características</label>
-                                <select name="tos_tipo" data-conditional="true">
+                                <label for="tos_tipo_val">Características</label>
+                                <select name="tos_tipo" id="tos_tipo_val" data-conditional="true">
                                     <option value="seca">Seca</option>
                                     <option value="productiva">Productiva</option>
                                 </select>
                             </div>
                             <div class="field-group col-4 hidden" id="cond-tos-secrecion">
-                                <label>Tipo de secreción</label>
-                                <select name="tos_secrecion_tipo">
+                                <label for="tos_secrecion_tipo">Tipo de secreción</label>
+                                <select name="tos_secrecion_tipo" id="tos_secrecion_tipo">
                                     <option value="serosa">Serosa</option>
                                     <option value="mucosa">Mucosa</option>
                                     <option value="mucopurulenta">Mucopurulenta</option>
@@ -709,8 +708,8 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Linfonodos palpables</label>
-                            <select name="linfonodos" data-conditional="true">
+                            <label for="linfonodos_val">Linfonodos palpables</label>
+                            <select name="linfonodos" id="linfonodos_val" data-conditional="true">
                                 <option value="no">No</option>
                                 <option value="si">Sí</option>
                             </select>
@@ -727,53 +726,53 @@
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>Tráquea</label>
-                            <input type="text" name="traquea">
+                            <label for="traquea_val">Tráquea</label>
+                            <input type="text" id="traquea_val" name="traquea">
                         </div>
                         <div class="field-group col-6">
-                            <label>Expansibilidad (T-S / T-I)</label>
-                            <input type="text" name="expansibilidad">
+                            <label for="expansibilidad_val">Expansibilidad (T-S / T-I)</label>
+                            <input type="text" id="expansibilidad_val" name="expansibilidad">
                         </div>
                         <div class="field-group col-6">
-                            <label>Frémitos Táctiles (Vocal)</label>
-                            <select name="fremitos">
+                            <label for="fremitos_val">Frémitos Táctiles (Vocal)</label>
+                            <select name="fremitos" id="fremitos_val">
                                 <option value="normales">Normales</option>
                                 <option value="aumentados">Aumentados</option>
                                 <option value="disminuidos">Disminuidos</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Llenado Capilar</label>
-                            <select name="llenado_capilar">
+                            <label for="llenado_capilar_val">Llenado Capilar</label>
+                            <select name="llenado_capilar" id="llenado_capilar_val">
                                 <option value="normal">Normal (≤ 2 seg)</option>
                                 <option value="limite">Límite (2 - 3 seg)</option>
                                 <option value="prolongado">Prolongado (> 3 seg)</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Ingurgitación Yugular (a 45°)</label>
-                            <select name="ingurgitacion">
+                            <label for="ingurgitacion_val">Ingurgitación Yugular (a 45°)</label>
+                            <select name="ingurgitacion" id="ingurgitacion_val">
                                 <option value="no">No</option>
                                 <option value="si">Sí (> 3 cm)</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Reflujo Hepatoyugular (10 seg)</label>
-                            <select name="reflujo_hepato">
+                            <label for="reflujo_hepato_val">Reflujo Hepatoyugular (10 seg)</label>
+                            <select name="reflujo_hepato" id="reflujo_hepato_val">
                                 <option value="negativo">Negativo</option>
                                 <option value="positivo">Positivo</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Pulsos Periféricos</label>
-                            <select name="pulsos">
+                            <label for="pulsos_val">Pulsos Periféricos</label>
+                            <select name="pulsos" id="pulsos_val">
                                 <option value="simetricos">Simétricos y presentes</option>
                                 <option value="asimetricos">Asimétricos/Débiles</option>
                             </select>
                         </div>
                         <div class="field-group col-6">
-                            <label>Edema Periférico (Fóvea)</label>
-                            <select name="edema">
+                            <label for="edema_val">Edema Periférico (Fóvea)</label>
+                            <select name="edema" id="edema_val">
                                 <option value="ausente">Ausente</option>
                                 <option value="1">+</option>
                                 <option value="2">++</option>
@@ -794,7 +793,7 @@
                     <div class="form-grid">
                         <div class="field-group col-6">
                             <label>Percusión Pulmonar</label>
-                            <div style="display: flex; gap: 1rem; flex-direction: column;">
+                            <div class="flex gap-1 flex-col">
                                     <div class="col-8 form-grid m-0">
                                 <div class="field-group">
                                     <label for="percusion_izq">Lado Izquierdo</label>
@@ -819,8 +818,7 @@
                         </div>
 
                         <!-- Auscultación Pulmonar -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Auscultación Pulmonar</h3>
                         </div>
                         <div class="field-group col-6">
@@ -861,14 +859,13 @@
                                         value="crepitos_gruesos"><span>Crépitos Gruesos</span></label>
                             </div>
                         </div>
-                        <div class="field-group col-12" style="margin-top: -10px;">
-                            <label style="display:none;">Observaciones de Auscultación</label>
+                        <div class="field-group col-12 mt-neg-10">
+                            <label class="hidden">Observaciones de Auscultación</label>
                             <input type="text" name="ruidos_obs" placeholder="Detalles de ubicación, intensidad o fase del ciclo (ej: sibilancias espiratorias en base M/D)...">
                         </div>
 
                         <!-- Auscultación Precordial -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Auscultación Precordial</h3>
                         </div>
                         <div class="field-group col-12">
@@ -881,8 +878,8 @@
                             </div>
                         </div>
                         <div class="field-group col-6 hidden" id="cond-soplo-detalles">
-                            <label>Grado Escala Levine (n / 6)</label>
-                            <input type="number" name="levine_grado" min="1" max="6">
+                            <label for="levine_grado_val">Grado Escala Levine (n / 6)</label>
+                            <input type="number" id="levine_grado_val" name="levine_grado" min="1" max="6">
                         </div>
                     </div>
                 </section>
@@ -897,12 +894,12 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Imagenología (Radiografías, TAC, etc.)</label>
-                            <textarea name="imagenologia" placeholder="Descripción de hallazgos..."></textarea>
+                            <label for="imagenologia_val">Imagenología (Radiografías, TAC, etc.)</label>
+                            <textarea name="imagenologia" id="imagenologia_val" placeholder="Descripción de hallazgos..."></textarea>
                         </div>
                         <div class="field-group col-12">
-                            <label>Gasometría Arterial e Insuficiencia (pH, PaO2, PaCO2, HCO3)</label>
-                            <textarea name="gasometria" placeholder="Valores gasométricos..."></textarea>
+                            <label for="gasometria_val">Gasometría Arterial e Insuficiencia (pH, PaO2, PaCO2, HCO3)</label>
+                            <textarea name="gasometria" id="gasometria_val" placeholder="Valores gasométricos..."></textarea>
                         </div>
                     </div>
                 </section>
@@ -917,33 +914,33 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-4">
-                            <label>Presión Pico (PIP)</label>
+                            <label for="pip_val">Presión Pico (PIP)</label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" name="mecanica_pip">
+                                <input type="number" step="0.1" id="pip_val" name="mecanica_pip">
                                 <span class="unit">cmH2O</span>
                             </div>
                         </div>
                         <div class="field-group col-4">
-                            <label>Presión Meseta (Plateau)</label>
+                            <label for="plateau_val">Presión Meseta (Plateau)</label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" name="mecanica_plateau">
+                                <input type="number" step="0.1" id="plateau_val" name="mecanica_plateau">
                                 <span class="unit">cmH2O</span>
                             </div>
                         </div>
                         <div class="field-group col-4">
-                            <label>PEEP</label>
+                            <label for="peep_val">PEEP</label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" name="mecanica_peep">
+                                <input type="number" step="0.1" id="peep_val" name="mecanica_peep">
                                 <span class="unit">cmH2O</span>
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>Distensibilidad Dinámica / Estática</label>
-                            <input type="text" name="mecanica_distensibilidad" placeholder="Ej: Disminuida">
+                            <label for="distensibilidad_val">Distensibilidad Dinámica / Estática</label>
+                            <input type="text" id="distensibilidad_val" name="mecanica_distensibilidad" placeholder="Ej: Disminuida">
                         </div>
                         <div class="field-group col-6">
-                            <label>Resistencia de la Vía Aérea</label>
-                            <input type="text" name="mecanica_resistencia" placeholder="Ej: Aumentada">
+                            <label for="resistencia_val">Resistencia de la Vía Aérea</label>
+                            <input type="text" id="resistencia_val" name="mecanica_resistencia" placeholder="Ej: Aumentada">
                         </div>
                     </div>
                 </section>
@@ -958,66 +955,61 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <label>Observaciones Generales de Pruebas Funcionales</label>
-                            <textarea name="pruebas_observaciones"
+                            <label for="pruebas_observaciones">Observaciones Generales de Pruebas Funcionales</label>
+                            <textarea name="pruebas_observaciones" id="pruebas_observaciones"
                                 placeholder="Contexto clínico de las pruebas..."></textarea>
                         </div>
 
                         <!-- 1. Espirometría -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>1. Espirometría</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Cálculo de
-                                volúmenes espiratorios forzados</p>
+                            <p class="text-sm text-muted mb-1">Cálculo de volúmenes espiratorios forzados</p>
                         </div>
-                        <div class="col-12 form-grid"
-                            style="margin: 0; background: var(--surface); padding: 1.5rem; border-radius: var(--radius-md);">
-                            <div class="field-group col-4">
-                                <label>FVC Observado (L)<span class="tooltip-icon" data-tooltip="Capacidad Vital Forzada real obtenida por el paciente.">?</span></label>
-                                <input type="number" step="0.01" name="fvc_obs">
+                             <div class="field-group col-4">
+                                <label for="fvc_obs_val">FVC Observado (L)<span class="tooltip-icon" data-tooltip="Capacidad Vital Forzada real obtenida por el paciente.">?</span></label>
+                                <input type="number" step="0.01" id="fvc_obs_val" name="fvc_obs">
                             </div>
                             <div class="field-group col-4">
-                                <label>FVC Predicho (L)<span class="tooltip-icon" data-tooltip="Valor teórico esperado según sexo, edad y talla.">?</span></label>
-                                <input type="number" step="0.01" name="fvc_pred">
+                                <label for="fvc_pred_val">FVC Predicho (L)<span class="tooltip-icon" data-tooltip="Valor teórico esperado según sexo, edad y talla.">?</span></label>
+                                <input type="number" step="0.01" id="fvc_pred_val" name="fvc_pred">
                             </div>
                             <div class="field-group col-4">
-                                <label>FVC %<span class="tooltip-icon" data-tooltip="FVC Observado ÷ FVC Predicho. Valores < 80% sugieren restricción.">?</span></label>
+                                <label for="fvc_porc_val">FVC %<span class="tooltip-icon" data-tooltip="FVC Observado ÷ FVC Predicho. Valores < 80% sugieren restricción.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="fvc_porc">
+                                    <input type="number" step="0.1" id="fvc_porc_val" name="fvc_porc">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
-
                             <div class="field-group col-4">
-                                <label>FEV1 Observado (L)</label>
-                                <input type="number" step="0.01" name="fev1_obs">
+                                <label for="fev1_obs_val">FEV1 Observado (L)</label>
+                                <input type="number" step="0.01" id="fev1_obs_val" name="fev1_obs">
                             </div>
                             <div class="field-group col-4">
-                                <label>FEV1 Predicho (L)</label>
-                                <input type="number" step="0.01" name="fev1_pred">
+                                <label for="fev1_pred_val">FEV1 Predicho (L)</label>
+                                <input type="number" step="0.01" id="fev1_pred_val" name="fev1_pred">
                             </div>
                             <div class="field-group col-4">
-                                <label>FEV1 %<span class="tooltip-icon" data-tooltip="Volumen Espiratorio Forzado en 1 seg. Dictamina la severidad de un cuadro obstructivo.">?</span></label>
+                                <label for="fev1_porc_val">FEV1 %<span class="tooltip-icon" data-tooltip="Volumen Espiratorio Forzado en 1 seg. Dictamina la severidad de un cuadro obstructivo.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="fev1_porc">
-                                    <span class="unit">%</span>
-                                </div>
-                            </div>
-
-                            <div class="field-group col-6">
-                                <label>FEV1/FVC Observado %<span class="tooltip-icon" data-tooltip="Índice de Tiffeneau real. Punto de corte universal para obstrucción: < 70%.">?</span></label>
-                                <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="fev1fvc_obs">
+                                    <input type="number" step="0.1" id="fev1_porc_val" name="fev1_porc">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
                             <div class="field-group col-6">
-                                <label>FEV1/FVC Predicho %</label>
+                                <label for="fev1fvc_obs_val">FEV1/FVC Observado %<span class="tooltip-icon" data-tooltip="Índice de Tiffeneau real. Punto de corte universal para obstrucción: < 70%.">?</span></label>
                                 <div class="input-wrapper">
-                                    <input type="number" step="0.1" name="fev1fvc_pred">
+                                    <input type="number" step="0.1" id="fev1fvc_obs_val" name="fev1fvc_obs">
                                     <span class="unit">%</span>
                                 </div>
                             </div>
+                            <div class="field-group col-6">
+                                <label for="fev1fvc_pred_val">FEV1/FVC Predicho %</label>
+                                <div class="input-wrapper">
+                                    <input type="number" step="0.1" id="fev1fvc_pred_val" name="fev1fvc_pred">
+                                    <span class="unit">%</span>
+                                </div>
+                            </div>
+
 
                             <div class="field-group col-8">
                                 <label for="fvc_diagnostico">Diagnóstico Espirométrico</label>
@@ -1030,46 +1022,42 @@
                         </div>
 
                         <!-- 2. PIM y PEM -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>2. Evaluación de Músculos Respiratorios (PIM y PEM)</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Cuantificación
-                                de la debilidad de la musculatura inspiratoria y espiratoria máxima</p>
+                            <p class="text-sm text-muted mb-1">Cuantificación de la debilidad de la musculatura inspiratoria y espiratoria máxima</p>
                         </div>
                         <div class="field-group col-6">
-                            <label>PIM (Presión Inspiratoria Máxima)<span class="tooltip-icon" data-tooltip="Mide la fuerza del diafragma y músculos intercostales externos. Útil para valorar destete de VM o fatiga.">?</span></label>
+                            <label for="pim_val_input">PIM (Presión Inspiratoria Máxima)<span class="tooltip-icon" data-tooltip="Mide la fuerza del diafragma y músculos intercostales externos. Útil para valorar destete de VM o fatiga.">?</span></label>
                             <div class="input-wrapper">
-                                <input type="number" step="1" name="pim_val">
+                                <input type="number" step="1" id="pim_val_input" name="pim_val">
                                 <span class="unit">cmH2O</span>
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>PEM (Presión Espiratoria Máxima)<span class="tooltip-icon" data-tooltip="Fuerza de abdominales e intercostales internos. Se relaciona con la capacidad de toser eficazmente y lograr clearence de vía aérea.">?</span></label>
+                            <label for="pem_val_input">PEM (Presión Espiratoria Máxima)<span class="tooltip-icon" data-tooltip="Fuerza de abdominales e intercostales internos. Se relaciona con la capacidad de toser eficazmente y lograr clearence de vía aérea.">?</span></label>
                             <div class="input-wrapper">
-                                <input type="number" step="1" name="pem_val">
+                                <input type="number" step="1" id="pem_val_input" name="pem_val">
                                 <span class="unit">cmH2O</span>
                             </div>
                         </div>
 
                         <!-- 3. Flujometría -->
-                        <div class="col-12"
-                            style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>3. Flujometría</h3>
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Medición del
-                                Flujo Espiratorio Máximo (PEF)</p>
+                            <p class="text-sm text-muted mb-1">Medición del Flujo Espiratorio Máximo (PEF)</p>
                         </div>
                         <div class="field-group col-4">
-                            <label>PEF Observado (L/min)</label>
-                            <input type="number" step="1" name="pef_obs">
+                            <label for="pef_obs_val">PEF Observado (L/min)</label>
+                            <input type="number" step="1" id="pef_obs_val" name="pef_obs">
                         </div>
                         <div class="field-group col-4">
-                            <label>PEF Predicho (L/min)</label>
-                            <input type="number" step="1" name="pef_pred">
+                            <label for="pef_pred_val">PEF Predicho (L/min)</label>
+                            <input type="number" step="1" id="pef_pred_val" name="pef_pred">
                         </div>
                         <div class="field-group col-4">
-                            <label>PEF %</label>
+                            <label for="pef_porc_val">PEF %</label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" name="pef_porc">
+                                <input type="number" step="0.1" id="pef_porc_val" name="pef_porc">
                                 <span class="unit">%</span>
                             </div>
                         </div>
@@ -1096,7 +1084,7 @@
                         <!-- TM6M Calculation Panel -->
                         <div class="col-12 form-grid m-0 bg-surface pt-1-5 mt-1">
                             <div class="field-group col-4">
-                                <label>Distancia Recorrida (m)</label>
+                                <label for="tm6m_recorrida">Distancia Recorrida (m)</label>
                                 <div class="input-wrapper">
                                     <input type="number" step="1" name="tm6m_recorrida" id="tm6m_recorrida">
                                     <span class="unit">m</span>
@@ -1146,19 +1134,19 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-6">
-                            <label>Dinamometría Handgrip (kg)<span class="tooltip-icon" data-tooltip="Fuerza de prensión palmar máxima. Es un marcador clínico primario de Sarcopenia y predice resultados clínicos y mortalidad.">?</span></label>
+                            <label for="fuerza_handgrip_val">Dinamometría Handgrip (kg)<span class="tooltip-icon" data-tooltip="Fuerza de prensión palmar máxima. Es un marcador clínico primario de Sarcopenia y predice resultados clínicos y mortalidad.">?</span></label>
                             <div class="input-wrapper">
-                                <input type="number" step="0.1" name="fuerza_handgrip" placeholder="Mano dominante">
+                                <input type="number" step="0.1" id="fuerza_handgrip_val" name="fuerza_handgrip" placeholder="Mano dominante">
                                 <span class="unit">kg</span>
                             </div>
                         </div>
                         <div class="field-group col-6">
-                            <label>Fuerza Cuádriceps (MRC 0-5)<span class="tooltip-icon" data-tooltip="Medical Research Council (escalas de fuerza periférica). 0=Parálisis total, 5=Fuerza normal contra resistencia plena. El cuádriceps es el músculo que más influye en el TM6M.">?</span></label>
-                            <input type="number" name="fuerza_cuadriceps" min="0" max="5" placeholder="Puntaje">
+                            <label for="fuerza_cuadriceps_val">Fuerza Cuádriceps (MRC 0-5)<span class="tooltip-icon" data-tooltip="Medical Research Council (escalas de fuerza periférica). 0=Parálisis total, 5=Fuerza normal contra resistencia plena. El cuádriceps es el músculo que más influye en el TM6M.">?</span></label>
+                            <input type="number" id="fuerza_cuadriceps_val" name="fuerza_cuadriceps" min="0" max="5" placeholder="Puntaje">
                         </div>
                         <div class="field-group col-12">
-                            <label>Observaciones Motrices</label>
-                            <input type="text" name="fuerza_obs" placeholder="Atrofia evidente, debilidad generalizada...">
+                            <label for="fuerza_obs_val">Observaciones Motrices</label>
+                            <input type="text" id="fuerza_obs_val" name="fuerza_obs" placeholder="Atrofia evidente, debilidad generalizada...">
                         </div>
                     </div>
                 </section>
@@ -1173,9 +1161,8 @@
                     </div>
                     <div class="form-grid">
                         <div class="field-group col-12">
-                            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1rem;">Asegure la
-                                estabilidad clínica del paciente antes de proceder:</p>
-                            <div class="check-group" style="flex-direction: column; align-items: stretch;">
+                            <p class="text-sm text-muted mb-1">Asegure la estabilidad clínica del paciente antes de proceder:</p>
+                            <div class="check-group flex-col align-stretch">
                                 <label class="checkbox-card"><input type="checkbox"
                                         name="safe_indicacion"><span><strong>Indicación Médica:</strong> Revisada,
                                         documentada y actualizada.</span></label>
@@ -1216,7 +1203,7 @@
                         </div>
 
                         <!-- Signatures Panel -->
-                        <div class="col-12" style="border-top: 1px solid var(--border-color); padding-top: 1.5rem; margin-top: 1rem;">
+                        <div class="col-12 border-t pt-1-5 mt-1">
                             <h3>Validación y Firmas Digitales</h3>
                         </div>
                         <div class="field-group col-6">
@@ -1237,9 +1224,6 @@
                 </section>
             </form>
         </main>
-
-        </nav>
-    </div>
     </div>
 
     <!-- Scripts -->
@@ -1287,7 +1271,7 @@
                     <input type="password" id="auth-password" placeholder="••••••••" required>
                 </div>
                 <div class="auth-actions">
-                    <button type="submit" class="btn btn-primary w-100" style="justify-content: center;">
+                    <button type="submit" class="btn btn-primary w-100 justify-center">
                         Entrar al Sistema
                     </button>
                 </div>
