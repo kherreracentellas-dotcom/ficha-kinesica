@@ -81,6 +81,14 @@ export const LoaderModule = {
         // Reinicializar manejadores de N/A
         UIModule.initNAHandlers();
 
+        // Inicializar Alpine en el nuevo árbol si ya está disponible
+        if (window.Alpine) {
+            const container = document.getElementById('clinical-sections');
+            if (container) {
+                window.Alpine.initTree(container);
+            }
+        }
+
         // Disparar evento personalizado para otros módulos que necesiten saber que el DOM cambió
         document.dispatchEvent(new CustomEvent('sections-loaded'));
     }

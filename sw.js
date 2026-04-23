@@ -1,13 +1,18 @@
-const CACHE_NAME = 'kine-app-v2'; // Incrementado para forzar actualización
+const CACHE_NAME = 'kine-app-v3'; // Versión actualizada para arquitectura modular
 const ASSETS = [
   './',
   './index.html',
-  './style.css',
-  './script.js',
-  './manifest.json',
-  'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Outfit:wght@600;700&family=JetBrains+Mono&display=swap',
-  'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js',
-  'https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js'
+  './css/main.css',
+  './css/variables.css',
+  './css/base.css',
+  './css/layout.css',
+  './css/auth.css',
+  './css/components.css',
+  './css/dashboard.css',
+  './css/utilities.css',
+  './css/print.css',
+  './js/app.js',
+  './manifest.json'
 ];
 
 // Instalación: Guardar archivos en caché

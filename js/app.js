@@ -11,22 +11,10 @@ import { PDFModule } from './modules/pdf.js';
 import { Utils } from './modules/utils.js';
 import { LoaderModule } from './modules/loader.js';
 
+// 1. Inicialización de la Aplicación
 document.addEventListener('DOMContentLoaded', async () => {
-    // 1. Carga Dinámica de Secciones
-    // Se cargan los fragmentos HTML antes de inicializar la lógica
-    await LoaderModule.loadSections('clinical-sections');
-
-    // 2. Inicialización de Módulos UI
-    UIModule.initNavigation();
-    UIModule.initSidebarToggle();
-    UIModule.initRUTFormatter();
-    UIModule.initNAHandlers();
-    // Note: ScrollSpy is called inside LoaderModule.postLoadInit()
-    
-    const form = document.getElementById('evaluation-form');
+    // Auth Form Logic - Inicializar primero para evitar bloqueos
     const authForm = document.getElementById('auth-form');
-
-    // Auth Logic
     if (authForm) {
         authForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -47,42 +35,40 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (confirm('¿Cerrar sesión?')) AuthModule.logout();
     });
 
-    // Initialize Trends Chart
-    const ctx = document.getElementById('trendsChart');
-    if (ctx) {
-        new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: ['Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab', 'Dom'],
-                datasets: [{
-                    label: 'Atenciones',
-                    data: [12, 19, 15, 25, 22, 10, 8],
-                    borderColor: '#2E86DE',
-                    tension: 0.4,
-                    fill: true,
-                    backgroundColor: 'rgba(46, 134, 222, 0.1)'
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: { legend: { display: false } },
-                scales: { y: { beginAtZero: true } }
-            }
-        });
-    }
-
-    // Load initial data
-    if (form) {
-        PersistenceModule.loadFromLocal(form, 'default_user'); // Use a default key if no user
+    // Carga Dinámica de Secciones
+    try {
+        await LoaderModule.loadSections('clinical-sections');
+        
+        // Inicialización de Módulos UI post-carga
+        UIModule.initNavigation();
+        UIModule.initSidebarToggle();
+        UIModule.initRUTFormatter();
+        UIModule.initNAHandlers();
+    } catch (err) {
+        console.error("Error cargando secciones:", err);
     }
 });
 
+
+// 2. Registro de Alpine.js
 document.addEventListener('alpine:init', () => {
     Alpine.data('formState', () => ({
         currentView: 'dashboard',
         searchQuery: '',
         currentUser: AuthModule.getUser(),
+        filteredPatients: [],
         patients: JSON.parse(localStorage.getItem('kine_patients_list') || '[]'),
+
+        init() {
+            this.filteredPatients = [...this.patients];
+            this.$watch('patients', (val) => {
+                this.filteredPatients = [...val];
+            });
+            
+            // Inicializar gráfico de tendencias
+            setTimeout(() => this.initTrendsChart(), 500);
+        },
+
         
         formData: {
             // I. Antecedentes Personales
@@ -279,19 +265,77 @@ document.addEventListener('alpine:init', () => {
                 return;
             }
             const p = {
-                id: Date.now(),
+                id: this.formData.id || Date.now(),
                 nombre: this.formData.paciente_nombre,
                 rut: this.formData.paciente_rut,
                 fecha: new Date().toLocaleDateString('es-CL'),
                 data: { ...this.formData }
             };
             const index = this.patients.findIndex(x => x.rut === p.rut);
-            if (index !== -1) this.patients[index] = p;
-            else this.patients.unshift(p);
+            if (index !== -1) {
+                this.patients[index] = p;
+            } else {
+                this.patients.unshift(p);
+            }
             
-            localStorage.setItem('kine_patients_list', JSON.stringify(this.patients));
+            this.saveToStorage();
             this.currentView = 'dashboard';
             Utils.showToast('Guardado correctamente', 'success');
+        },
+
+        deletePatient(id) {
+            if (confirm('¿Está seguro de eliminar esta ficha?')) {
+                this.patients = this.patients.filter(x => x.id !== id);
+                this.saveToStorage();
+                Utils.showToast('Ficha eliminada', 'success');
+            }
+        },
+
+        filterPatients() {
+            const query = this.searchQuery.toLowerCase();
+            this.filteredPatients = this.patients.filter(p => 
+                p.nombre.toLowerCase().includes(query) || 
+                p.rut.toLowerCase().includes(query)
+            );
+        },
+
+        saveToStorage() {
+            localStorage.setItem('kine_patients_list', JSON.stringify(this.patients));
+            this.filterPatients();
+        },
+
+        initTrendsChart() {
+            const ctx = document.getElementById('trendsChart');
+            if (!ctx) return;
+
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                    datasets: [{
+                        label: 'Atenciones',
+                        data: [12, 19, 15, 8, 22, 10, 5],
+                        borderColor: '#2E86DE',
+                        backgroundColor: 'rgba(46, 134, 222, 0.1)',
+                        fill: true,
+                        tension: 0.4,
+                        borderWidth: 3,
+                        pointBackgroundColor: '#2E86DE'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false }
+                    },
+                    scales: {
+                        y: { beginAtZero: true, grid: { display: false } },
+                        x: { grid: { display: false } }
+                    }
+                }
+            });
         }
     }));
 });
+

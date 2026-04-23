@@ -1,76 +1,137 @@
 <section id="dashboard" x-show="currentView === 'dashboard'" class="dashboard-view" x-cloak>
-    <div class="section-head">
-        <div class="section-title">
-            <h2>Panel de Gestión</h2>
-            <p>Visualización general de pacientes y estadísticas clínicas</p>
+    <!-- Cabecera de Bienvenida -->
+    <div class="dashboard-header mb-2">
+        <div class="welcome-text">
+            <h2 class="text-2xl font-bold">Panel de Gestión</h2>
+            <p class="text-muted">Bienvenido de nuevo. Aquí tienes un resumen de la actividad clínica.</p>
+        </div>
+        <div class="header-actions">
+            <button class="btn-primary" @click="createNewPatient()">
+                <i data-lucide="plus-circle"></i>
+                Nueva Ficha
+            </button>
         </div>
     </div>
 
-    <div class="form-grid mb-1-5">
+    <!-- Tarjetas de Estadísticas Rápidas -->
+    <div class="stats-grid mb-2">
+        <div class="stat-card">
+            <div class="stat-icon bg-blue-soft"><i data-lucide="users" class="text-accent"></i></div>
+            <div class="stat-info">
+                <span class="stat-label">Total Pacientes</span>
+                <span class="stat-value" x-text="patients.length">0</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon bg-green-soft"><i data-lucide="calendar-check" class="text-success"></i></div>
+            <div class="stat-info">
+                <span class="stat-label">Evaluaciones Hoy</span>
+                <span class="stat-value">4</span> <!-- Estático por ahora o calculado -->
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon bg-orange-soft"><i data-lucide="activity" class="text-warning"></i></div>
+            <div class="stat-info">
+                <span class="stat-label">Casos Activos</span>
+                <span class="stat-value">12</span>
+            </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-icon bg-red-soft"><i data-lucide="alert-circle" class="text-danger"></i></div>
+            <div class="stat-info">
+                <span class="stat-label">Pendientes</span>
+                <span class="stat-value">2</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sección de Gráfico y Actividad -->
+    <div class="form-grid mb-2">
         <div class="col-12">
-            <section class="p-1">
-                <h3 class="mb-1"><i data-lucide="trending-up"></i> Tendencias del Centro</h3>
+            <div class="dashboard-card p-1-5">
+                <div class="card-head mb-1">
+                    <h3><i data-lucide="trending-up"></i> Flujo de Atenciones</h3>
+                    <p class="text-xs text-muted">Últimos 7 días</p>
+                </div>
                 <canvas id="trendsChart" height="100"></canvas>
-            </section>
-        </div>
-    </div>
-    <div class="section-head">
-        <div class="section-title">
-            <h2>Gestión de Pacientes</h2>
-            <p>Busca, edita o crea nuevas fichas clínicas.</p>
-        </div>
-        <button class="btn-primary" @click="createNewPatient()">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M12 5v14M5 12h14"/>
-            </svg>
-            Nueva Ficha
-        </button>
-    </div>
-
-    <div class="search-bar mt-1">
-        <div class="input-wrapper">
-            <input type="text" placeholder="Buscar por Nombre o RUT..." x-model="searchQuery" @input="filterPatients()">
-            <span class="unit">🔍</span>
+            </div>
         </div>
     </div>
 
-    <div class="patient-list mt-1-5">
-        <table class="w-100">
-            <thead>
-                <tr>
-                    <th>Paciente</th>
-                    <th>RUT</th>
-                    <th>Última Evaluación</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <template x-for="patient in filteredPatients" :key="patient.id">
+    <!-- Lista de Pacientes Premium -->
+    <div class="dashboard-card">
+        <div class="card-head border-b p-1-5 flex justify-between align-center">
+            <h3><i data-lucide="list"></i> Listado de Pacientes</h3>
+            
+            <div class="search-container">
+                <div class="input-wrapper search-minimal">
+                    <i data-lucide="search" class="search-icon"></i>
+                    <input type="text" placeholder="Buscar paciente..." x-model="searchQuery" @input="filterPatients()">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="premium-table">
+                <thead>
                     <tr>
-                        <td>
-                            <div class="flex flex-col">
-                                <span class="font-bold" x-text="patient.nombre"></span>
-                                <span class="text-sm text-muted" x-text="patient.diagnostico_medico || 'Sin diagnóstico'"></span>
-                            </div>
-                        </td>
-                        <td class="font-mono" x-text="patient.rut"></td>
-                        <td class="text-sm" x-text="patient.fecha"></td>
-                        <td>
-                            <div class="actions">
-                                <button class="btn-ghost" @click="loadPatient(patient.id)">Editar</button>
-                                <button class="btn-ghost text-danger" @click="deletePatient(patient.id)">
-                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
-                                    </svg>
-                                </button>
-                            </div>
-                        </td>
+                        <th>Paciente</th>
+                        <th>Identificación</th>
+                        <th>Última Evaluación</th>
+                        <th class="text-right">Acciones</th>
                     </tr>
-                </template>
-                <tr x-show="filteredPatients.length === 0">
-                    <td colspan="4" class="text-center py-2 text-muted">No se encontraron pacientes.</td>
-                </tr>
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <template x-for="patient in filteredPatients" :key="patient.id">
+                        <tr class="table-row-hover">
+                            <td>
+                                <div class="flex align-center gap-1">
+                                    <div class="avatar-circle" x-text="patient.nombre.charAt(0)"></div>
+                                    <div class="flex flex-col">
+                                        <span class="font-bold text-main" x-text="patient.nombre"></span>
+                                        <span class="text-xs text-muted" x-text="patient.data.diagnostico_medico || 'Sin diagnóstico'"></span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>
+                                <span class="badge badge-outline" x-text="patient.rut"></span>
+                            </td>
+                            <td>
+                                <div class="flex align-center gap-0-5 text-sm">
+                                    <i data-lucide="clock" class="size-14 opacity-50"></i>
+                                    <span x-text="patient.fecha"></span>
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="flex justify-end gap-0-5">
+                                    <button class="btn-icon-ghost" title="Editar Ficha" @click="loadPatient(patient.id)">
+                                        <i data-lucide="edit-3"></i>
+                                    </button>
+                                    <button class="btn-icon-ghost text-danger" title="Eliminar" @click="deletePatient(patient.id)">
+                                        <i data-lucide="trash-2"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+
+                    <!-- Estado Vacío -->
+                    <template x-if="filteredPatients.length === 0">
+                        <tr>
+                            <td colspan="4">
+                                <div class="empty-state py-4 text-center">
+                                    <div class="empty-icon mb-1">
+                                        <i data-lucide="search-x" class="size-48 opacity-20"></i>
+                                    </div>
+                                    <h4 class="text-muted">No se encontraron resultados</h4>
+                                    <p class="text-sm text-muted">Intenta con otros términos de búsqueda.</p>
+                                </div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
+
