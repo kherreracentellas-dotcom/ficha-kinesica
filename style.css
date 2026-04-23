@@ -291,17 +291,7 @@ section {
   margin-bottom: 1.75rem;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
-  transition: background 0.3s ease, border-color 0.3s ease, transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), opacity 0.4s ease;
-}
-
-section[data-animate] {
-  opacity: 0;
-  transform: translateY(20px);
-}
-
-section[data-animate].visible {
-  opacity: 1;
-  transform: translateY(0);
+  transition: background 0.3s ease, border-color 0.3s ease;
 }
 
 .section-head {
@@ -1333,86 +1323,89 @@ textarea {
 }
 
 @media (max-width: 1024px) {
-  :root { --sidebar-width: 0px; }
-  .app-container { grid-template-columns: 1fr; }
-  
-  aside.sidebar { 
-    transform: translateX(-100%); 
-    transition: transform var(--transition-slow); 
-    width: 280px;
-    box-shadow: 20px 0 50px rgba(0,0,0,0.2);
-    position: fixed;
-  }
+    :root { --sidebar-width: 0px; }
+    .app-container { 
+        grid-template-columns: 1fr; 
+        overflow-x: hidden;
+    }
+    
+    aside.sidebar { 
+        transform: translateX(-100%); 
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+        width: 280px;
+        box-shadow: 20px 0 50px rgba(0,0,0,0.3);
+        position: fixed;
+        height: 100vh;
+        z-index: 2000;
+    }
 
-  aside.sidebar.open {
-    transform: translateX(0);
-  }
+    aside.sidebar.open {
+        transform: translateX(0);
+    }
 
-  header.top-bar { 
-    left: 0; 
-    padding: 0 1rem; 
-  }
+    header.top-bar { 
+        left: 0; 
+        padding: 0 1rem;
+        width: 100%;
+    }
 
-  .btn-menu { 
-    display: flex; 
-  }
+    .btn-menu { 
+        display: flex; 
+    }
 
-  main.content { 
-    padding: calc(var(--header-height) + 1rem) 1rem 100px; 
-    margin: 0;
-  }
+    main.content { 
+        padding: calc(var(--header-height) + 1rem) 1rem 80px; 
+        margin: 0;
+        width: 100%;
+        max-width: 100vw;
+        overflow-x: hidden;
+        grid-column: auto;
+    }
 
-  .mobile-nav { 
-    display: flex; 
-  }
+    .mobile-nav { 
+        display: flex; 
+    }
 
-  .col-4, .col-3 { grid-column: span 6; }
-  .col-8 { grid-column: span 12; }
-  
-  /* Larger touch targets for checkboxes */
-  .checkbox-card {
-    padding: 0.8rem 1.2rem;
-    font-size: 1rem;
-  }
+    .col-4, .col-3, .col-6, .col-8 { 
+        grid-column: span 12 !important; 
+    }
+    
+    .vital-card {
+        padding: 1.25rem;
+    }
 
-  input, select, textarea {
-    font-size: 16px; /* Prevents iOS zoom on focus */
-    padding: 0.85rem 1rem;
-  }
+    .vital-inputs-row {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+
+    input, select, textarea {
+        font-size: 16px !important;
+        padding: 0.8rem;
+    }
+
+    .checkbox-card {
+        padding: 1rem;
+    }
 }
 
 @media (max-width: 640px) {
-  .col-6 { grid-column: span 12; }
-  .col-4, .col-3 { grid-column: span 12; }
-  section { padding: 1.5rem 1rem; }
-  
-  .auth-card {
-    padding: 1.5rem;
-    max-width: 90%;
-  }
+    section { 
+        padding: 1.5rem 1rem; 
+        border-radius: 0;
+        margin-left: -1rem;
+        margin-right: -1rem;
+        border-left: none;
+        border-right: none;
+    }
+    
+    .auth-card {
+        padding: 1.5rem;
+        width: 90%;
+    }
 
-  .breadcrumb {
-    display: none; /* Hide breadcrumb on very small screens to save space */
-  }
+    .header-left .breadcrumb {
+        display: none;
+    }
 }
 
-/* Clinical Alerts */
-.vital-alert-danger {
-  border-color: var(--danger) !important;
-  box-shadow: 0 0 15px rgba(231, 76, 60, 0.1);
-}
-
-.vital-alert-danger .val-indicator {
-  background: var(--danger);
-  color: white;
-  padding: 2px 8px;
-  border-radius: 4px;
-}
-
-.vital-alert-success {
-  border-color: var(--success) !important;
-}
-
-.vital-alert-warning {
-  border-color: var(--warning) !important;
-}

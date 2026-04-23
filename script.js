@@ -97,41 +97,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    const observerOptions = {
-        root: null,
-        rootMargin: '-15% 0px -75% 0px',
-        threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                
-                // Update Desktop Sidebar
-                navLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === `#${id}`) {
-                        link.classList.add('active');
-                        const label = link.textContent.trim().replace(/^\d+\s*/, '');
-                        currentSectionName.textContent = label;
-                    }
-                });
-
-                // Update Mobile Bottom Nav
-                mobileNavLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('data-section') === id) {
-                        link.classList.add('active');
-                    }
-                });
-
-                entry.target.classList.add('visible');
+    // Navigation Logic
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            const id = link.getAttribute('href').replace('#', '');
+            const target = document.getElementById(id);
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+                navLinks.forEach(l => l.classList.remove('active'));
+                link.classList.add('active');
             }
         });
-    }, observerOptions);
-
-    sections.forEach(section => observer.observe(section));
+    });
 
     // Sidebar/Bottom Nav click: scroll without changing URL hash
     const allNavLinks = [...navLinks, ...mobileNavLinks];
