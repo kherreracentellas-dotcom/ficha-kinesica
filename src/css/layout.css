@@ -16,27 +16,27 @@ header.top-bar {
   left: var(--sidebar-width);
   right: 0;
   height: var(--header-height);
-  background: rgba(255, 255, 255, 0.8);
+  background: rgba(255, 255, 255, 0.7);
   -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--border-color);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2.5rem;
+  padding: 0 3rem;
   z-index: 100;
-  box-shadow: var(--shadow-sm);
 }
 
 .breadcrumb {
-  font-size: var(--text-sm);
-  font-weight: 500;
+  font-size: var(--text-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  font-weight: 700;
   color: var(--text-muted);
 }
 
 .breadcrumb span:last-child {
-  color: var(--primary);
-  font-weight: 600;
+  color: var(--accent);
 }
 
 /* Sidebar */
@@ -46,86 +46,86 @@ aside.sidebar {
   left: 0;
   bottom: 0;
   width: var(--sidebar-width);
-  background: #0F172A; /* Deep Navy */
-  color: white;
-  padding: 2rem 1.25rem;
+  background: white;
   display: flex;
   flex-direction: column;
   z-index: 200;
   overflow-y: auto;
-  border-right: 1px solid rgba(255, 255, 255, 0.05);
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-aside.sidebar::-webkit-scrollbar { width: 4px; }
-aside.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+aside.sidebar::-webkit-scrollbar { width: 3px; }
+aside.sidebar::-webkit-scrollbar-thumb { background: var(--border-color); }
 
 /* Main Content */
 main.content {
   grid-column: 2;
-  padding: calc(var(--header-height) + 3rem) 2.5rem 6rem;
-  max-width: 1100px;
+  padding: calc(var(--header-height) + 3rem) 3rem 6rem;
+  max-width: 1200px;
   margin: 0 auto;
   width: 100%;
 }
 
 /* Sidebar Components */
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 3rem;
-}
-
 .brand-icon {
-  width: 40px;
-  height: 40px;
-  background: var(--accent);
-  border-radius: 12px;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 12px rgba(46, 134, 222, 0.4);
 }
 
-.brand h1 { font-size: 1.25rem; color: white; }
-.brand span { font-size: 0.7rem; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.1em; }
-
-.nav-menu { list-style: none; display: flex; flex-direction: column; gap: 6px; flex: 1; }
 .nav-link {
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 0.75rem 1rem;
-  border-radius: 10px;
-  color: #94A3B8;
+  gap: 1rem;
+  padding: 0.85rem 1rem;
+  border-radius: 12px;
+  color: var(--text-muted);
   text-decoration: none;
   font-size: var(--text-sm);
-  font-weight: 500;
+  font-weight: 600;
   transition: var(--transition);
 }
 
 .nav-link:hover { 
-  background: rgba(255, 255, 255, 0.05); 
-  color: white; 
+  background: var(--surface); 
+  color: var(--primary); 
 }
 
 .nav-link.active { 
-  background: var(--accent); 
-  color: white; 
-  box-shadow: 0 4px 12px rgba(46, 134, 222, 0.2);
+  background: #EEF2FF; 
+  color: var(--accent); 
 }
 
-/* Progress Widget */
-.progress-widget { margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.1); }
-.progress-label { display: flex; justify-content: space-between; margin-bottom: 10px; font-size: var(--text-xs); color: #94A3B8; }
-.progress-bar { height: 6px; background: rgba(255, 255, 255, 0.1); border-radius: 10px; overflow: hidden; }
-.progress-fill { height: 100%; background: var(--accent); border-radius: 10px; transition: width 0.8s ease; }
+.icon-container {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.user-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: 800;
+  font-size: 1.1rem;
+}
 
 @media (max-width: 1024px) {
     :root { --sidebar-width: 0px; }
     .app-container { grid-template-columns: 1fr; }
-    aside.sidebar { transform: translateX(-100%); width: 280px; position: fixed; height: 100vh; z-index: 2000; transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+    aside.sidebar { transform: translateX(-100%); width: 280px; }
     aside.sidebar.open { transform: translateX(0); }
-    header.top-bar { left: 0; width: 100%; padding: 0 1rem; }
-    main.content { padding: calc(var(--header-height) + 1rem) 1rem 80px; grid-column: auto; width: 100%; }
+    header.top-bar { left: 0; padding: 0 1.5rem; }
+    main.content { padding: calc(var(--header-height) + 1.5rem) 1.5rem 80px; }
 }

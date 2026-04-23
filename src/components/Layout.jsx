@@ -9,15 +9,18 @@ import { useFormState } from '../hooks/useFormState';
 import '../css/main.css';
 
 const SidebarItem = ({ id, icon: Icon, label, active, onClick }) => (
-  <a 
+    <a 
     href={`#${id}`} 
-    className={`nav-link ${active ? 'active' : ''}`}
+    className={`nav-link group ${active ? 'active' : ''}`}
     onClick={(e) => {
       e.preventDefault();
       onClick(id);
     }}
   >
-    <Icon size={18} /> {label}
+    <div className={`icon-container ${active ? 'bg-accent' : 'bg-slate-100 group-hover:bg-slate-200'} transition-colors`}>
+      <Icon size={18} className={active ? 'text-white' : 'text-slate-500'} />
+    </div>
+    <span className="label-text">{label}</span>
   </a>
 );
 
@@ -31,8 +34,6 @@ export const Layout = ({ children }) => {
       if (element) {
         element.scrollIntoView({ behavior: 'smooth', block: 'start' });
       } else {
-        // If element not found yet (e.g. just switched from dashboard), 
-        // wait a bit for the render
         setTimeout(() => {
           const el = document.getElementById(currentView);
           if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -56,34 +57,37 @@ export const Layout = ({ children }) => {
   ];
 
   return (
-    <div className="app-container">
-      <aside className={`sidebar ${sidebarOpen ? 'open' : ''}`}>
-        <div className="brand">
-          <div className="brand-icon">
+    <div className="app-container font-body">
+      <aside className={`sidebar ${sidebarOpen ? 'open' : ''} border-r border-slate-200/60`}>
+        <div className="brand px-8 py-10 flex items-center gap-4">
+          <div className="brand-icon bg-indigo-600 shadow-lg shadow-indigo-200">
             <Activity color="white" size={24} />
           </div>
           <div>
-            <span>Kinesiología</span>
-            <h1>Ficha Integral</h1>
+            <h1 className="text-xl font-black text-indigo-950 tracking-tight leading-tight">Ficha Integral</h1>
+            <span className="text-[10px] uppercase tracking-[0.2em] font-bold text-slate-400">Kinesiología</span>
           </div>
         </div>
 
         {currentUser && (
-          <div className="user-profile-widget">
-            <div className="user-info">
-              <div className="user-avatar">{currentUser.charAt(0).toUpperCase()}</div>
-              <div className="user-details">
-                <span className="user-name">{currentUser}</span>
-                <span className="user-status">Kinesiólogo</span>
+          <div className="user-profile-widget mx-6 mb-8 p-4 bg-slate-50 rounded-2xl border border-slate-100 flex items-center justify-between">
+            <div className="flex items-center gap-3">
+              <div className="user-avatar bg-gradient-to-tr from-accent to-indigo-500 shadow-md ring-2 ring-white">
+                {currentUser.charAt(0).toUpperCase()}
+              </div>
+              <div className="user-details overflow-hidden">
+                <span className="user-name block font-bold text-slate-800 truncate">{currentUser}</span>
+                <span className="user-status text-[10px] text-slate-400 font-bold uppercase tracking-wider">Profesional</span>
               </div>
             </div>
-            <button className="btn-logout" onClick={() => confirm('¿Cerrar sesión?') && logout()}>
-              <LogOut size={16} />
+            <button className="text-slate-300 hover:text-red-500 transition-colors p-2" onClick={() => confirm('¿Cerrar sesión?') && logout()}>
+              <LogOut size={18} />
             </button>
           </div>
         )}
 
-        <nav className="nav-menu">
+        <nav className="nav-menu px-4">
+          <label className="px-4 text-[10px] uppercase font-black text-slate-300 tracking-widest mb-4 block">General</label>
           <SidebarItem 
             id="dashboard" 
             icon={LayoutDashboard} 

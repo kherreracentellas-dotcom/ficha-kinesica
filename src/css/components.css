@@ -4,43 +4,53 @@
  */
 
 /* Section Cards */
-section {
+.clinical-section {
   background: var(--card-bg);
   border-radius: var(--radius-lg);
   padding: 2.5rem;
-  margin-bottom: 2rem;
+  margin-bottom: 2.5rem;
   border: 1px solid var(--border-color);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   transition: var(--transition);
   position: relative;
 }
 
-section:hover {
-  box-shadow: var(--shadow-lg);
+.clinical-section:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent-light);
+}
+
+.clinical-section.na-active {
+  opacity: 0.6;
+  filter: grayscale(0.5);
+  pointer-events: none;
+  background: var(--bg-main);
 }
 
 .section-head {
-  margin-bottom: 2rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border-color);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 1.5rem;
+  align-items: flex-start;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid var(--surface);
 }
 
 .section-title h2 { 
-  font-size: var(--text-xl); 
+  font-size: 1.5rem; 
   color: var(--primary); 
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 
 .section-title p { 
   font-size: var(--text-sm); 
   color: var(--text-muted); 
-  margin-top: 0.25rem;
+  font-weight: 500;
 }
 
 /* N/A (No Aplica) Logic */
