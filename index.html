@@ -124,9 +124,13 @@
             </div>
 
             <header class="top-bar">
-                <div class="breadcrumb">
-                    <span style="color: var(--text-muted)">Evaluación</span> / <span id="current-section-name">Datos
-                        Personales</span>
+                <div class="header-left">
+                    <button type="button" class="btn-menu" id="btn-menu" title="Abrir Menú">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+                    </button>
+                    <div class="breadcrumb">
+                        <span style="color: var(--text-muted)">Evaluación</span> / <span id="current-section-name">Datos Personales</span>
+                    </div>
                 </div>
                 <div class="actions">
                     <button type="button" class="btn btn-ghost" id="btn-theme" title="Cambiar tema">
@@ -1215,11 +1219,51 @@
                 </section>
             </form>
         </main>
+
+        <!-- Mobile Bottom Nav -->
+        <nav class="mobile-nav">
+            <a href="#personales" class="mobile-nav-link active" data-section="personales">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <span>Datos</span>
+            </a>
+            <a href="#vitales" class="mobile-nav-link" data-section="vitales">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+                <span>Vitales</span>
+            </a>
+            <a href="#pruebas" class="mobile-nav-link" data-section="pruebas">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+                <span>Pruebas</span>
+            </a>
+            <button type="button" class="mobile-nav-link" id="btn-mobile-print">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>PDF</span>
+            </button>
+        </nav>
     </div>
 
     <!-- Scripts -->
     <div class="toast-container" id="toast-container"></div>
     
+    <!-- Mobile Bottom Nav -->
+    <nav class="mobile-nav">
+        <a href="#personales" class="mobile-nav-link active" data-section="personales">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span>Datos</span>
+        </a>
+        <a href="#vitales" class="mobile-nav-link" data-section="vitales">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"></path></svg>
+            <span>Vitales</span>
+        </a>
+        <a href="#pruebas" class="mobile-nav-link" data-section="pruebas">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V10"></path><path d="M18 20V4"></path><path d="M6 20v-4"></path></svg>
+            <span>Pruebas</span>
+        </a>
+        <button type="button" class="mobile-nav-link" id="btn-mobile-print">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>PDF</span>
+        </button>
+    </nav>
+
     <!-- Login Modal -->
     <div class="auth-overlay" id="auth-overlay">
         <div class="auth-card">

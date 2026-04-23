@@ -60,6 +60,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // ═══════════════════════════════════════════════════
     // 1. SCROLL SPY & SIDEBAR NAVIGATION
     // ═══════════════════════════════════════════════════
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const sidebar = document.querySelector('aside.sidebar');
+    const btnMenu = document.getElementById('btn-menu');
+
+    // Toggle Sidebar Mobile
+    if (btnMenu) {
+        btnMenu.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+        });
+    }
+
+    // Close sidebar when clicking a link (mobile)
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+        });
+    });
+
     const observerOptions = {
         root: null,
         rootMargin: '-15% 0px -75% 0px',
@@ -70,6 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 const id = entry.target.getAttribute('id');
+                
+                // Update Desktop Sidebar
                 navLinks.forEach(link => {
                     link.classList.remove('active');
                     if (link.getAttribute('href') === `#${id}`) {
@@ -78,6 +98,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         currentSectionName.textContent = label;
                     }
                 });
+
+                // Update Mobile Bottom Nav
+                mobileNavLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-section') === id) {
+                        link.classList.add('active');
+                    }
+                });
+
                 entry.target.classList.add('visible');
             }
         });
@@ -85,17 +114,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     sections.forEach(section => observer.observe(section));
 
-    // Sidebar click: scroll without changing URL hash
-    navLinks.forEach(link => {
+    // Sidebar/Bottom Nav click: scroll without changing URL hash
+    const allNavLinks = [...navLinks, ...mobileNavLinks];
+    allNavLinks.forEach(link => {
         link.addEventListener('click', (e) => {
+            if (link.id === 'btn-mobile-print') return; // Skip for print button
             e.preventDefault();
-            const targetId = link.getAttribute('href').substring(1);
+            const targetId = (link.getAttribute('href') || `#${link.getAttribute('data-section')}`).substring(1);
             const target = document.getElementById(targetId);
             if (target) {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
+
+    // Mobile Print Button
+    const btnMobilePrint = document.getElementById('btn-mobile-print');
+    if (btnMobilePrint) {
+        btnMobilePrint.addEventListener('click', () => {
+            document.getElementById('btn-print').click();
+        });
+    }
 
     // ═══════════════════════════════════════════════════
     // 2. CONDITIONAL VISIBILITY (Show/Hide)
