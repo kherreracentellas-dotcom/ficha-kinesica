@@ -1,4 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // ═══════════════════════════════════════════════════
+    // 0. AUTHENTICATION LOGIC (Local Simulation)
+    // ═══════════════════════════════════════════════════
+    const authOverlay = document.getElementById('auth-overlay');
+    const authForm = document.getElementById('auth-form');
+    const displayUsername = document.getElementById('display-username');
+    const userAvatar = document.getElementById('user-avatar');
+    const btnLogout = document.getElementById('btn-logout');
+    
+    let currentUser = localStorage.getItem('kine_current_user');
+
+    const updateAuthUI = () => {
+        if (currentUser) {
+            authOverlay.classList.add('hidden');
+            displayUsername.textContent = currentUser;
+            userAvatar.textContent = currentUser.charAt(0).toUpperCase();
+            // Load data for this user
+            loadFromLocal();
+            loadNASections();
+            updateProgress();
+        } else {
+            authOverlay.classList.remove('hidden');
+        }
+    };
+
+    authForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const user = document.getElementById('auth-username').value.trim();
+        const pass = document.getElementById('auth-password').value; // Simple validation simulation
+
+        if (user && pass.length >= 4) {
+            currentUser = user;
+            localStorage.setItem('kine_current_user', user);
+            showToast(`Bienvenido/a, ${user}`, 'success');
+            updateAuthUI();
+        } else {
+            showToast('Ingresa un usuario y clave (min 4 carac.)', 'danger');
+        }
+    });
+
+    btnLogout.addEventListener('click', () => {
+        if (confirm('¿Cerrar sesión? Los cambios locales se mantendrán.')) {
+            currentUser = null;
+            localStorage.removeItem('kine_current_user');
+            window.location.reload(); // Refresh to clear state
+        }
+    });
+
+    // Initialize Auth
+    updateAuthUI();
+
     const form = document.querySelector('#evaluation-form');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section');
@@ -456,11 +507,14 @@ document.addEventListener('DOMContentLoaded', () => {
         data['sig_kine'] = document.getElementById('sig-kine').toDataURL();
         data['sig_patient'] = document.getElementById('sig-patient').toDataURL();
 
-        localStorage.setItem('kine_form_v2', JSON.stringify(data));
+        if (currentUser) {
+            localStorage.setItem(`kine_form_${currentUser}`, JSON.stringify(data));
+        }
     };
 
     const loadFromLocal = () => {
-        const saved = localStorage.getItem('kine_form_v2');
+        if (!currentUser) return;
+        const saved = localStorage.getItem(`kine_form_${currentUser}`);
         if (!saved) return;
 
         try {
@@ -736,8 +790,10 @@ document.addEventListener('DOMContentLoaded', () => {
         btnClear.addEventListener('click', () => {
             if (confirm('¿Desea limpiar todo el formulario? Se perderán los datos no exportados.')) {
                 form.reset();
-                localStorage.removeItem('kine_form_v2');
-                localStorage.removeItem('kine_na_sections');
+                if (currentUser) {
+                    localStorage.removeItem(`kine_form_${currentUser}`);
+                    localStorage.removeItem(`kine_na_sections_${currentUser}`);
+                }
                 document.querySelectorAll('.checkbox-card.selected').forEach(c => c.classList.remove('selected'));
                 document.querySelectorAll('.val-indicator').forEach(el => clearIndicator(el));
                 document.querySelectorAll('[readonly]').forEach(el => el.value = '');
@@ -787,17 +843,19 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const saveNASections = () => {
+        if (!currentUser) return;
         const naIds = [];
         sections.forEach(sec => {
             if (sec.classList.contains('na-active')) {
                 naIds.push(sec.id);
             }
         });
-        localStorage.setItem('kine_na_sections', JSON.stringify(naIds));
+        localStorage.setItem(`kine_na_sections_${currentUser}`, JSON.stringify(naIds));
     };
 
     const loadNASections = () => {
-        const saved = localStorage.getItem('kine_na_sections');
+        if (!currentUser) return;
+        const saved = localStorage.getItem(`kine_na_sections_${currentUser}`);
         if (!saved) return;
         try {
             const naIds = JSON.parse(saved);
