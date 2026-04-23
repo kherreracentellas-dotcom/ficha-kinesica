@@ -1,5 +1,5 @@
 
-import { Activity, Info } from 'lucide-react';
+import { Activity, Info, Thermometer, Weight } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
 
 export const Vitales = () => {
@@ -8,36 +8,45 @@ export const Vitales = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
-      ...prev,
-      vitales: { ...(prev.vitales || {}), [name]: value }
-    }));
+    setFormData(prev => {
+      const newVitales = { ...(prev.vitales || {}), [name]: value };
+      
+      // Cálculo de PAM
+      const sis = parseFloat(name === 'pa_sistolica' ? value : newVitales.pa_sistolica) || 0;
+      const dia = parseFloat(name === 'pa_diastolica' ? value : newVitales.pa_diastolica) || 0;
+      if (sis && dia) {
+        newVitales.pam = ((2 * dia + sis) / 3).toFixed(0);
+      } else {
+        newVitales.pam = '';
+      }
+
+      // Cálculo de IMC
+      const peso = parseFloat(name === 'peso' ? value : newVitales.peso) || 0;
+      const talla = (parseFloat(name === 'talla' ? value : newVitales.talla) || 0) / 100;
+      if (peso && talla) {
+        newVitales.imc = (peso / (talla * talla)).toFixed(1);
+      } else {
+        newVitales.imc = '';
+      }
+
+      return { ...prev, vitales: newVitales };
+    });
   };
 
-  // Calculations
-  const sis = parseFloat(formData.vitales?.presion_sistolica) || 0;
-  const dia = parseFloat(formData.vitales?.presion_diastolica) || 0;
-  const pam = (sis && dia) ? ((2 * dia + sis) / 3).toFixed(1) : '--';
+  // Local values for UI feedback
+  const pam = formData.vitales.pam || '--';
+  const imc = formData.vitales.imc || '--';
 
-  const peso = parseFloat(formData.vitales?.paciente_peso) || 0;
-  const talla = parseFloat(formData.vitales?.paciente_talla) / 100 || 0;
-  const imc = (peso && talla) ? (peso / (talla * talla)).toFixed(1) : '--';
-
-  const getStatusClass = (val, min, max) => {
-    if (val === '--') return '';
-    const num = parseFloat(val);
-    if (num < min || num > max) return 'val-indicator danger';
-    return 'val-indicator success';
-  };
+  const pamWarning = parseFloat(pam) > 120;
 
   return (
     <section id="vitales" className={`clinical-section ${isNA ? 'na-active' : ''}`}>
       <div className="section-head">
         <div className="section-title">
           <h2 className="flex items-center gap-2">
-            <Activity className="text-accent" size={24} /> IV. Signos Vitales y Hemodinamia
+            <Activity className="text-accent" size={24} /> III. Signos Vitales y Hemodinamia
           </h2>
-          <p>Evaluación fisiológica objetiva y cálculos de riesgo.</p>
+          <p>Monitorización de estabilidad y límites de seguridad.</p>
         </div>
         <button 
           type="button" 
@@ -50,91 +59,80 @@ export const Vitales = () => {
 
       {!isNA && (
         <div className="form-grid">
-          <div className="vital-card col-6">
-            <div className="vital-card-header flex justify-between items-center mb-2">
-              <label className="font-bold">Presión Arterial</label>
-              <div className="tooltip-icon" title="PAM = [ (2×D)+S ] / 3"><Info size={14} /></div>
-            </div>
-            <div className="vital-inputs-row flex items-center gap-4 mb-3">
-              <div className="field-group">
-                <input 
-                  name="presion_sistolica"
-                  type="number" 
-                  placeholder="Sis"
-                  value={formData.vitales?.presion_sistolica || ''}
-                  onChange={handleChange}
-                />
-                <span className="text-xs text-muted">Sistólica</span>
+          <div className="col-12 mb-2 p-3 bg-blue-50 border-l-4 border-accent text-sm text-primary flex items-start gap-2">
+            <Info size={16} className="mt-0.5 flex-shrink-0" />
+            <p>Es imperativo monitorizar la estabilidad hemodinámica. La PAM actúa como limitante para la terapia si se encuentra alterada.</p>
+          </div>
+
+          {/* Fila PA */}
+          <div className="vital-card col-6 border-l-4 border-l-accent">
+            <label className="vital-label text-accent"><Activity size={18} /> Presión Arterial (mmHg)</label>
+            <div className="flex items-center gap-4 mt-2">
+              <div className="field-group flex-1">
+                <label className="text-[10px] text-center">Sistólica</label>
+                <input name="pa_sistolica" type="number" placeholder="Sis" value={formData.vitales.pa_sistolica} onChange={handleChange} className="text-center text-xl font-bold" />
               </div>
-              <span className="text-xl text-muted">/</span>
-              <div className="field-group">
-                <input 
-                  name="presion_diastolica"
-                  type="number" 
-                  placeholder="Dia"
-                  value={formData.vitales?.presion_diastolica || ''}
-                  onChange={handleChange}
-                />
-                <span className="text-xs text-muted">Diastólica</span>
+              <span className="text-3xl text-slate-300 mt-4">/</span>
+              <div className="field-group flex-1">
+                <label className="text-[10px] text-center">Diastólica</label>
+                <input name="pa_diastolica" type="number" placeholder="Dia" value={formData.vitales.pa_diastolica} onChange={handleChange} className="text-center text-xl font-bold" />
               </div>
-              <span className="text-sm text-muted">mmHg</span>
             </div>
-            <div className="p-2 bg-surface rounded flex justify-between items-center">
-              <span className="text-sm font-bold">PAM: {pam}</span>
-              <span className={getStatusClass(pam, 70, 105)}>
-                {pam !== '--' && (parseFloat(pam) < 70 ? 'Baja' : parseFloat(pam) > 105 ? 'Alta' : 'Normal')}
-              </span>
+            <div className={`mt-4 p-4 rounded-xl flex flex-col gap-1 items-center justify-center transition-all ${pamWarning ? 'bg-red-50 border border-red-200 text-red-600' : 'bg-slate-50 border border-slate-100 text-slate-600'}`}>
+              <span className="text-[10px] uppercase font-bold tracking-widest">Presión Arterial Media</span>
+              <span className="text-2xl font-black">{pam} <small className="text-sm font-normal">mmHg</small></span>
+              {pamWarning && <span className="text-[10px] font-bold uppercase animate-pulse flex items-center gap-1">⚠️ Suspender intervención</span>}
             </div>
           </div>
 
-          <div className="vital-card col-3">
-            <label>FC (lpm)</label>
-            <input 
-              name="fc"
-              type="number" 
-              placeholder="0"
-              value={formData.vitales?.fc || ''}
-              onChange={handleChange}
-            />
+          <div className="col-6 grid grid-cols-2 gap-4">
+            <div className="field-group">
+              <label>FC (lpm)</label>
+              <input name="fc" type="number" value={formData.vitales.fc} onChange={handleChange} className="text-center font-bold" />
+            </div>
+            <div className="field-group">
+              <label>FR (rpm)</label>
+              <input name="fr" type="number" value={formData.vitales.fr} onChange={handleChange} className="text-center font-bold" />
+            </div>
+            <div className="field-group">
+              <label>SpO2 (%)</label>
+              <input name="spo2" type="number" value={formData.vitales.spo2} onChange={handleChange} className="text-center font-bold text-accent" />
+            </div>
+            <div className="field-group">
+              <label>FiO2 (%)</label>
+              <input name="fio2" type="number" value={formData.vitales.fio2} onChange={handleChange} className="text-center font-bold" />
+            </div>
           </div>
 
-          <div className="vital-card col-3">
-            <label>FR (rpm)</label>
-            <input 
-              name="fr"
-              type="number" 
-              placeholder="0"
-              value={formData.vitales?.fr || ''}
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="col-12 border-t pt-1-5 mt-1">
-            <h3>Antropometría</h3>
+          {/* Fila O2 & T° */}
+          <div className="field-group col-4">
+            <label>Vía Administración O2</label>
+            <input name="via_o2" type="text" placeholder="Naricera, Venturi..." value={formData.vitales.via_o2} onChange={handleChange} />
           </div>
           <div className="field-group col-4">
-            <label>Peso (kg)</label>
-            <input 
-              name="paciente_peso"
-              type="number" 
-              step="0.1"
-              value={formData.vitales?.paciente_peso || ''}
-              onChange={handleChange}
-            />
+            <label className="flex items-center gap-2"><Thermometer size={14} /> Temperatura (°C)</label>
+            <input name="temp" type="number" step="0.1" value={formData.vitales.temp} onChange={handleChange} />
           </div>
+          <div className="field-group col-4">
+            <label className="flex items-center gap-2"><Weight size={14} /> Peso (kg)</label>
+            <input name="peso" type="number" step="0.1" value={formData.vitales.peso} onChange={handleChange} />
+          </div>
+
+          {/* Fila Antropometría Final */}
           <div className="field-group col-4">
             <label>Talla (cm)</label>
-            <input 
-              name="paciente_talla"
-              type="number" 
-              value={formData.vitales?.paciente_talla || ''}
-              onChange={handleChange}
-            />
+            <input name="talla" type="number" value={formData.vitales.talla} onChange={handleChange} />
           </div>
-          <div className="field-group col-4">
-            <label>IMC: {imc}</label>
-            <div className={`p-2 rounded text-center text-xs font-bold ${getStatusClass(imc, 18.5, 24.9)}`}>
-              {imc !== '--' && (parseFloat(imc) < 18.5 ? 'Bajo Peso' : parseFloat(imc) > 30 ? 'Obesidad' : parseFloat(imc) > 25 ? 'Sobrepeso' : 'Normal')}
+          <div className="vital-card col-8 border-l-4 border-l-primary bg-primary/5">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="vital-label text-primary">Índice de Masa Corporal (IMC)</label>
+                <p className="text-[10px] text-muted">Cálculo automático basado en peso/talla.</p>
+              </div>
+              <div className="text-right">
+                <span className="text-3xl font-black text-primary">{imc}</span>
+                <span className="block text-[10px] font-bold text-primary/60 uppercase">kg/m²</span>
+              </div>
             </div>
           </div>
         </div>

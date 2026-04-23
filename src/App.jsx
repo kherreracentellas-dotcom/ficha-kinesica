@@ -2,21 +2,16 @@
 import { FormProvider } from './context/FormContext';
 import { useFormState } from './hooks/useFormState';
 import { Layout } from './components/Layout';
-import { Activity, Search, PlusCircle, FileText, Calendar, User as UserIcon } from 'lucide-react';
+import { Activity, Search, PlusCircle, FileText } from 'lucide-react';
 
 // Sections
 import { Personales } from './components/sections/Personales';
-import { Biopsicosociales } from './components/sections/Biopsicosociales';
 import { Morbidos } from './components/sections/Morbidos';
 import { Vitales } from './components/sections/Vitales';
 import { Inspeccion } from './components/sections/Inspeccion';
 import { Palpacion } from './components/sections/Palpacion';
 import { Auscultacion } from './components/sections/Auscultacion';
-import { Examenes } from './components/sections/Examenes';
-import { Mecanica } from './components/sections/Mecanica';
-import { Pruebas } from './components/sections/Pruebas';
-import { Capacidad } from './components/sections/Capacidad';
-import { Fuerza } from './components/sections/Fuerza';
+import { Escalas } from './components/sections/Escalas';
 import { Seguridad } from './components/sections/Seguridad';
 import { Diagnostico } from './components/sections/Diagnostico';
 
@@ -109,17 +104,12 @@ const FormView = () => {
   return (
     <div className="clinical-sections-container">
       <Personales />
-      <Biopsicosociales />
       <Morbidos />
       <Vitales />
       <Inspeccion />
       <Palpacion />
       <Auscultacion />
-      <Examenes />
-      <Mecanica />
-      <Pruebas />
-      <Capacidad />
-      <Fuerza />
+      <Escalas />
       <Seguridad />
       <Diagnostico />
     </div>

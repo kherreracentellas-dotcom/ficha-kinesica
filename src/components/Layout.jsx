@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { 
-  LayoutDashboard, User, Users, ClipboardList, Activity, Eye, 
-  Hand, Stethoscope, FileText, Wind, Gauge, Dumbbell, 
+  LayoutDashboard, User, ClipboardList, Activity, Eye, 
+  Hand, Stethoscope, FileText, Gauge, 
   ShieldCheck, ClipboardCheck, LogOut, Menu, RefreshCw, 
   Moon, Edit3
 } from 'lucide-react';
@@ -45,19 +45,14 @@ export const Layout = ({ children }) => {
 
   const menuItems = [
     { id: 'personales', icon: User, label: 'Datos Personales' },
-    { id: 'biopsicosociales', icon: Users, label: 'Ant. Biopsicosociales' },
     { id: 'morbidos', icon: ClipboardList, label: 'Antecedentes Mórbidos' },
-    { id: 'vitales', icon: Activity, label: 'Signos Vitales' },
+    { id: 'vitales', icon: Activity, label: 'Signos Vitales y Hemodinamia' },
     { id: 'inspeccion', icon: Eye, label: 'Inspección' },
-    { id: 'palpacion', icon: Hand, label: 'Palpación y Cardiovasc.' },
-    { id: 'auscultacion', icon: Stethoscope, label: 'Percusión y Ausc.' },
-    { id: 'examenes', icon: FileText, label: 'Exámenes Complem.' },
-    { id: 'mecanica', icon: Wind, label: 'Mecánica Respiratoria' },
-    { id: 'pruebas', icon: Gauge, label: 'Pruebas Funcionales' },
-    { id: 'capacidad', icon: Activity, label: 'Capacidad Funcional' },
-    { id: 'fuerza', icon: Dumbbell, label: 'Fuerza Periférica' },
+    { id: 'palpacion', icon: Hand, label: 'Palpación y Cardiovascular' },
+    { id: 'auscultacion', icon: Stethoscope, label: 'Percusión y Auscultación' },
+    { id: 'escalas', icon: Gauge, label: 'Escalas y Pruebas Funcionales' },
     { id: 'seguridad', icon: ShieldCheck, label: 'Checklist Seguridad' },
-    { id: 'diagnostico', icon: ClipboardCheck, label: 'Diagnóstico y Obj.' },
+    { id: 'diagnostico', icon: ClipboardCheck, label: 'Diagnóstico y Objetivos' },
   ];
 
   return (
