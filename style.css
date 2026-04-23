@@ -1048,9 +1048,10 @@ textarea {
   font-style: italic;
 }
 
-/* User Profile Widget */
+/* User Profile Widget (Updated for Top Position) */
 .user-profile-widget {
-  margin-top: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 1.5rem;
   padding: 1rem;
   background: rgba(255, 255, 255, 0.05);
   border-radius: var(--radius-md);
