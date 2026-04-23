@@ -1,16 +1,23 @@
+<!-- 
+    Sección X: Pruebas Funcionales
+    Evaluación objetiva de la función pulmonar, fuerza muscular y flujos aéreos.
+-->
 <section id="pruebas" data-animate>
     <div class="section-head">
         <div class="section-title">
             <h2>X. Pruebas Funcionales</h2>
             <p>Evaluación de la función pulmonar y fuerza muscular.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="pruebas_na" class="hidden"><span>N/A</span></label>
     </div>
+
     
     <div class="form-grid">
-        <!-- Espirometría -->
+        <!-- 1. Espirometría -->
         <div class="col-12">
             <h3 class="mb-1"><i data-lucide="bar-chart-2"></i> 1. Espirometría</h3>
             <div class="form-grid bg-surface p-1-5 border-radius-md">
+                <!-- Capacidad Vital Forzada (FVC) -->
                 <div class="field-group col-4">
                     <label for="fvc_obs_calc">FVC (L)</label>
                     <div class="form-grid">
@@ -22,6 +29,8 @@
                     <label for="fvc_porc_calc">% FVC</label>
                     <input type="text" id="fvc_porc_calc" readonly :value="fvc_porc + '%'" class="bg-glass font-bold text-center" title="Porcentaje FVC">
                 </div>
+
+                <!-- Volumen Espiratorio Forzado (FEV1) -->
                 <div class="field-group col-4">
                     <label for="fev1_obs_calc">FEV1 (L)</label>
                     <div class="form-grid">
@@ -33,6 +42,8 @@
                     <label for="fev1_porc_calc">% FEV1</label>
                     <input type="text" id="fev1_porc_calc" readonly :value="fev1_porc + '%'" class="bg-glass font-bold text-center" title="Porcentaje FEV1">
                 </div>
+
+                <!-- Indicadores de Gravedad (GOLD) -->
                 <div class="field-group col-12 mt-0-5">
                     <div class="flex justify-between text-sm">
                         <span>Relación FEV1/FVC: <strong x-text="fev1fvc_ratio + '%'"></strong></span>
@@ -42,8 +53,9 @@
             </div>
         </div>
 
+        <!-- Relación Tiffeneau -->
         <div class="field-group col-6">
-            <label for="fev1fvc_obs_val">FEV1/FVC Observado %<span class="tooltip-icon" data-tooltip="Índice de Tiffeneau real. Punto de corte universal para obstrucción: < 70%.">?</span></label>
+            <label for="fev1fvc_obs_val">FEV1/FVC Observado %</label>
             <div class="input-wrapper">
                 <input type="number" step="0.1" id="fev1fvc_obs_val" name="fev1fvc_obs" readonly class="bg-surface font-mono" :value="fev1fvc_ratio">
                 <span class="unit">%</span>
@@ -52,14 +64,14 @@
         <div class="field-group col-6">
             <label for="fev1fvc_pred_val">FEV1/FVC Predicho %</label>
             <div class="input-wrapper">
-                <input type="number" step="0.1" id="fev1fvc_pred_val" name="fev1fvc_pred">
+                <input type="number" step="0.1" id="fev1fvc_pred_val" name="fev1fvc_pred" x-model="formData.fev1fvc_pred">
                 <span class="unit">%</span>
             </div>
         </div>
 
         <div class="field-group col-12">
             <label for="fvc_diagnostico">Diagnóstico Espirométrico</label>
-            <input type="text" id="fvc_diagnostico" name="fvc_diagnostico" placeholder="Ej: Patrón Obstructivo Leve">
+            <input type="text" id="fvc_diagnostico" name="fvc_diagnostico" placeholder="Ej: Patrón Obstructivo Leve" x-model="formData.fvc_diagnostico">
         </div>
 
         <!-- 2. PIM y PEM -->
@@ -69,14 +81,14 @@
         <div class="field-group col-6">
             <label for="pim_val_input">PIM (Inspiratoria Máxima)</label>
             <div class="input-wrapper">
-                <input type="number" id="pim_val_input" name="pim_val" placeholder="Fuerza Diafragma">
+                <input type="number" id="pim_val_input" name="pim_val" placeholder="Fuerza Diafragma" x-model="formData.pim_val">
                 <span class="unit">cmH2O</span>
             </div>
         </div>
         <div class="field-group col-6">
             <label for="pem_val_input">PEM (Espiratoria Máxima)</label>
             <div class="input-wrapper">
-                <input type="number" id="pem_val_input" name="pem_val" placeholder="Fuerza Abdominal">
+                <input type="number" id="pem_val_input" name="pem_val" placeholder="Fuerza Abdominal" x-model="formData.pem_val">
                 <span class="unit">cmH2O</span>
             </div>
         </div>
@@ -89,17 +101,20 @@
             <div class="form-grid bg-surface p-1 border-radius-md">
                 <div class="field-group col-4">
                     <label for="pef_obs_calc">PEF Obs (L/min)</label>
-                    <input type="number" id="pef_obs_calc" name="pef_obs" placeholder="Observado">
+                    <input type="number" id="pef_obs_calc" name="pef_obs" placeholder="Observado" x-model="formData.pef_obs">
                 </div>
                 <div class="field-group col-4">
                     <label for="pef_pred_calc">PEF Predicho</label>
-                    <input type="number" id="pef_pred_calc" name="pef_pred" placeholder="Teórico">
+                    <input type="number" id="pef_pred_calc" name="pef_pred" placeholder="Teórico" x-model="formData.pef_pred">
                 </div>
                 <div class="field-group col-4">
                     <label for="pef_porc_res">% del PEF</label>
-                    <input type="text" id="pef_porc_res" readonly class="bg-glass font-bold text-center" placeholder="Auto %" title="Porcentaje PEF">
+                    <!-- Cálculo reactivo del flujo espiratorio pico -->
+                    <input type="text" id="pef_porc_res" readonly class="bg-glass font-bold text-center" 
+                        :value="Math.round((formData.pef_obs / formData.pef_pred) * 100) || 0 + '%'" title="Porcentaje PEF">
                 </div>
             </div>
         </div>
     </div>
 </section>
+

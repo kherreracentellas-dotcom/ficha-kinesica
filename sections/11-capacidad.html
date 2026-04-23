@@ -1,11 +1,17 @@
+<!-- 
+    Sección XI: Capacidad Funcional
+    Evaluación del desempeño físico mediante pruebas de campo (TM6M o STS).
+-->
 <section id="capacidad" data-animate>
     <div class="section-head">
         <div class="section-title">
             <h2>XI. Capacidad Funcional</h2>
             <p>Evaluación de esfuerzo y desempeño físico en campo.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="capacidad_na" class="hidden"><span>N/A</span></label>
     </div>
     <div class="form-grid">
+        <!-- Selección de Prueba -->
         <div class="col-12">
             <div class="check-group mb-1">
                 <label class="checkbox-card"><input type="radio" name="prueba_campo" value="tm6m" checked><span>TM6M (6 Minutos)</span></label>
@@ -13,7 +19,7 @@
             </div>
         </div>
 
-        <!-- Dashboard TM6M -->
+        <!-- Dashboard de Resultados TM6M -->
         <div class="col-12 bg-surface p-1-5 border-radius-lg border-accent-light">
             <div class="form-grid m-0">
                 <div class="field-group col-4">
@@ -22,27 +28,30 @@
                 </div>
                 <div class="field-group col-4">
                     <label for="tm6m_pred_val">Predicha (m)</label>
+                    <!-- Cálculo reactivo de distancia predicha según fórmulas clínicas -->
                     <input type="text" id="tm6m_pred_val" readonly :value="tm6m_predicha_calc + ' m'" class="bg-transparent border-none font-bold text-xl" title="Distancia predicha">
                 </div>
                 <div class="field-group col-4">
                     <label for="tm6m_porc_val">% Alcance</label>
+                    <!-- Porcentaje de alcance respecto al valor predicho -->
                     <input type="text" id="tm6m_porc_val" readonly :value="tm6m_porc_calc + '%'" class="bg-glass border-radius-full text-center font-bold text-accent" title="Porcentaje alcance">
                 </div>
                 
+                <!-- Monitorización del Test -->
                 <div class="col-12 border-t pt-1 mt-1">
                     <label class="font-bold mb-1 block">Dinámica del Test (Inicio → Fin)</label>
                     <div class="form-grid">
                         <div class="field-group col-4">
                             <label>Borg (Disnea/Fatiga)</label>
-                            <input type="text" name="tm6m_borg" placeholder="Ej: 0 → 4">
+                            <input type="text" name="tm6m_borg" x-model="formData.tm6m_borg" placeholder="Ej: 0 → 4">
                         </div>
                         <div class="field-group col-4">
                             <label>SpO2 (%)</label>
-                            <input type="text" name="tm6m_spo2" placeholder="Ej: 98 → 94">
+                            <input type="text" name="tm6m_spo2" x-model="formData.tm6m_spo2" placeholder="Ej: 98 → 94">
                         </div>
                         <div class="field-group col-4">
                             <label>Frec. Cardíaca</label>
-                            <input type="text" name="tm6m_fc" placeholder="Ej: 70 → 115">
+                            <input type="text" name="tm6m_fc" x-model="formData.tm6m_fc" placeholder="Ej: 70 → 115">
                         </div>
                     </div>
                 </div>
@@ -50,3 +59,4 @@
         </div>
     </div>
 </section>
+

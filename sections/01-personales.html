@@ -1,3 +1,8 @@
+<!-- 
+    Sección I: Antecedentes Personales
+    Contiene la información básica del paciente y datos de contacto.
+    Vinculado al objeto formData de Alpine.js para reactividad.
+-->
 <section id="personales" data-animate>
     <div class="section-head">
         <div class="section-title">
@@ -6,41 +11,55 @@
         </div>
     </div>
     <div class="form-grid">
+        <!-- Nombre del Paciente -->
         <div class="field-group col-6">
             <label for="paciente_nombre">Nombre *</label>
-            <input type="text" id="paciente_nombre" name="nombre" placeholder="Ej: Juan Pérez" required x-model="formData.paciente_nombre">
+            <input type="text" id="paciente_nombre" name="paciente_nombre" placeholder="Ej: Juan Pérez" required x-model="formData.paciente_nombre">
         </div>
+
+        <!-- Sexo Biológico -->
         <div class="field-group col-3">
             <label for="sexo_val">Sexo Biológico</label>
-            <select name="sexo" id="sexo_val" x-model="formData.paciente_sexo">
+            <select name="paciente_sexo" id="sexo_val" x-model="formData.paciente_sexo">
                 <option value="masculino">Masculino</option>
                 <option value="femenino">Femenino</option>
             </select>
         </div>
+
+        <!-- Edad -->
         <div class="field-group col-3">
             <label for="edad_val">Edad</label>
-            <input type="number" name="edad" id="edad_val" placeholder="Años">
+            <input type="number" name="paciente_edad" id="edad_val" placeholder="Años" x-model="formData.paciente_edad">
         </div>
 
+        <!-- Fecha de Nacimiento -->
         <div class="field-group col-4">
             <label for="fecha_nacimiento">Fecha de Nacimiento</label>
-            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento">
+            <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" x-model="formData.fecha_nacimiento">
         </div>
+
+        <!-- RUT del Paciente -->
         <div class="field-group col-4">
             <label for="paciente_rut">RUT</label>
-            <input type="text" id="paciente_rut" name="rut" placeholder="12.345.678-9" required>
+            <input type="text" id="paciente_rut" name="paciente_rut" placeholder="12.345.678-9" required x-model="formData.paciente_rut">
         </div>
+
+        <!-- Ocupación -->
         <div class="field-group col-4">
             <label for="ocupacion_val">Ocupación</label>
-            <input type="text" id="ocupacion_val" name="ocupacion">
+            <input type="text" id="ocupacion_val" name="ocupacion" x-model="formData.ocupacion">
         </div>
+
+        <!-- Previsión de Salud -->
         <div class="field-group col-6">
             <label for="prevision_val">Previsión de Salud</label>
-            <input type="text" id="prevision_val" name="prevision">
+            <input type="text" id="prevision_val" name="prevision" x-model="formData.prevision">
         </div>
+
+        <!-- Nivel Educacional -->
         <div class="field-group col-6">
             <label for="nivel_educacional">Nivel Educacional</label>
-            <select name="nivel_educacional" id="nivel_educacional">
+            <select name="nivel_educacional" id="nivel_educacional" x-model="formData.nivel_educacional">
                 <option value="">Seleccione...</option>
                 <option value="basica">Básica</option>
                 <option value="media">Media</option>
@@ -48,13 +67,18 @@
                 <option value="universitaria">Universitaria</option>
             </select>
         </div>
+
+        <!-- Contacto -->
         <div class="field-group col-6">
             <label for="fono_val">Teléfono</label>
-            <input type="text" id="fono_val" name="fono" placeholder="+56 9 ...">
+            <input type="text" id="fono_val" name="fono" placeholder="+56 9 ..." x-model="formData.fono">
         </div>
+
+        <!-- Contacto de Emergencia -->
         <div class="field-group col-6">
             <label for="fono_emergencia">Fono Emergencia</label>
-            <input type="text" id="fono_emergencia" name="fono_emergencia">
+            <input type="text" id="fono_emergencia" name="fono_emergencia" x-model="formData.fono_emergencia">
         </div>
     </div>
 </section>
+

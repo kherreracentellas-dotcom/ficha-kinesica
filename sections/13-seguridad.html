@@ -1,18 +1,24 @@
+<!-- 
+    Sección XIII: Checklist de Seguridad
+    Verificación obligatoria de criterios clínicos antes de proceder con la terapia.
+-->
 <section id="seguridad" class="bg-warning-light border-warning-light">
     <div class="section-head">
         <div class="section-title">
             <h2 class="text-warning-dark"><i data-lucide="shield-check"></i> XIII. Checklist de Seguridad</h2>
             <p>Verificación crítica antes de iniciar la intervención.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="seguridad_na" class="hidden"><span>N/A</span></label>
     </div>
     <div class="form-grid">
         <div class="col-12">
             <div class="check-group flex-col align-stretch gap-1">
-                <label class="checkbox-card"><input type="checkbox" name="safe_indicacion"><span><strong>Indicación Médica:</strong> Orden vigente y clara para kinesioterapia.</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="safe_vias"><span><strong>Accesos y Vías:</strong> Asegurar permeabilidad (Vía arterial, TOT/TQT, Drenajes).</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="safe_alimento"><span><strong>Alimentación:</strong> Ayuno > 1 hora o nutrición enteral pausada.</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="safe_clinica"><span><strong>Estabilidad:</strong> Sin arritmias no controladas o hemorragia activa.</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="safe_indicacion" x-model="formData.safe_indicacion"><span><strong>Indicación Médica:</strong> Orden vigente y clara para kinesioterapia.</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="safe_vias" x-model="formData.safe_vias"><span><strong>Accesos y Vías:</strong> Asegurar permeabilidad (Vía arterial, TOT/TQT, Drenajes).</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="safe_alimento" x-model="formData.safe_alimento"><span><strong>Alimentación:</strong> Ayuno > 1 hora o nutrición enteral pausada.</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="safe_clinica" x-model="formData.safe_clinica"><span><strong>Estabilidad:</strong> Sin arritmias no controladas o hemorragia activa.</span></label>
             </div>
         </div>
     </div>
 </section>
+

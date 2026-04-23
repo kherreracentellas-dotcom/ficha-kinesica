@@ -1,3 +1,7 @@
+<!-- 
+    Sección XIV: Diagnóstico y Objetivos
+    Cierre clínico de la evaluación: Diagnóstico CIF, metas y plan de tratamiento.
+-->
 <section id="diagnostico" data-animate>
     <div class="section-head">
         <div class="section-title">
@@ -6,24 +10,30 @@
         </div>
     </div>
     <div class="form-grid">
+        <!-- Diagnóstico CIF -->
         <div class="field-group col-12">
             <label for="diagnostico_kinesico">Diagnóstico Kinésico (CIF)</label>
-            <textarea name="diagnostico_kinesico" id="diagnostico_kinesico" placeholder="Deficiencia, limitación en la actividad, restricción en participación..."></textarea>
+            <textarea name="diagnostico_kinesico" id="diagnostico_kinesico" 
+                placeholder="Deficiencia, limitación en la actividad, restricción en participación..." x-model="formData.diagnostico_kinesico"></textarea>
         </div>
+
+        <!-- Metas Terapéuticas -->
         <div class="field-group col-12">
             <label for="objetivo_general">Objetivo General</label>
-            <input type="text" id="objetivo_general" name="objetivo_general">
+            <input type="text" id="objetivo_general" name="objetivo_general" x-model="formData.objetivo_general">
         </div>
         <div class="field-group col-12">
             <label for="objetivos_especificos">Objetivos Específicos</label>
-            <textarea name="objetivos_especificos" id="objetivos_especificos"></textarea>
-        </div>
-        <div class="field-group col-12">
-            <label for="plan_tratamiento">Plan de Tratamiento / Indicaciones</label>
-            <textarea name="plan_tratamiento" id="plan_tratamiento"></textarea>
+            <textarea name="objetivos_especificos" id="objetivos_especificos" x-model="formData.objetivos_especificos"></textarea>
         </div>
 
-        <!-- Signatures Panel -->
+        <!-- Plan de Intervención -->
+        <div class="field-group col-12">
+            <label for="plan_tratamiento">Plan de Tratamiento / Indicaciones</label>
+            <textarea name="plan_tratamiento" id="plan_tratamiento" x-model="formData.plan_tratamiento"></textarea>
+        </div>
+
+        <!-- Panel de Firmas -->
         <div class="col-12 border-t pt-1-5 mt-1">
             <h3>Validación y Firmas Digitales</h3>
         </div>
@@ -41,6 +51,8 @@
                 <button type="button" class="btn-clear-sig" data-target="sig-patient">Limpiar</button>
             </div>
         </div>
+
+        <!-- Botones de Acción Final -->
         <div class="col-12 border-t pt-1-5 mt-1-5 flex justify-center gap-1">
             <button type="button" class="btn-primary" @click="saveCurrentPatient()">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -56,3 +68,4 @@
         </div>
     </div>
 </section>
+

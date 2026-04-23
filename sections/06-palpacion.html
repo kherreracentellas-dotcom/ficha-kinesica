@@ -1,40 +1,49 @@
+<!-- 
+    Sección VI: Palpación y Evaluación Cardiovascular
+    Examen segmentario de cuello y tórax, evaluación de pulsos y edemas.
+-->
 <section id="palpacion" data-animate>
     <div class="section-head">
         <div class="section-title">
             <h2>VI. Palpación y Evaluación Cardiovascular Integrada</h2>
             <p>Signos de sobrecarga hídrica y examen segmentario.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="palpacion_na" class="hidden"><span>N/A</span></label>
     </div>
     <div class="form-grid">
+        <!-- Linfonodos -->
         <div class="field-group col-12">
             <label for="linfonodos_val">Linfonodos palpables</label>
-            <select name="linfonodos" id="linfonodos_val" data-conditional="true">
+            <select name="linfonodos" id="linfonodos_val" x-model="formData.linfonodos">
                 <option value="no">No</option>
                 <option value="si">Sí</option>
             </select>
         </div>
-        <div class="field-group col-12 hidden" id="cond-linfonodos-ubicacion">
+
+        <!-- Ubicación de Linfonodos (Condicional) -->
+        <div class="field-group col-12" x-show="formData.linfonodos === 'si'" x-transition>
             <label>Ubicación de Linfonodos</label>
             <div class="check-group">
-                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
-                        value="cervicales"><span>Cervicales</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
-                        value="axilares"><span>Axilares</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
-                        value="inguinales"><span>Inguinales</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic" value="cervicales" x-model="formData.linfo_ubic"><span>Cervicales</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic" value="axilares" x-model="formData.linfo_ubic"><span>Axilares</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic" value="inguinales" x-model="formData.linfo_ubic"><span>Inguinales</span></label>
             </div>
         </div>
+
+        <!-- Tráquea y Expansibilidad -->
         <div class="field-group col-6">
             <label for="traquea_val">Tráquea</label>
-            <input type="text" id="traquea_val" name="traquea">
+            <input type="text" id="traquea_val" name="traquea" x-model="formData.traquea" placeholder="Ej: Centrada">
         </div>
         <div class="field-group col-6">
             <label for="expansibilidad_val">Expansibilidad (T-S / T-I)</label>
-            <input type="text" id="expansibilidad_val" name="expansibilidad">
+            <input type="text" id="expansibilidad_val" name="expansibilidad" x-model="formData.expansibilidad" placeholder="Ej: Conservada">
         </div>
+
+        <!-- Frémitos y Llenado Capilar -->
         <div class="field-group col-6">
             <label for="fremitos_val">Frémitos Táctiles (Vocal)</label>
-            <select name="fremitos" id="fremitos_val">
+            <select name="fremitos" id="fremitos_val" x-model="formData.fremitos">
                 <option value="normales">Normales</option>
                 <option value="aumentados">Aumentados</option>
                 <option value="disminuidos">Disminuidos</option>
@@ -42,36 +51,40 @@
         </div>
         <div class="field-group col-6">
             <label for="llenado_capilar_val">Llenado Capilar</label>
-            <select name="llenado_capilar" id="llenado_capilar_val">
+            <select name="llenado_capilar" id="llenado_capilar_val" x-model="formData.llenado_capilar">
                 <option value="normal">Normal (≤ 2 seg)</option>
                 <option value="limite">Límite (2 - 3 seg)</option>
                 <option value="prolongado">Prolongado (> 3 seg)</option>
             </select>
         </div>
+
+        <!-- Signos de Insuficiencia Cardíaca -->
         <div class="field-group col-6">
             <label for="ingurgitacion_val">Ingurgitación Yugular (a 45°)</label>
-            <select name="ingurgitacion" id="ingurgitacion_val">
+            <select name="ingurgitacion" id="ingurgitacion_val" x-model="formData.ingurgitacion">
                 <option value="no">No</option>
                 <option value="si">Sí (> 3 cm)</option>
             </select>
         </div>
         <div class="field-group col-6">
             <label for="reflujo_hepato_val">Reflujo Hepatoyugular (10 seg)</label>
-            <select name="reflujo_hepato" id="reflujo_hepato_val">
+            <select name="reflujo_hepato" id="reflujo_hepato_val" x-model="formData.reflujo_hepato">
                 <option value="negativo">Negativo</option>
                 <option value="positivo">Positivo</option>
             </select>
         </div>
+
+        <!-- Pulsos y Edema -->
         <div class="field-group col-6">
             <label for="pulsos_val">Pulsos Periféricos</label>
-            <select name="pulsos" id="pulsos_val">
+            <select name="pulsos" id="pulsos_val" x-model="formData.pulsos">
                 <option value="simetricos">Simétricos y presentes</option>
                 <option value="asimetricos">Asimétricos/Débiles</option>
             </select>
         </div>
         <div class="field-group col-6">
             <label for="edema_val">Edema Periférico (Fóvea)</label>
-            <select name="edema" id="edema_val">
+            <select name="edema" id="edema_val" x-model="formData.edema">
                 <option value="ausente">Ausente</option>
                 <option value="1">+</option>
                 <option value="2">++</option>
@@ -80,3 +93,4 @@
         </div>
     </div>
 </section>
+

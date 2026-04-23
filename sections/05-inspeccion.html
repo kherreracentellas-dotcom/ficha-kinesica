@@ -1,108 +1,117 @@
+<!-- 
+    Sección V: Inspección (Observación)
+    Evaluación visual del tórax, musculatura y signos clínicos agudos.
+-->
 <section id="inspeccion" data-animate>
     <div class="section-head">
         <div class="section-title">
             <h2>V. Inspección (Observación)</h2>
             <p>Análisis visual torácico y sintomatología aguda.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="inspeccion_na" class="hidden"><span>N/A</span></label>
     </div>
     <div class="form-grid">
+        <!-- Tipo de Tórax -->
         <div class="field-group col-12">
             <label>Tipo de Tórax</label>
             <div class="check-group">
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="normotorax"><span>Normotórax</span></label>
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="cifoescoliotico"><span>Cifoescoliótico</span></label>
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="tonel"><span>Tonel</span></label>
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="raquitico"><span>Raquítico</span></label>
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="excavatum"><span>Pectus Excavatum</span></label>
-                <label class="checkbox-card"><input type="radio" name="tipo_torax"
-                        value="carinatum"><span>Pectus Carinatum</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="normotorax" x-model="formData.tipo_torax"><span>Normotórax</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="cifoescoliotico" x-model="formData.tipo_torax"><span>Cifoescoliótico</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="tonel" x-model="formData.tipo_torax"><span>Tonel</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="raquitico" x-model="formData.tipo_torax"><span>Raquítico</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="excavatum" x-model="formData.tipo_torax"><span>Pectus Excavatum</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax" value="carinatum" x-model="formData.tipo_torax"><span>Pectus Carinatum</span></label>
             </div>
         </div>
+
+        <!-- Patrón Respiratorio -->
         <div class="field-group col-6">
             <label for="patron_respiratorio">Patrón Respiratorio</label>
-            <select name="patron_respiratorio" id="patron_respiratorio">
+            <select name="patron_respiratorio" id="patron_respiratorio" x-model="formData.patron_respiratorio">
                 <option value="costal">Costal</option>
                 <option value="abdominal">Abdominal</option>
                 <option value="mixto">Mixto</option>
                 <option value="paradojico">Paradójico</option>
             </select>
         </div>
+
+        <!-- Musculatura Accesoria -->
         <div class="field-group col-6">
             <label for="muscultura_accesoria">Uso de Musculatura Accesoria</label>
-            <select name="muscultura_accesoria" id="muscultura_accesoria" data-conditional="true">
+            <select name="muscultura_accesoria" id="muscultura_accesoria" x-model="formData.muscultura_accesoria">
                 <option value="no">No</option>
                 <option value="si">Sí</option>
             </select>
         </div>
-        <div class="field-group col-12 hidden" id="cond-tiraje-detalles">
+
+        <!-- Detalles de Tiraje (Condicional) -->
+        <div class="field-group col-12" x-show="formData.muscultura_accesoria === 'si'" x-transition>
             <label>Tipo de Tiraje</label>
             <div class="check-group">
-                <label class="checkbox-card"><input type="checkbox" name="tiraje"
-                        value="subcostal"><span>Subcostal</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="tiraje"
-                        value="intercostal"><span>Intercostal</span></label>
-                <label class="checkbox-card"><input type="checkbox" name="tiraje"
-                        value="supraclavicular"><span>Supraclavicular</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="tiraje" value="subcostal"><span>Subcostal</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="tiraje" value="intercostal"><span>Intercostal</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="tiraje" value="supraclavicular"><span>Supraclavicular</span></label>
             </div>
         </div>
 
-        <!-- Signos y Síntomas -->
+        <!-- Signos Clínicos y Síntomas -->
         <div class="col-12 border-t pt-1-5 mt-1">
             <h3>Signos Clínicos y Síntomas Agudos</h3>
         </div>
+
+        <!-- Cianosis -->
         <div class="field-group col-6">
             <label for="cianosis_val">Cianosis</label>
-            <select name="cianosis" id="cianosis_val" data-conditional="true">
+            <select name="cianosis" id="cianosis_val" x-model="formData.cianosis">
                 <option value="no">No</option>
                 <option value="si">Sí</option>
             </select>
         </div>
-        <div class="field-group col-6 hidden" id="cond-cianosis-detalles">
+        <div class="field-group col-6" x-show="formData.cianosis === 'si'" x-transition>
             <label for="cianosis_tipo">Tipo de Cianosis</label>
-            <select name="cianosis_tipo" id="cianosis_tipo">
+            <select name="cianosis_tipo" id="cianosis_tipo" x-model="formData.cianosis_tipo">
                 <option value="peribucal">Peribucal</option>
                 <option value="periferica">Periférica</option>
                 <option value="mixta">Mixta</option>
             </select>
         </div>
+
+        <!-- Coriza -->
         <div class="field-group col-6">
             <label for="coriza_val">Coriza Nasal</label>
-            <select name="coriza" id="coriza_val" data-conditional="true">
+            <select name="coriza" id="coriza_val" x-model="formData.coriza">
                 <option value="no">No</option>
                 <option value="si">Sí</option>
             </select>
         </div>
-        <div class="field-group col-6 hidden" id="cond-coriza-detalles">
+        <div class="field-group col-6" x-show="formData.coriza === 'si'" x-transition>
             <label for="coriza_tipo">Tipo de Coriza</label>
-            <select name="coriza_tipo" id="coriza_tipo">
+            <select name="coriza_tipo" id="coriza_tipo" x-model="formData.coriza_tipo">
                 <option value="hialina">Hialina</option>
                 <option value="mucopurulenta">Mucopurulenta</option>
             </select>
         </div>
+
+        <!-- Disnea y Escalas -->
         <div class="field-group col-3">
             <label for="disnea_val">Disnea</label>
-            <select name="disnea_repo_esfuer" id="disnea_val">
+            <select name="disnea_repo_esfuer" id="disnea_val" x-model="formData.disnea_repo_esfuer">
                 <option value="reposo">En reposo</option>
                 <option value="esfuerzo">Al esfuerzo</option>
             </select>
         </div>
         <div class="field-group col-3">
-            <label for="mmrc_val">Grado mMRC (0-4)<span class="tooltip-icon" data-tooltip="Modified Medical Research Council (Escala de disnea)&#10;0: Solo al ejercicio intenso.&#10;1: Al andar rápido/subir cuesta.&#10;2: Más lento que personas de su edad.&#10;3: Para a descansar a los 100m.&#10;4: Disnea al vestirse.">?</span></label>
-            <input type="number" id="mmrc_val" name="mmrc" min="0" max="4">
+            <label for="mmrc_val">Grado mMRC (0-4)</label>
+            <input type="number" id="mmrc_val" name="mmrc" min="0" max="4" x-model="formData.mmrc">
         </div>
         <div class="field-group col-3">
-            <label for="fatiga_val">Fatiga/Borg (0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg CR10 para medir la sensación subjetiva de Fatiga o Cansancio.">?</span></label>
-            <input type="number" id="fatiga_val" name="fatiga_escala" min="0" max="10">
+            <label for="fatiga_val">Fatiga/Borg (0-10)</label>
+            <input type="number" id="fatiga_val" name="fatiga_escala" min="0" max="10" x-model="formData.fatiga_escala">
         </div>
         <div class="field-group col-3">
-            <label for="cat_score_val">CAT Score (0-40)<span class="tooltip-icon" data-tooltip="COPD Assessment Test: Cuestionario de 8 ítems que mide el impacto de la enfermedad pulmonar en la vida diaria.">?</span></label>
+            <label for="cat_score_val">CAT Score (0-40)</label>
             <div class="input-wrapper">
-                <input type="number" id="cat_score_val" name="cat_score" min="0" max="40">
+                <input type="number" id="cat_score_val" name="cat_score" min="0" max="40" x-model="formData.cat_score">
                 <span class="unit">pts</span>
             </div>
         </div>
@@ -113,29 +122,31 @@
         </div>
         <div class="field-group col-4">
             <label for="tos_presenta_val">¿Presenta tos?</label>
-            <select name="tos_presenta" id="tos_presenta_val" data-conditional="true">
+            <select name="tos_presenta" id="tos_presenta_val" x-model="formData.tos_presenta">
                 <option value="no">No</option>
                 <option value="si">Sí</option>
             </select>
         </div>
-        <div class="col-12 form-grid hidden m-0" id="cond-tos-detalles">
+
+        <!-- Detalles de Tos (Condicional) -->
+        <div class="col-12 form-grid m-0" x-show="formData.tos_presenta === 'si'" x-transition>
             <div class="field-group col-4">
                 <label for="tos_horario">Horario</label>
-                <select name="tos_horario" id="tos_horario">
+                <select name="tos_horario" id="tos_horario" x-model="formData.tos_horario">
                     <option value="diurna">Diurna</option>
                     <option value="nocturna">Nocturna</option>
                 </select>
             </div>
             <div class="field-group col-4">
                 <label for="tos_tipo_val">Características</label>
-                <select name="tos_tipo" id="tos_tipo_val" data-conditional="true">
+                <select name="tos_tipo" id="tos_tipo_val" x-model="formData.tos_tipo">
                     <option value="seca">Seca</option>
                     <option value="productiva">Productiva</option>
                 </select>
             </div>
-            <div class="field-group col-4 hidden" id="cond-tos-secrecion">
+            <div class="field-group col-4" x-show="formData.tos_tipo === 'productiva'" x-transition>
                 <label for="tos_secrecion_tipo">Tipo de secreción</label>
-                <select name="tos_secrecion_tipo" id="tos_secrecion_tipo">
+                <select name="tos_secrecion_tipo" id="tos_secrecion_tipo" x-model="formData.tos_secrecion_tipo">
                     <option value="serosa">Serosa</option>
                     <option value="mucosa">Mucosa</option>
                     <option value="mucopurulenta">Mucopurulenta</option>
@@ -146,3 +157,4 @@
         </div>
     </div>
 </section>
+

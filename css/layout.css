@@ -98,8 +98,14 @@ main.content {
   transition: var(--transition);
   border: 1px solid transparent;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.nav-link:hover { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.85); }
+.nav-link i {
+  min-width: 18px;
+  flex-shrink: 0;
+}
+.nav-link:hover { background: rgba(255, 255, 255, 0.06); color: rgba(255, 255, 255, 0.85); transform: translateX(2px); }
 .nav-link.active { background: rgba(46, 134, 222, 0.15); color: white; border-color: rgba(46, 134, 222, 0.3); }
 
 /* Progress Widget */

@@ -1,9 +1,14 @@
+<!-- 
+    Sección IV: Signos Vitales y Hemodinamia
+    Monitoreo fisiológico objetivo con cálculos automáticos de PAM e IMC.
+-->
 <section id="vitales" data-animate>
     <div class="section-head">
         <div class="section-title">
             <h2>IV. Signos Vitales y Hemodinamia</h2>
             <p>Evaluación fisiológica objetiva y cálculos de riesgo.</p>
         </div>
+        <label class="btn-na"><input type="checkbox" name="vitales_na" class="hidden"><span>N/A</span></label>
     </div>
     <div class="form-grid">
         <!-- Presión Arterial Card -->
@@ -26,54 +31,55 @@
             </div>
             <div class="vital-result">
                 <span>PAM:</span>
+                <!-- Cálculo reactivo de la Presión Arterial Media -->
                 <input type="text" id="pam_val" readonly aria-label="Presión Arterial Media" :value="pam">
                 <span id="pam_status" class="val-indicator"></span>
             </div>
         </div>
 
-        <!-- FC Card -->
+        <!-- Frecuencia Cardíaca -->
         <div class="vital-card col-3">
             <label for="fc_val">Frecuencia Cardíaca</label>
             <div class="input-wrapper">
-                <input type="number" id="fc_val" name="fc" placeholder="0">
+                <input type="number" id="fc_val" name="fc" placeholder="0" x-model="formData.fc">
                 <span class="unit">lpm</span>
             </div>
             <span id="fc_status" class="val-indicator"></span>
         </div>
 
-        <!-- FR Card -->
+        <!-- Frecuencia Respiratoria -->
         <div class="vital-card col-3">
             <label for="fr_val">Frecuencia Resp.</label>
             <div class="input-wrapper">
-                <input type="number" id="fr_val" name="fr" placeholder="0">
+                <input type="number" id="fr_val" name="fr" placeholder="0" x-model="formData.fr">
                 <span class="unit">rpm</span>
             </div>
             <span id="fr_status" class="val-indicator"></span>
         </div>
 
-        <!-- SpO2 Card -->
+        <!-- Saturación de Oxígeno -->
         <div class="vital-card col-4">
             <label for="spo2_val">Saturación (SpO2)</label>
             <div class="input-wrapper">
-                <input type="number" id="spo2_val" name="spo2" placeholder="0">
+                <input type="number" id="spo2_val" name="spo2" placeholder="0" x-model="formData.spo2">
                 <span class="unit">%</span>
             </div>
             <span id="spo2_status" class="val-indicator"></span>
         </div>
 
-        <!-- FiO2 Card -->
+        <!-- FiO2 / Aporte de Oxígeno -->
         <div class="vital-card col-4">
             <label for="fio2_val">FiO2 / Aporte O2</label>
             <div class="input-wrapper">
-                <input type="text" id="fio2_val" name="fio2" placeholder="Ej: 21% o 2L">
+                <input type="text" id="fio2_val" name="fio2" placeholder="Ej: 21% o 2L" x-model="formData.fio2">
             </div>
         </div>
 
-        <!-- Temp Card -->
+        <!-- Temperatura -->
         <div class="vital-card col-4">
             <label for="temp_val">Temperatura</label>
             <div class="input-wrapper">
-                <input type="number" id="temp_val" name="temp" step="0.1" placeholder="0">
+                <input type="number" id="temp_val" name="temp" step="0.1" placeholder="0" x-model="formData.temp">
                 <span class="unit">°C</span>
             </div>
             <span id="temp_status" class="val-indicator"></span>
@@ -86,23 +92,25 @@
         <div class="field-group col-4">
             <label for="peso_val">Peso</label>
             <div class="input-wrapper">
-                <input type="number" step="0.1" id="peso_val" name="peso">
+                <input type="number" step="0.1" id="peso_val" name="paciente_peso" x-model="formData.paciente_peso">
                 <span class="unit">kg</span>
             </div>
         </div>
         <div class="field-group col-4">
             <label for="talla_val">Talla</label>
             <div class="input-wrapper">
-                <input type="number" step="1" id="talla_val" name="talla">
+                <input type="number" step="1" id="talla_val" name="paciente_talla" x-model="formData.paciente_talla">
                 <span class="unit">cm</span>
             </div>
         </div>
         <div class="field-group col-4">
             <label for="imc_val">IMC (Auto-calculado)</label>
             <div class="input-wrapper">
-                <input type="text" id="imc_val" readonly class="bg-surface font-mono">
+                <!-- Cálculo reactivo del Índice de Masa Corporal -->
+                <input type="text" id="imc_val" readonly class="bg-surface font-mono" :value="imc">
                 <span id="imc_status" class="val-indicator"></span>
             </div>
         </div>
     </div>
 </section>
+
