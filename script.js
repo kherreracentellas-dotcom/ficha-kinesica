@@ -301,9 +301,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const id = link.getAttribute('href').replace('#', '');
             const target = document.getElementById(id);
             if (target) {
-                target.scrollIntoView({ behavior: 'smooth' });
-                navLinks.forEach(l => l.classList.remove('active'));
-                link.classList.add('active');
+                // IMPORTANT: Switch to form view if navigating to a section
+                if (window.Alpine) {
+                    const state = Alpine.$data(document.body);
+                    state.currentView = 'form';
+                }
+                
+                setTimeout(() => {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    navLinks.forEach(l => l.classList.remove('active'));
+                    link.classList.add('active');
+                }, 50);
             }
         });
     });
