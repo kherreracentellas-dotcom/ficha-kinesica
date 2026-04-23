@@ -7,8 +7,6 @@
 import { ClinicalCalculations } from './modules/clinical.js';
 import { AuthModule } from './modules/auth.js';
 import { UIModule } from './modules/ui.js';
-import { PersistenceModule } from './modules/persistence.js';
-import { PDFModule } from './modules/pdf.js';
 import { Utils } from './modules/utils.js';
 import { LoaderModule } from './modules/loader.js';
 

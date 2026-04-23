@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { FormContext } from './Context';
 
 export const FormProvider = ({ children }) => {
@@ -11,6 +11,7 @@ export const FormProvider = ({ children }) => {
     paciente: {
       nombre: '', edad: '', fecha_nacimiento: '', rut: '', ocupacion: '',
       prevision: '', fono: '', fono_emergencia: '', nivel_educacional: '',
+      peso: '', talla: '', imc: '',
       entorno: { convivencia: '', especifique: '', tipo_vivienda: '', mascotas: 'no', mascotas_especifique: '' },
       habitos: { tabaquismo: 'no', cig_dia: '', anos_fumando: '', indice_paquete: '', biomasa: 'no', biomasa_especifique: '', alcohol: 'no', alcohol_frecuencia: '' },
       actividad_fisica: { realiza: 'no', tipo: '', frecuencia: '', tiempo: '', intensidad: '', disnea: 'no' }
@@ -23,7 +24,7 @@ export const FormProvider = ({ children }) => {
     },
     vitales: {
       pa_sistolica: '', pa_diastolica: '', pam: '', fc: '', fr: '',
-      spo2: '', fio2: '21', temp: '', peso: '', talla: '', imc: ''
+      spo2: '', fio2: '21', temp: ''
     },
     inspeccion: {
       tipo_torax: 'normotorax', patron_respiratorio: 'costal', uso_musculatura: 'no', tiraje: [],

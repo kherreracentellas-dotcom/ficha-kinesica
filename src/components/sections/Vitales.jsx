@@ -1,6 +1,7 @@
 
-import { Activity, Info, Thermometer, Weight } from 'lucide-react';
+import { Activity, Info, Thermometer } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
+import { SectionNavigation } from '../SectionNavigation';
 
 export const Vitales = () => {
   const { formData, setFormData, toggleNA } = useFormState();
@@ -20,22 +21,12 @@ export const Vitales = () => {
         newVitales.pam = '';
       }
 
-      // Cálculo de IMC
-      const peso = parseFloat(name === 'peso' ? value : newVitales.peso) || 0;
-      const talla = (parseFloat(name === 'talla' ? value : newVitales.talla) || 0) / 100;
-      if (peso && talla) {
-        newVitales.imc = (peso / (talla * talla)).toFixed(1);
-      } else {
-        newVitales.imc = '';
-      }
-
       return { ...prev, vitales: newVitales };
     });
   };
 
   // Local values for UI feedback
   const pam = formData.vitales.pam || '--';
-  const imc = formData.vitales.imc || '--';
 
   const pamWarning = parseFloat(pam) > 120;
 
@@ -105,36 +96,25 @@ export const Vitales = () => {
           </div>
 
           {/* Fila O2 & T° */}
-          <div className="field-group col-4">
+          <div className="field-group col-6">
             <label>Vía Administración O2</label>
-            <input name="via_o2" type="text" placeholder="Naricera, Venturi..." value={formData.vitales.via_o2} onChange={handleChange} />
+            <select name="via_o2" value={formData.vitales.via_o2} onChange={handleChange}>
+              <option value="Aire Ambiental">Aire Ambiental (FiO2 21%)</option>
+              <option value="Naricera">Naricera</option>
+              <option value="Mascarilla Simple">Mascarilla Simple</option>
+              <option value="Venturi">Venturi</option>
+              <option value="Reservorio">Mascarilla con Reservorio</option>
+              <option value="VMNI">VMNI</option>
+              <option value="CNAF">CNAF (Cánula Alto Flujo)</option>
+              <option value="Otro">Otro</option>
+            </select>
           </div>
-          <div className="field-group col-4">
+          <div className="field-group col-6">
             <label className="flex items-center gap-2"><Thermometer size={14} /> Temperatura (°C)</label>
             <input name="temp" type="number" step="0.1" value={formData.vitales.temp} onChange={handleChange} />
           </div>
-          <div className="field-group col-4">
-            <label className="flex items-center gap-2"><Weight size={14} /> Peso (kg)</label>
-            <input name="peso" type="number" step="0.1" value={formData.vitales.peso} onChange={handleChange} />
-          </div>
 
-          {/* Fila Antropometría Final */}
-          <div className="field-group col-4">
-            <label>Talla (cm)</label>
-            <input name="talla" type="number" value={formData.vitales.talla} onChange={handleChange} />
-          </div>
-          <div className="vital-card col-8 border-l-4 border-l-primary bg-primary/5">
-            <div className="flex items-center justify-between">
-              <div>
-                <label className="vital-label text-primary">Índice de Masa Corporal (IMC)</label>
-                <p className="text-[10px] text-muted">Cálculo automático basado en peso/talla.</p>
-              </div>
-              <div className="text-right">
-                <span className="text-3xl font-black text-primary">{imc}</span>
-                <span className="block text-[10px] font-bold text-primary/60 uppercase">kg/m²</span>
-              </div>
-            </div>
-          </div>
+          <SectionNavigation prevId="morbidos" nextId="inspeccion" />
         </div>
       )}
     </section>

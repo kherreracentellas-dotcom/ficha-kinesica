@@ -1,6 +1,7 @@
 
 import { Stethoscope, Heart, Waves, Music } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
+import { SectionNavigation } from '../SectionNavigation';
 
 export const Auscultacion = () => {
   const { formData, setFormData, toggleNA } = useFormState();
@@ -8,19 +9,27 @@ export const Auscultacion = () => {
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    if (type === 'checkbox') {
-      const currentArr = formData.auscultacion[name] || [];
-      const newArr = checked ? [...currentArr, value] : currentArr.filter(v => v !== value);
-      setFormData(prev => ({
+    
+    setFormData(prev => {
+      const currentSection = { ...(prev.auscultacion || {}) };
+      
+      if (type === 'checkbox') {
+        const currentArr = Array.isArray(currentSection[name]) ? currentSection[name] : [];
+        const newArr = checked 
+          ? [...currentArr, value] 
+          : currentArr.filter(v => v !== value);
+        
+        return {
+          ...prev,
+          auscultacion: { ...currentSection, [name]: newArr }
+        };
+      }
+      
+      return {
         ...prev,
-        auscultacion: { ...prev.auscultacion, [name]: newArr }
-      }));
-    } else {
-      setFormData(prev => ({
-        ...prev,
-        auscultacion: { ...prev.auscultacion, [name]: value }
-      }));
-    }
+        auscultacion: { ...currentSection, [name]: value }
+      };
+    });
   };
 
   return (
@@ -92,50 +101,66 @@ export const Auscultacion = () => {
             </select>
           </div>
 
-          <div className="field-group col-12">
-            <label>Ruidos Agregados Continuos</label>
-            <div className="flex gap-4">
-              {['Sibilancias', 'Roncus', 'Estridor'].map(r => (
-                <label key={r} className="flex items-center gap-2 text-xs normal-case cursor-pointer">
-                  <input type="checkbox" name="ruidos_continuos" value={r} checked={formData.auscultacion.ruidos_continuos.includes(r)} onChange={handleChange} /> {r}
+          <div className="col-12 bg-slate-50 p-6 rounded-2xl border border-slate-100 mt-4">
+            <label className="font-bold text-xs mb-4 block uppercase tracking-widest text-slate-500">Ruidos Agregados Continuos</label>
+            <div className="flex flex-wrap gap-3">
+              {['Sibilancias', 'Roncus', 'Estridor', 'Silencio Auscultatorio'].map(r => (
+                <label key={r} className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 cursor-pointer transition-all ${formData.auscultacion.ruidos_continuos.includes(r) ? 'bg-accent border-accent text-white shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-accent/30'}`}>
+                  <input type="checkbox" name="ruidos_continuos" value={r} checked={formData.auscultacion.ruidos_continuos.includes(r)} onChange={handleChange} className="hidden" />
+                  <span className="text-xs font-bold">{r}</span>
                 </label>
               ))}
             </div>
-          </div>
-          <div className="field-group col-12">
-            <label>Ruidos Agregados Discontinuos</label>
-            <div className="flex gap-4">
-              {['Crépitos Finos (fin insp.)', 'Crépitos Gruesos (inicio insp.)'].map(r => (
-                <label key={r} className="flex items-center gap-2 text-xs normal-case cursor-pointer">
-                  <input type="checkbox" name="ruidos_discontinuos" value={r} checked={formData.auscultacion.ruidos_discontinuos.includes(r)} onChange={handleChange} /> {r}
+            
+            <label className="font-bold text-xs mb-4 mt-6 block uppercase tracking-widest text-slate-500">Ruidos Agregados Discontinuos</label>
+            <div className="flex flex-wrap gap-3">
+              {['Crépitos Finos', 'Crépitos Gruesos', 'Frote Pleural'].map(r => (
+                <label key={r} className={`flex items-center gap-2 px-4 py-2 rounded-xl border-2 cursor-pointer transition-all ${formData.auscultacion.ruidos_discontinuos.includes(r) ? 'bg-indigo-600 border-indigo-600 text-white shadow-md' : 'bg-white border-slate-100 text-slate-500 hover:border-indigo-600/30'}`}>
+                  <input type="checkbox" name="ruidos_discontinuos" value={r} checked={formData.auscultacion.ruidos_discontinuos.includes(r)} onChange={handleChange} className="hidden" />
+                  <span className="text-xs font-bold">{r}</span>
                 </label>
               ))}
             </div>
           </div>
 
           {/* Auscultación Cardíaca */}
-          <div className="col-12 border-t pt-4 mt-2">
-            <h3 className="text-sm mb-4 flex items-center gap-2"><Heart size={16} /> Auscultación Precordial</h3>
+          <div className="col-12 mt-8">
+            <h3 className="text-sm mb-4 font-bold text-primary flex items-center gap-2 border-b pb-2">
+              <Heart size={16} className="text-accent" /> Auscultación Precordial
+            </h3>
           </div>
-          <div className="field-group col-6">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" checked={formData.auscultacion.cardiaco_ritmico} onChange={(e) => setFormData(prev => ({ ...prev, auscultacion: { ...prev.auscultacion, cardiaco_ritmico: e.target.checked } }))} />
-              <span>Ruidos cardíacos rítmicos y normales</span>
+          <div className="col-12 grid grid-cols-2 gap-4">
+            <label className={`flex flex-col gap-2 p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData.auscultacion.cardiaco_ritmico ? 'bg-emerald-50 border-emerald-500 text-emerald-900' : 'bg-white border-slate-100 text-slate-400 opacity-60'}`}>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">Ritmo Cardíaco</span>
+                <input type="checkbox" checked={formData.auscultacion.cardiaco_ritmico} onChange={(e) => setFormData(prev => ({ ...prev, auscultacion: { ...prev.auscultacion, cardiaco_ritmico: e.target.checked } }))} className="w-5 h-5 accent-emerald-600" />
+              </div>
+              <span className="text-[10px] uppercase font-bold tracking-wider">{formData.auscultacion.cardiaco_ritmico ? 'Rítmico y Normal' : 'Arritmia / No evaluado'}</span>
             </label>
-          </div>
-          <div className="field-group col-6">
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" checked={formData.auscultacion.cardiaco_soplo} onChange={(e) => setFormData(prev => ({ ...prev, auscultacion: { ...prev.auscultacion, cardiaco_soplo: e.target.checked } }))} />
-              <span>Soplos detectados</span>
+
+            <label className={`flex flex-col gap-2 p-4 rounded-2xl border-2 cursor-pointer transition-all ${formData.auscultacion.cardiaco_soplo ? 'bg-red-50 border-red-500 text-red-900' : 'bg-white border-slate-100 text-slate-400 opacity-60'}`}>
+              <div className="flex items-center justify-between">
+                <span className="font-bold">Soplos Cardíacos</span>
+                <input type="checkbox" checked={formData.auscultacion.cardiaco_soplo} onChange={(e) => setFormData(prev => ({ ...prev, auscultacion: { ...prev.auscultacion, cardiaco_soplo: e.target.checked } }))} className="w-5 h-5 accent-red-600" />
+              </div>
+              <span className="text-[10px] uppercase font-bold tracking-wider">{formData.auscultacion.cardiaco_soplo ? 'Soplo Detectado' : 'Sin Soplos'}</span>
             </label>
           </div>
 
           {formData.auscultacion.cardiaco_soplo && (
-            <div className="field-group col-12 bg-surface p-3 rounded">
-              <label>Grado Escala Levine (1-6)</label>
-              <input name="levine_grado" type="number" min="1" max="6" value={formData.auscultacion.levine_grado} onChange={handleChange} />
+            <div className="field-group col-12 bg-red-50/30 p-6 rounded-2xl border border-red-100 mt-2">
+              <label className="text-red-900 font-bold">Intensidad (Escala Levine 1-6)</label>
+              <div className="flex gap-2 mt-4">
+                {[1, 2, 3, 4, 5, 6].map(v => (
+                  <button key={v} onClick={() => setFormData(prev => ({ ...prev, auscultacion: { ...prev.auscultacion, levine_grado: v } }))} className={`flex-1 py-3 rounded-xl font-bold transition-all ${formData.auscultacion.levine_grado === v ? 'bg-red-600 text-white shadow-lg' : 'bg-white border border-red-100 text-red-400'}`}>
+                    {v}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
+
+          <SectionNavigation prevId="palpacion" nextId="escalas" />
         </div>
       )}
     </section>

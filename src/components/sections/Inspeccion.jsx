@@ -1,5 +1,6 @@
 import { Eye } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
+import { SectionNavigation } from '../SectionNavigation';
 
 export const Inspeccion = () => {
   const { formData, setFormData, toggleNA } = useFormState();
@@ -47,9 +48,12 @@ export const Inspeccion = () => {
       {!isNA && (
         <div className="form-grid">
           {/* Evaluación Torácica */}
-          <div className="col-12">
-            <h3 className="text-sm mb-4">Evaluación Torácica</h3>
+          <div className="col-12 mt-6">
+            <h3 className="text-sm mb-4 font-bold text-primary flex items-center gap-2 border-b pb-2">
+              <Eye size={16} className="text-accent" /> Evaluación Torácica y Dinámica
+            </h3>
           </div>
+          
           <div className="field-group col-4">
             <label>Tipo de Tórax</label>
             <select name="tipo_torax" value={formData.inspeccion.tipo_torax} onChange={handleChange}>
@@ -73,48 +77,50 @@ export const Inspeccion = () => {
           <div className="field-group col-4">
             <label>Uso Musc. Accesoria</label>
             <select name="uso_musculatura" value={formData.inspeccion.uso_musculatura} onChange={handleChange}>
-              <option value="no">No</option>
-              <option value="si">Sí</option>
+              <option value="no">No se observa uso</option>
+              <option value="si">Sí se observa uso</option>
             </select>
           </div>
 
-          {formData.inspeccion.uso_musculatura === 'si' && (
-            <div className="field-group col-12 bg-surface p-3 rounded flex gap-4">
-              <span className="text-xs font-bold">Tiraje:</span>
-              {['Subcostal', 'Intercostal', 'Supraclavicular'].map(t => (
-                <label key={t} className="flex items-center gap-2 text-xs normal-case cursor-pointer">
-                  <input type="checkbox" value={t} checked={formData.inspeccion.tiraje.includes(t)} onChange={handleChange} /> {t}
+          <div className={`col-12 bg-slate-50 p-6 rounded-2xl border border-slate-100 transition-all duration-300 ${formData.inspeccion.uso_musculatura === 'si' ? 'opacity-100' : 'opacity-40 grayscale pointer-events-none'}`}>
+            <label className="font-bold text-xs mb-4 block uppercase tracking-widest text-slate-500">Signos de Tiraje (Múltiples)</label>
+            <div className="flex flex-wrap gap-4">
+              {['Subcostal', 'Intercostal', 'Supraclavicular', 'Supraesternal', 'Aleteo Nasal'].map(t => (
+                <label key={t} className={`flex items-center gap-3 px-4 py-2 rounded-xl border-2 cursor-pointer transition-all ${formData.inspeccion.tiraje.includes(t) ? 'bg-accent border-accent text-white shadow-lg' : 'bg-white border-slate-100 text-slate-500 hover:border-accent/30'}`}>
+                  <input type="checkbox" value={t} checked={formData.inspeccion.tiraje.includes(t)} onChange={handleChange} className="hidden" />
+                  <span className="text-sm font-bold">{t}</span>
                 </label>
               ))}
             </div>
-          )}
+          </div>
 
           {/* Signos Clínicos */}
-          <div className="col-12 border-t pt-4 mt-2">
-            <h3 className="text-sm mb-4">Signos Clínicos y Síntomas</h3>
+          <div className="col-12 mt-8">
+            <h3 className="text-sm mb-4 font-bold text-primary border-b pb-2">Signos Clínicos y Tolerancia</h3>
           </div>
           <div className="field-group col-4">
             <label>Cianosis</label>
             <select name="cianosis" value={formData.inspeccion.cianosis} onChange={handleChange}>
-              <option value="no">No</option>
-              <option value="peribucal">Peribucal</option>
-              <option value="periferica">Periférica</option>
+              <option value="no">Ausente</option>
+              <option value="peribucal">Peribucal (Central)</option>
+              <option value="periferica">Periférica (Distal)</option>
               <option value="mixta">Mixta</option>
             </select>
           </div>
           <div className="field-group col-4">
-            <label>Coriza Nasal</label>
+            <label>Coriza Nasal / Secreción</label>
             <select name="coriza" value={formData.inspeccion.coriza} onChange={handleChange}>
-              <option value="no">No</option>
-              <option value="hialina">Hialina</option>
-              <option value="mucopurulenta">Mucopurulenta</option>
+              <option value="no">Ausente</option>
+              <option value="hialina">Hialina (Clara)</option>
+              <option value="mucopurulenta">Mucopurulenta (Amarilla/Verde)</option>
             </select>
           </div>
           <div className="field-group col-4">
             <label>Disnea Aparición</label>
             <select name="disnea_aparicion" value={formData.inspeccion.disnea_aparicion} onChange={handleChange}>
-              <option value="reposo">En reposo</option>
-              <option value="esfuerzo">Al esfuerzo</option>
+              <option value="reposo">En reposo absoluto</option>
+              <option value="esfuerzo">Al esfuerzo físico</option>
+              <option value="paroxistica">Paroxística nocturna</option>
             </select>
           </div>
           <div className="field-group col-2">
@@ -162,6 +168,8 @@ export const Inspeccion = () => {
               <option value="hemoptoica">Hemoptoica</option>
             </select>
           </div>
+
+          <SectionNavigation prevId="vitales" nextId="palpacion" />
         </div>
       )}
     </section>

@@ -1,5 +1,6 @@
-import { ClipboardList, Stethoscope, Pill } from 'lucide-react';
+import { ClipboardList, Stethoscope, Pill, Activity } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
+import { SectionNavigation } from '../SectionNavigation';
 
 export const Morbidos = () => {
   const { formData, setFormData, toggleNA } = useFormState();
@@ -7,6 +8,18 @@ export const Morbidos = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    
+    // Si el valor viene de un botón rápido
+    if (name === 'enfermedades_cronicas_quick') {
+      const current = formData.morbidos.enfermedades_cronicas;
+      const newVal = current ? `${current}, ${value}` : value;
+      setFormData(prev => ({
+        ...prev,
+        morbidos: { ...prev.morbidos, enfermedades_cronicas: newVal }
+      }));
+      return;
+    }
+
     const [section, field] = name.split('.');
     if (field) {
       setFormData(prev => ({
@@ -63,6 +76,18 @@ export const Morbidos = () => {
           <div className="field-group col-12">
             <label>Enfermedades Crónicas</label>
             <textarea name="enfermedades_cronicas" value={formData.morbidos.enfermedades_cronicas} onChange={handleChange} placeholder="Asma, EPOC, HTA, Diabetes, etc." />
+            <div className="flex flex-wrap gap-2 mt-3">
+              {['Asma', 'EPOC', 'HTA', 'Diabetes T2', 'ICC', 'TBC', 'COVID-19'].map(disease => (
+                <button 
+                  key={disease} 
+                  type="button"
+                  onClick={() => handleChange({ target: { name: 'enfermedades_cronicas_quick', value: disease } })}
+                  className="px-3 py-1 rounded-full border border-slate-200 text-[10px] font-bold text-slate-500 hover:border-accent hover:text-accent hover:bg-indigo-50 transition-all"
+                >
+                  + {disease}
+                </button>
+              ))}
+            </div>
           </div>
           <div className="field-group col-6">
             <label>Cirugías Previas</label>
@@ -77,28 +102,39 @@ export const Morbidos = () => {
             <input name="antecedentes_familiares" type="text" value={formData.morbidos.antecedentes_familiares} onChange={handleChange} placeholder="Cardiopatías, asma, cáncer, etc." />
           </div>
 
-          <div className="col-12 border-t pt-4 mt-2">
-            <h3 className="flex items-center gap-2 mb-4"><Pill size={18} /> Tratamiento Farmacológico</h3>
+          <div className="col-12 border-t pt-8 mt-4">
+            <h3 className="flex items-center gap-2 mb-6 text-primary font-bold"><Pill size={20} className="text-accent" /> Tratamiento Farmacológico y Adherencia</h3>
           </div>
-          <div className="field-group col-12">
-            <label>Fármacos de Uso Continuo</label>
-            <textarea name="farmacos.continuo" value={formData.morbidos.farmacos.continuo} onChange={handleChange} placeholder="Ej: corticoides, antihipertensivos..." />
+          
+          <div className="field-group col-6">
+            <label className="flex items-center gap-2 font-bold text-slate-600">
+              <Pill size={14} className="text-slate-400" /> Fármacos de Uso Continuo
+            </label>
+            <textarea name="farmacos.continuo" rows="4" value={formData.morbidos.farmacos.continuo} onChange={handleChange} placeholder="Ej: Corticoides, antihipertensivos, broncodilatadores de larga acción..." />
           </div>
-          <div className="field-group col-12">
-            <label>Fármacos de Rescate</label>
-            <textarea name="farmacos.rescate" value={formData.morbidos.farmacos.rescate} onChange={handleChange} placeholder="Ej: Salbutamol..." />
+          
+          <div className="field-group col-6">
+            <label className="flex items-center gap-2 font-bold text-slate-600">
+              <Activity size={14} className="text-slate-400" /> Fármacos de Rescate
+            </label>
+            <textarea name="farmacos.rescate" rows="4" value={formData.morbidos.farmacos.rescate} onChange={handleChange} placeholder="Ej: Salbutamol, Berodual, etc." />
           </div>
-          <div className="field-group col-4">
-            <label>Adherencia al Tratamiento</label>
-            <select name="farmacos.adherencia" value={formData.morbidos.farmacos.adherencia} onChange={handleChange}>
-              <option value="si">Sí</option>
-              <option value="no">No</option>
+
+          <div className="field-group col-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <label className="font-bold text-primary mb-2">Adherencia</label>
+            <select name="farmacos.adherencia" value={formData.morbidos.farmacos.adherencia} onChange={handleChange} className="bg-white">
+              <option value="si">Alta Adherencia (Sí)</option>
+              <option value="no">Baja Adherencia (No)</option>
+              <option value="regular">Regular</option>
             </select>
           </div>
-          <div className="field-group col-8">
-            <label>Dosis / Frecuencia</label>
-            <input name="farmacos.dosis" type="text" value={formData.morbidos.farmacos.dosis} onChange={handleChange} />
+          
+          <div className="field-group col-8 bg-slate-50 p-4 rounded-xl border border-slate-100">
+            <label className="font-bold text-primary mb-2">Observaciones de Tratamiento</label>
+            <input name="farmacos.dosis" type="text" value={formData.morbidos.farmacos.dosis} onChange={handleChange} placeholder="Dosis, frecuencia o efectos secundarios reportados..." className="bg-white" />
           </div>
+
+          <SectionNavigation prevId="personales" nextId="vitales" />
         </div>
       )}
     </section>

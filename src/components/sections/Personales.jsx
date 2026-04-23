@@ -1,5 +1,6 @@
-import { User, Home, Shield, Activity } from 'lucide-react';
+import { User, Home, Shield, Activity, Weight } from 'lucide-react';
 import { useFormState } from '../../hooks/useFormState';
+import { SectionNavigation } from '../SectionNavigation';
 
 export const Personales = () => {
   const { formData, setFormData, toggleNA } = useFormState();
@@ -39,6 +40,17 @@ export const Personales = () => {
         newState.paciente.habitos.indice_paquete = ((cigs * years) / 20).toFixed(1);
       }
 
+      // 3. Índice de Masa Corporal (IMC)
+      if (name === 'peso' || name === 'talla') {
+        const peso = parseFloat(name === 'peso' ? value : newState.paciente.peso) || 0;
+        const talla = (parseFloat(name === 'talla' ? value : newState.paciente.talla) || 0) / 100;
+        if (peso && talla) {
+          newState.paciente.imc = (peso / (talla * talla)).toFixed(1);
+        } else {
+          newState.paciente.imc = '';
+        }
+      }
+
       return newState;
     });
   };
@@ -76,9 +88,10 @@ export const Personales = () => {
             <label>Sexo Biológico</label>
             <select name="sexo" value={formData.paciente.sexo} onChange={handleChange}>
               <option value="">Seleccionar...</option>
-              <option value="M">Masculino</option>
-              <option value="F">Femenino</option>
-              <option value="Otro">Otro</option>
+              <option value="M">Masculino (Cis/Trans)</option>
+              <option value="F">Femenino (Cis/Trans)</option>
+              <option value="I">Intersexual</option>
+              <option value="NR">Prefiero no responder</option>
             </select>
           </div>
           <div className="field-group col-2">
@@ -92,15 +105,37 @@ export const Personales = () => {
             <input name="rut" type="text" placeholder="12.345.678-9" value={formData.paciente.rut} onChange={handleChange} />
           </div>
           <div className="field-group col-4">
+            <label>Nivel Educacional</label>
+            <select name="nivel_educacional" value={formData.paciente.nivel_educacional} onChange={handleChange}>
+              <option value="">Seleccionar...</option>
+              <option value="sin_estudios">Sin estudios</option>
+              <option value="basica_inc">Básica Incompleta</option>
+              <option value="basica_comp">Básica Completa</option>
+              <option value="media_inc">Media Incompleta</option>
+              <option value="media_comp">Media Completa</option>
+              <option value="tecnico">Técnico Nivel Superior</option>
+              <option value="universitario">Universitario</option>
+              <option value="postgrado">Postgrado (Magister/Doctorado)</option>
+            </select>
+          </div>
+          <div className="field-group col-4">
             <label>Ocupación</label>
             <input name="ocupacion" type="text" value={formData.paciente.ocupacion} onChange={handleChange} />
           </div>
-          <div className="field-group col-4">
-            <label>Previsión de Salud</label>
-            <input name="prevision" type="text" value={formData.paciente.prevision} onChange={handleChange} />
-          </div>
 
           {/* Fila 3 */}
+          <div className="field-group col-4">
+            <label>Previsión de Salud</label>
+            <select name="prevision" value={formData.paciente.prevision} onChange={handleChange}>
+              <option value="">Seleccione...</option>
+              <option value="FONASA">FONASA</option>
+              <option value="ISAPRE">ISAPRE</option>
+              <option value="DIPRECA">DIPRECA</option>
+              <option value="CAPREDENA">CAPREDENA</option>
+              <option value="Particular">Particular</option>
+              <option value="Otro">Otro</option>
+            </select>
+          </div>
           <div className="field-group col-4">
             <label>Teléfono</label>
             <input name="fono" type="text" value={formData.paciente.fono} onChange={handleChange} />
@@ -109,9 +144,30 @@ export const Personales = () => {
             <label>Fono Emergencia</label>
             <input name="fono_emergencia" type="text" value={formData.paciente.fono_emergencia} onChange={handleChange} />
           </div>
-          <div className="field-group col-4">
-            <label>Nivel Educacional</label>
-            <input name="nivel_educacional" type="text" value={formData.paciente.nivel_educacional} onChange={handleChange} />
+
+          {/* Fila 4: Antropometría */}
+          <div className="col-12 border-t pt-4 mt-2">
+            <h3 className="flex items-center gap-2 mb-4 text-primary"><Weight size={18} /> Antropometría</h3>
+          </div>
+          <div className="field-group col-3">
+            <label>Peso (kg)</label>
+            <input name="peso" type="number" step="0.1" value={formData.paciente.peso} onChange={handleChange} placeholder="0.0" />
+          </div>
+          <div className="field-group col-3">
+            <label>Talla (cm)</label>
+            <input name="talla" type="number" value={formData.paciente.talla} onChange={handleChange} placeholder="0" />
+          </div>
+          <div className="col-6">
+            <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 flex items-center justify-between shadow-inner">
+              <div>
+                <span className="text-[10px] font-black uppercase tracking-widest text-slate-400 block">Índice de Masa Corporal</span>
+                <span className="text-xs text-slate-500 italic">Cálculo automático</span>
+              </div>
+              <div className="text-right">
+                <span className="text-3xl font-black text-primary">{formData.paciente.imc || '--'}</span>
+                <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-tighter">kg/m²</span>
+              </div>
+            </div>
           </div>
 
           {/* Subsección: Entorno */}
@@ -218,6 +274,8 @@ export const Personales = () => {
               <option value="si">Sí</option>
             </select>
           </div>
+
+          <SectionNavigation nextId="morbidos" />
         </div>
       )}
     </section>
