@@ -9,14 +9,19 @@ import { UIModule } from './modules/ui.js';
 import { PersistenceModule } from './modules/persistence.js';
 import { PDFModule } from './modules/pdf.js';
 import { Utils } from './modules/utils.js';
+import { LoaderModule } from './modules/loader.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize UI
+document.addEventListener('DOMContentLoaded', async () => {
+    // 1. Carga Dinámica de Secciones
+    // Se cargan los fragmentos HTML antes de inicializar la lógica
+    await LoaderModule.loadSections('clinical-sections');
+
+    // 2. Inicialización de Módulos UI
     UIModule.initNavigation();
     UIModule.initSidebarToggle();
     UIModule.initRUTFormatter();
     UIModule.initNAHandlers();
-    UIModule.initScrollSpy();
+    // Note: ScrollSpy is called inside LoaderModule.postLoadInit()
     
     const form = document.getElementById('evaluation-form');
     const authForm = document.getElementById('auth-form');

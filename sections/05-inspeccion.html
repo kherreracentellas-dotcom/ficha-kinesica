@@ -1,0 +1,148 @@
+<section id="inspeccion" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>V. Inspección (Observación)</h2>
+            <p>Análisis visual torácico y sintomatología aguda.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <div class="field-group col-12">
+            <label>Tipo de Tórax</label>
+            <div class="check-group">
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="normotorax"><span>Normotórax</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="cifoescoliotico"><span>Cifoescoliótico</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="tonel"><span>Tonel</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="raquitico"><span>Raquítico</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="excavatum"><span>Pectus Excavatum</span></label>
+                <label class="checkbox-card"><input type="radio" name="tipo_torax"
+                        value="carinatum"><span>Pectus Carinatum</span></label>
+            </div>
+        </div>
+        <div class="field-group col-6">
+            <label for="patron_respiratorio">Patrón Respiratorio</label>
+            <select name="patron_respiratorio" id="patron_respiratorio">
+                <option value="costal">Costal</option>
+                <option value="abdominal">Abdominal</option>
+                <option value="mixto">Mixto</option>
+                <option value="paradojico">Paradójico</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="muscultura_accesoria">Uso de Musculatura Accesoria</label>
+            <select name="muscultura_accesoria" id="muscultura_accesoria" data-conditional="true">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-12 hidden" id="cond-tiraje-detalles">
+            <label>Tipo de Tiraje</label>
+            <div class="check-group">
+                <label class="checkbox-card"><input type="checkbox" name="tiraje"
+                        value="subcostal"><span>Subcostal</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="tiraje"
+                        value="intercostal"><span>Intercostal</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="tiraje"
+                        value="supraclavicular"><span>Supraclavicular</span></label>
+            </div>
+        </div>
+
+        <!-- Signos y Síntomas -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Signos Clínicos y Síntomas Agudos</h3>
+        </div>
+        <div class="field-group col-6">
+            <label for="cianosis_val">Cianosis</label>
+            <select name="cianosis" id="cianosis_val" data-conditional="true">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-6 hidden" id="cond-cianosis-detalles">
+            <label for="cianosis_tipo">Tipo de Cianosis</label>
+            <select name="cianosis_tipo" id="cianosis_tipo">
+                <option value="peribucal">Peribucal</option>
+                <option value="periferica">Periférica</option>
+                <option value="mixta">Mixta</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="coriza_val">Coriza Nasal</label>
+            <select name="coriza" id="coriza_val" data-conditional="true">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-6 hidden" id="cond-coriza-detalles">
+            <label for="coriza_tipo">Tipo de Coriza</label>
+            <select name="coriza_tipo" id="coriza_tipo">
+                <option value="hialina">Hialina</option>
+                <option value="mucopurulenta">Mucopurulenta</option>
+            </select>
+        </div>
+        <div class="field-group col-3">
+            <label for="disnea_val">Disnea</label>
+            <select name="disnea_repo_esfuer" id="disnea_val">
+                <option value="reposo">En reposo</option>
+                <option value="esfuerzo">Al esfuerzo</option>
+            </select>
+        </div>
+        <div class="field-group col-3">
+            <label for="mmrc_val">Grado mMRC (0-4)<span class="tooltip-icon" data-tooltip="Modified Medical Research Council (Escala de disnea)&#10;0: Solo al ejercicio intenso.&#10;1: Al andar rápido/subir cuesta.&#10;2: Más lento que personas de su edad.&#10;3: Para a descansar a los 100m.&#10;4: Disnea al vestirse.">?</span></label>
+            <input type="number" id="mmrc_val" name="mmrc" min="0" max="4">
+        </div>
+        <div class="field-group col-3">
+            <label for="fatiga_val">Fatiga/Borg (0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg CR10 para medir la sensación subjetiva de Fatiga o Cansancio.">?</span></label>
+            <input type="number" id="fatiga_val" name="fatiga_escala" min="0" max="10">
+        </div>
+        <div class="field-group col-3">
+            <label for="cat_score_val">CAT Score (0-40)<span class="tooltip-icon" data-tooltip="COPD Assessment Test: Cuestionario de 8 ítems que mide el impacto de la enfermedad pulmonar en la vida diaria.">?</span></label>
+            <div class="input-wrapper">
+                <input type="number" id="cat_score_val" name="cat_score" min="0" max="40">
+                <span class="unit">pts</span>
+            </div>
+        </div>
+
+        <!-- Evaluación de la Tos -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Evaluación de la Tos</h3>
+        </div>
+        <div class="field-group col-4">
+            <label for="tos_presenta_val">¿Presenta tos?</label>
+            <select name="tos_presenta" id="tos_presenta_val" data-conditional="true">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="col-12 form-grid hidden m-0" id="cond-tos-detalles">
+            <div class="field-group col-4">
+                <label for="tos_horario">Horario</label>
+                <select name="tos_horario" id="tos_horario">
+                    <option value="diurna">Diurna</option>
+                    <option value="nocturna">Nocturna</option>
+                </select>
+            </div>
+            <div class="field-group col-4">
+                <label for="tos_tipo_val">Características</label>
+                <select name="tos_tipo" id="tos_tipo_val" data-conditional="true">
+                    <option value="seca">Seca</option>
+                    <option value="productiva">Productiva</option>
+                </select>
+            </div>
+            <div class="field-group col-4 hidden" id="cond-tos-secrecion">
+                <label for="tos_secrecion_tipo">Tipo de secreción</label>
+                <select name="tos_secrecion_tipo" id="tos_secrecion_tipo">
+                    <option value="serosa">Serosa</option>
+                    <option value="mucosa">Mucosa</option>
+                    <option value="mucopurulenta">Mucopurulenta</option>
+                    <option value="purulenta">Purulenta</option>
+                    <option value="hemoptoica">Hemoptoica / Hemoptisis</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>

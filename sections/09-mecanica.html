@@ -1,0 +1,55 @@
+<section id="mecanica" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>IX. Mecánica Respiratoria</h2>
+            <p>Dinámica ventilatoria y parámetros de ventilación.</p>
+        </div>
+        <label class="btn-na"><input type="checkbox" name="mecanica_na" class="hidden" data-conditional="true"><span>N/A</span></label>
+    </div>
+    <div class="form-grid">
+        <div class="field-group col-12">
+            <div class="check-group">
+                <label class="checkbox-card">
+                    <input type="checkbox" name="uso_vm" data-conditional="true" id="uso-vm-toggle">
+                    <span>Paciente en Ventilación Mecánica</span>
+                </label>
+            </div>
+        </div>
+
+        <!-- Parámetros VM (Condicionales) -->
+        <div class="col-12 hidden" id="cond-vm-parametros">
+            <div class="form-grid">
+                <div class="field-group col-4">
+                    <label for="pip_val">Presión Pico (PIP)</label>
+                    <div class="input-wrapper">
+                        <input type="number" step="0.1" id="pip_val" name="mecanica_pip">
+                        <span class="unit">cmH2O</span>
+                    </div>
+                </div>
+                <div class="field-group col-4">
+                    <label for="plateau_val">Presión Meseta</label>
+                    <div class="input-wrapper">
+                        <input type="number" step="0.1" id="plateau_val" name="mecanica_plateau">
+                        <span class="unit">cmH2O</span>
+                    </div>
+                </div>
+                <div class="field-group col-4">
+                    <label for="peep_val">PEEP</label>
+                    <div class="input-wrapper">
+                        <input type="number" step="0.1" id="peep_val" name="mecanica_peep">
+                        <span class="unit">cmH2O</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="field-group col-6">
+            <label for="distensibilidad_val">Complianza (Distensibilidad)</label>
+            <input type="text" id="distensibilidad_val" name="mecanica_distensibilidad" placeholder="Ej: Dinámica: 35 ml/cmH2O">
+        </div>
+        <div class="field-group col-6">
+            <label for="resistencia_val">Resistencia de la Vía Aérea</label>
+            <input type="text" id="resistencia_val" name="mecanica_resistencia" placeholder="Ej: Aumentada (> 10)">
+        </div>
+    </div>
+</section>

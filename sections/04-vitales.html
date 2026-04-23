@@ -1,0 +1,108 @@
+<section id="vitales" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>IV. Signos Vitales y Hemodinamia</h2>
+            <p>Evaluación fisiológica objetiva y cálculos de riesgo.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <!-- Presión Arterial Card -->
+        <div class="vital-card col-6">
+            <div class="vital-card-header">
+                <label>Presión Arterial</label>
+                <span class="tooltip-icon" data-tooltip="PAM se calcula: [ (2×D)+S ] / 3">?</span>
+            </div>
+            <div class="vital-inputs-row">
+                <div class="input-group">
+                    <input type="number" id="pa_sis" placeholder="Sis" x-model="formData.presion_sistolica">
+                    <span class="sub-label">Sistólica</span>
+                </div>
+                <span class="divider">/</span>
+                <div class="input-group">
+                    <input type="number" id="pa_dia" placeholder="Dia" x-model="formData.presion_diastolica">
+                    <span class="sub-label">Diastólica</span>
+                </div>
+                <span class="vital-unit">mmHg</span>
+            </div>
+            <div class="vital-result">
+                <span>PAM:</span>
+                <input type="text" id="pam_val" readonly aria-label="Presión Arterial Media" :value="pam">
+                <span id="pam_status" class="val-indicator"></span>
+            </div>
+        </div>
+
+        <!-- FC Card -->
+        <div class="vital-card col-3">
+            <label for="fc_val">Frecuencia Cardíaca</label>
+            <div class="input-wrapper">
+                <input type="number" id="fc_val" name="fc" placeholder="0">
+                <span class="unit">lpm</span>
+            </div>
+            <span id="fc_status" class="val-indicator"></span>
+        </div>
+
+        <!-- FR Card -->
+        <div class="vital-card col-3">
+            <label for="fr_val">Frecuencia Resp.</label>
+            <div class="input-wrapper">
+                <input type="number" id="fr_val" name="fr" placeholder="0">
+                <span class="unit">rpm</span>
+            </div>
+            <span id="fr_status" class="val-indicator"></span>
+        </div>
+
+        <!-- SpO2 Card -->
+        <div class="vital-card col-4">
+            <label for="spo2_val">Saturación (SpO2)</label>
+            <div class="input-wrapper">
+                <input type="number" id="spo2_val" name="spo2" placeholder="0">
+                <span class="unit">%</span>
+            </div>
+            <span id="spo2_status" class="val-indicator"></span>
+        </div>
+
+        <!-- FiO2 Card -->
+        <div class="vital-card col-4">
+            <label for="fio2_val">FiO2 / Aporte O2</label>
+            <div class="input-wrapper">
+                <input type="text" id="fio2_val" name="fio2" placeholder="Ej: 21% o 2L">
+            </div>
+        </div>
+
+        <!-- Temp Card -->
+        <div class="vital-card col-4">
+            <label for="temp_val">Temperatura</label>
+            <div class="input-wrapper">
+                <input type="number" id="temp_val" name="temp" step="0.1" placeholder="0">
+                <span class="unit">°C</span>
+            </div>
+            <span id="temp_status" class="val-indicator"></span>
+        </div>
+
+        <!-- Antropometría -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Antropometría</h3>
+        </div>
+        <div class="field-group col-4">
+            <label for="peso_val">Peso</label>
+            <div class="input-wrapper">
+                <input type="number" step="0.1" id="peso_val" name="peso">
+                <span class="unit">kg</span>
+            </div>
+        </div>
+        <div class="field-group col-4">
+            <label for="talla_val">Talla</label>
+            <div class="input-wrapper">
+                <input type="number" step="1" id="talla_val" name="talla">
+                <span class="unit">cm</span>
+            </div>
+        </div>
+        <div class="field-group col-4">
+            <label for="imc_val">IMC (Auto-calculado)</label>
+            <div class="input-wrapper">
+                <input type="text" id="imc_val" readonly class="bg-surface font-mono">
+                <span id="imc_status" class="val-indicator"></span>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,76 @@
+<section id="dashboard" x-show="currentView === 'dashboard'" class="dashboard-view" x-cloak>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>Panel de Gestión</h2>
+            <p>Visualización general de pacientes y estadísticas clínicas</p>
+        </div>
+    </div>
+
+    <div class="form-grid mb-1-5">
+        <div class="col-12">
+            <section class="p-1">
+                <h3 class="mb-1"><i data-lucide="trending-up"></i> Tendencias del Centro</h3>
+                <canvas id="trendsChart" height="100"></canvas>
+            </section>
+        </div>
+    </div>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>Gestión de Pacientes</h2>
+            <p>Busca, edita o crea nuevas fichas clínicas.</p>
+        </div>
+        <button class="btn-primary" @click="createNewPatient()">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 5v14M5 12h14"/>
+            </svg>
+            Nueva Ficha
+        </button>
+    </div>
+
+    <div class="search-bar mt-1">
+        <div class="input-wrapper">
+            <input type="text" placeholder="Buscar por Nombre o RUT..." x-model="searchQuery" @input="filterPatients()">
+            <span class="unit">🔍</span>
+        </div>
+    </div>
+
+    <div class="patient-list mt-1-5">
+        <table class="w-100">
+            <thead>
+                <tr>
+                    <th>Paciente</th>
+                    <th>RUT</th>
+                    <th>Última Evaluación</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="patient in filteredPatients" :key="patient.id">
+                    <tr>
+                        <td>
+                            <div class="flex flex-col">
+                                <span class="font-bold" x-text="patient.nombre"></span>
+                                <span class="text-sm text-muted" x-text="patient.diagnostico_medico || 'Sin diagnóstico'"></span>
+                            </div>
+                        </td>
+                        <td class="font-mono" x-text="patient.rut"></td>
+                        <td class="text-sm" x-text="patient.fecha"></td>
+                        <td>
+                            <div class="actions">
+                                <button class="btn-ghost" @click="loadPatient(patient.id)">Editar</button>
+                                <button class="btn-ghost text-danger" @click="deletePatient(patient.id)">
+                                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/>
+                                    </svg>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+                <tr x-show="filteredPatients.length === 0">
+                    <td colspan="4" class="text-center py-2 text-muted">No se encontraron pacientes.</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

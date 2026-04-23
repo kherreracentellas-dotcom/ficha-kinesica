@@ -1,0 +1,58 @@
+<section id="diagnostico" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>XIV. Diagnóstico y Objetivos</h2>
+            <p>Resumen clínico, metas terapéuticas y validación legal.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <div class="field-group col-12">
+            <label for="diagnostico_kinesico">Diagnóstico Kinésico (CIF)</label>
+            <textarea name="diagnostico_kinesico" id="diagnostico_kinesico" placeholder="Deficiencia, limitación en la actividad, restricción en participación..."></textarea>
+        </div>
+        <div class="field-group col-12">
+            <label for="objetivo_general">Objetivo General</label>
+            <input type="text" id="objetivo_general" name="objetivo_general">
+        </div>
+        <div class="field-group col-12">
+            <label for="objetivos_especificos">Objetivos Específicos</label>
+            <textarea name="objetivos_especificos" id="objetivos_especificos"></textarea>
+        </div>
+        <div class="field-group col-12">
+            <label for="plan_tratamiento">Plan de Tratamiento / Indicaciones</label>
+            <textarea name="plan_tratamiento" id="plan_tratamiento"></textarea>
+        </div>
+
+        <!-- Signatures Panel -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Validación y Firmas Digitales</h3>
+        </div>
+        <div class="field-group col-6">
+            <label>Firma del Kinesiólogo</label>
+            <div class="signature-container">
+                <canvas id="sig-kine" width="400" height="150"></canvas>
+                <button type="button" class="btn-clear-sig" data-target="sig-kine">Limpiar</button>
+            </div>
+        </div>
+        <div class="field-group col-6">
+            <label>Firma del Paciente / Tutor</label>
+            <div class="signature-container">
+                <canvas id="sig-patient" width="400" height="150"></canvas>
+                <button type="button" class="btn-clear-sig" data-target="sig-patient">Limpiar</button>
+            </div>
+        </div>
+        <div class="col-12 border-t pt-1-5 mt-1-5 flex justify-center gap-1">
+            <button type="button" class="btn-primary" @click="saveCurrentPatient()">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M19 21H5a2 2 0 01-2-2V5a2 2 0 012-2h11l5 5v11a2 2 0 01-2 2z"/>
+                    <polyline points="17 21 17 13 7 13 7 21"/>
+                    <polyline points="7 3 7 8 15 8"/>
+                </svg>
+                Guardar Ficha del Paciente
+            </button>
+            <button type="button" class="btn-ghost" @click="currentView = 'dashboard'">
+                Cancelar
+            </button>
+        </div>
+    </div>
+</section>

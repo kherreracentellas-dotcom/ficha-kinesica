@@ -1,0 +1,124 @@
+<section id="biopsicosociales" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>II. Antecedentes Biopsicosociales</h2>
+            <p>Entorno, esquema familiar y hábitos de consumo del paciente.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <!-- Entorno y Estilo de Vida -->
+        <div class="col-12 mt-1"><label>Núcleo Familiar</label></div>
+        <div class="col-12 check-group">
+            <label class="checkbox-card"><input type="radio" name="nucleo_familiar"
+                    value="V.S."><span>Vive solo/a (V.S.)</span></label>
+            <label class="checkbox-card"><input type="radio" name="nucleo_familiar"
+                    value="V.A."><span>Vive acompañado (V.A.)</span></label>
+            <label class="checkbox-card"><input type="radio" name="nucleo_familiar"
+                    value="V.P."><span>Vive en pareja (V.P.)</span></label>
+        </div>
+        <div class="field-group col-12">
+            <label for="nucleo_especificar">Especificar otro / Observaciones entorno</label>
+            <input type="text" id="nucleo_especificar" name="nucleo_especificar">
+        </div>
+        <div class="field-group col-6">
+            <label for="tipo_vivienda">Tipo de Vivienda</label>
+            <input type="text" id="tipo_vivienda" name="tipo_vivienda">
+        </div>
+        <div class="field-group col-4">
+            <label for="mascotas_val">¿Tiene Mascotas?</label>
+            <select name="mascotas" id="mascotas_val" x-model="formData.mascotas">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-8" x-show="formData.mascotas === 'si'" x-transition>
+            <label for="mascotas_especificar_val">Especificar (Ambiente)</label>
+            <input type="text" id="mascotas_especificar_val" name="mascotas_especificar" placeholder="Ej: Perro dentro de casa">
+        </div>
+
+        <!-- Hábitos -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Hábitos de Consumo y Riesgo Ambiental</h3>
+        </div>
+        <div class="field-group col-4">
+            <label for="tabaquismo_val">¿Tabaquismo?</label>
+            <select name="tabaquismo" id="tabaquismo_val" x-model="formData.tabaquismo">
+                <option value="no">No / Ex-fumador</option>
+                <option value="si">Sí (Activo)</option>
+            </select>
+        </div>
+        <div class="col-8 form-grid m-0" x-show="formData.tabaquismo === 'si'" x-transition>
+            <div class="field-group col-4">
+                <label for="tabaco-cantidad">Cig/día</label>
+                <input type="number" name="tabaco_cantidad" id="tabaco-cantidad">
+            </div>
+            <div class="field-group col-4">
+                <label for="tabaco-anos">Años fumando</label>
+                <input type="number" name="tabaco_anos" id="tabaco-anos">
+            </div>
+            <div class="field-group col-4">
+                <label for="tabaco-indice">Índice Cajetilla-Año<span class="tooltip-icon" data-tooltip="Cálculo predictivo de daño pulmonar: (Nº Cigarrillos al día ÷ 20) × Años fumando. Índice mayor a 10 indica alto riesgo de EPOC.">?</span></label>
+                <input type="text" id="tabaco-indice" readonly class="bg-surface font-mono">
+            </div>
+        </div>
+        <div class="field-group col-6">
+            <label for="biomasa_val">Exposición a biomasa/leña/polvo</label>
+            <select name="biomasa" id="biomasa_val" x-model="formData.biomasa">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-6" x-show="formData.biomasa === 'si'" x-transition>
+            <label for="biomasa_especificar">Especificar riesgo</label>
+            <input type="text" id="biomasa_especificar" name="biomasa_especificar">
+        </div>
+        <div class="field-group col-6">
+            <label for="alcohol_drogas_val">Alcohol / Drogas</label>
+            <select name="alcohol_drogas" id="alcohol_drogas_val" x-model="formData.alcohol">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-6" x-show="formData.alcohol === 'si'" x-transition>
+            <label for="alcohol_frecuencia">Frecuencia</label>
+            <input type="text" id="alcohol_frecuencia" name="alcohol_frecuencia">
+        </div>
+
+        <!-- Actividad Física -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3>Actividad Física y Deporte</h3>
+        </div>
+        <div class="field-group col-4">
+            <label for="actividad_fisica_val">¿Realiza actividad física?</label>
+            <select name="actividad_fisica" id="actividad_fisica_val" x-model="formData.actividad">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="col-12 form-grid m-0" x-show="formData.actividad === 'si'" x-transition>
+            <div class="field-group col-12">
+                <label for="ejercicio_tipo">Tipo de ejercicio</label>
+                <input type="text" id="ejercicio_tipo" name="ejercicio_tipo">
+            </div>
+            <div class="field-group col-3">
+                <label for="ejercicio_frecuencia">Veces x semana</label>
+                <input type="number" id="ejercicio_frecuencia" name="ejercicio_frecuencia">
+            </div>
+            <div class="field-group col-3">
+                <label for="ejercicio_tiempo">Minutos x sesión</label>
+                <input type="number" id="ejercicio_tiempo" name="ejercicio_tiempo">
+            </div>
+            <div class="field-group col-3">
+                <label for="ejercicio_intensidad">Intensidad (Borg 0-10)<span class="tooltip-icon" data-tooltip="Escala de Borg Modificada (CR10):&#10;0 = Reposo total&#10;3 = Moderado&#10;5 = Severo&#10;10 = Esfuerzo Máximo">?</span></label>
+                <input type="number" id="ejercicio_intensidad" step="0.1" name="ejercicio_intensidad" min="0" max="10">
+            </div>
+            <div class="field-group col-3">
+                <label for="ejercicio_disnea">¿Falta el aire?</label>
+                <select name="ejercicio_disnea" id="ejercicio_disnea">
+                    <option value="no">No</option>
+                    <option value="si">Sí</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</section>

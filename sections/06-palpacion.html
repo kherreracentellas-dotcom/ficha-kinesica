@@ -1,0 +1,82 @@
+<section id="palpacion" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>VI. Palpación y Evaluación Cardiovascular Integrada</h2>
+            <p>Signos de sobrecarga hídrica y examen segmentario.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <div class="field-group col-12">
+            <label for="linfonodos_val">Linfonodos palpables</label>
+            <select name="linfonodos" id="linfonodos_val" data-conditional="true">
+                <option value="no">No</option>
+                <option value="si">Sí</option>
+            </select>
+        </div>
+        <div class="field-group col-12 hidden" id="cond-linfonodos-ubicacion">
+            <label>Ubicación de Linfonodos</label>
+            <div class="check-group">
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
+                        value="cervicales"><span>Cervicales</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
+                        value="axilares"><span>Axilares</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="linfo_ubic"
+                        value="inguinales"><span>Inguinales</span></label>
+            </div>
+        </div>
+        <div class="field-group col-6">
+            <label for="traquea_val">Tráquea</label>
+            <input type="text" id="traquea_val" name="traquea">
+        </div>
+        <div class="field-group col-6">
+            <label for="expansibilidad_val">Expansibilidad (T-S / T-I)</label>
+            <input type="text" id="expansibilidad_val" name="expansibilidad">
+        </div>
+        <div class="field-group col-6">
+            <label for="fremitos_val">Frémitos Táctiles (Vocal)</label>
+            <select name="fremitos" id="fremitos_val">
+                <option value="normales">Normales</option>
+                <option value="aumentados">Aumentados</option>
+                <option value="disminuidos">Disminuidos</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="llenado_capilar_val">Llenado Capilar</label>
+            <select name="llenado_capilar" id="llenado_capilar_val">
+                <option value="normal">Normal (≤ 2 seg)</option>
+                <option value="limite">Límite (2 - 3 seg)</option>
+                <option value="prolongado">Prolongado (> 3 seg)</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="ingurgitacion_val">Ingurgitación Yugular (a 45°)</label>
+            <select name="ingurgitacion" id="ingurgitacion_val">
+                <option value="no">No</option>
+                <option value="si">Sí (> 3 cm)</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="reflujo_hepato_val">Reflujo Hepatoyugular (10 seg)</label>
+            <select name="reflujo_hepato" id="reflujo_hepato_val">
+                <option value="negativo">Negativo</option>
+                <option value="positivo">Positivo</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="pulsos_val">Pulsos Periféricos</label>
+            <select name="pulsos" id="pulsos_val">
+                <option value="simetricos">Simétricos y presentes</option>
+                <option value="asimetricos">Asimétricos/Débiles</option>
+            </select>
+        </div>
+        <div class="field-group col-6">
+            <label for="edema_val">Edema Periférico (Fóvea)</label>
+            <select name="edema" id="edema_val">
+                <option value="ausente">Ausente</option>
+                <option value="1">+</option>
+                <option value="2">++</option>
+                <option value="3">+++</option>
+            </select>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,112 @@
+<section id="auscultacion" data-animate>
+    <div class="section-head">
+        <div class="section-title">
+            <h2>VII. Percusión y Auscultación</h2>
+            <p>Evaluación acústica de parénquima pulmonar y precordial.</p>
+        </div>
+    </div>
+    <div class="form-grid">
+        <!-- Percusión -->
+        <div class="col-12">
+            <h3 class="mb-1"><i data-lucide="waves"></i> Percusión Pulmonar</h3>
+            <div class="form-grid">
+                <div class="field-group col-6">
+                    <label for="percusion_izq">Hemitórax Izquierdo</label>
+                    <select name="percusion_izq" id="percusion_izq">
+                        <option value="sonoridad">Sonoridad (Normal)</option>
+                        <option value="hipersonoridad">Hipersonoridad</option>
+                        <option value="matidez">Matidez</option>
+                        <option value="timpanismo">Timpanismo</option>
+                    </select>
+                </div>
+                <div class="field-group col-6">
+                    <label for="percusion_der">Hemitórax Derecho</label>
+                    <select name="percusion_der" id="percusion_der">
+                        <option value="sonoridad">Sonoridad (Normal)</option>
+                        <option value="hipersonoridad">Hipersonoridad</option>
+                        <option value="matidez">Matidez</option>
+                        <option value="timpanismo">Timpanismo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Auscultación Pulmonar -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3 class="mb-1"><i data-lucide="stethoscope"></i> Auscultación Pulmonar</h3>
+        </div>
+        <div class="field-group col-4">
+            <label for="murmullo_val">Murmullo Pulmonar</label>
+            <select name="murmullo" id="murmullo_val">
+                <option value="normal">Normal / (+) Conservado</option>
+                <option value="disminuido">Disminuido</option>
+                <option value="abolido">Abolido</option>
+                <option value="aumentado">Aumentado (Soplo Pleural)</option>
+            </select>
+        </div>
+        <div class="field-group col-4">
+            <label for="ruido_laringe">Ruido Laringotraqueal</label>
+            <select name="ruido_laringe" id="ruido_laringe">
+                <option value="normal">Presente y normal</option>
+                <option value="alterado">Alterado / Estridor</option>
+            </select>
+        </div>
+        <div class="field-group col-4">
+            <label for="resonancia_vocal">Resonancia Vocal</label>
+            <select name="resonancia_vocal" id="resonancia_vocal">
+                <option value="normal">Normal</option>
+                <option value="aumentada">Aumentada (Broncofonía)</option>
+                <option value="disminuida">Disminuida</option>
+                <option value="egofonia">Egofonía</option>
+            </select>
+        </div>
+
+        <div class="field-group col-12 mt-1">
+            <label>Ruidos Agregados (Hallazgos Adventicios)</label>
+            <div class="check-group">
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_cont" value="sibilancias"><span>Sibilancias</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_cont" value="roncus"><span>Roncus</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_cont" value="estridor"><span>Estridor</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_disc" value="crepitos_finos"><span>Crépitos Finos</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_disc" value="crepitos_gruesos"><span>Crépitos Gruesos</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="ruidos_disc" value="frote_pleural"><span>Frote Pleural</span></label>
+            </div>
+        </div>
+
+        <div class="field-group col-12">
+            <label for="ruidos_obs">Localización y Características</label>
+            <textarea id="ruidos_obs" name="ruidos_obs" rows="2" placeholder="Ej: Crépitos finos en bases bilaterales, sibilancias espiratorias en campos medios..."></textarea>
+        </div>
+
+        <!-- Auscultación Precordial -->
+        <div class="col-12 border-t pt-1-5 mt-1">
+            <h3 class="mb-1"><i data-lucide="heart"></i> Auscultación Precordial</h3>
+        </div>
+        <div class="field-group col-12">
+            <div class="check-group">
+                <label class="checkbox-card"><input type="checkbox" name="cardiaco_ritmico"><span>Ruidos Rítmicos y Normales</span></label>
+                <label class="checkbox-card" id="cardiaco-soplo-toggle"><input type="checkbox" name="cardiaco_soplo" data-conditional="true"><span>Presencia de Soplos</span></label>
+                <label class="checkbox-card"><input type="checkbox" name="cardiaco_r3"><span>Presencia de R3 / R4</span></label>
+            </div>
+        </div>
+        <div class="field-group col-12 hidden" id="cond-soplo-detalles">
+            <div class="form-grid">
+                <div class="field-group col-4">
+                    <label for="levine_grado_val">Grado Escala Levine</label>
+                    <select name="levine_grado" id="levine_grado_val">
+                        <option value="1">I/VI (Muy tenue)</option>
+                        <option value="2">II/VI (Tenue)</option>
+                        <option value="3">III/VI (Moderado)</option>
+                        <option value="4">IV/VI (Fuerte con frémito)</option>
+                        <option value="5">V/VI (Muy fuerte)</option>
+                        <option value="6">VI/VI (Audible sin estetoscopio)</option>
+                    </select>
+                </div>
+                <div class="field-group col-8">
+                    <label for="soplo_foco">Foco de mayor intensidad</label>
+                    <input type="text" id="soplo_foco" name="soplo_foco" placeholder="Ej: Aórtico, Mitral...">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
